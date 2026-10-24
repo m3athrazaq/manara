@@ -1,0 +1,50 @@
+plugins {
+    id 'com.android.application'
+}
+
+// versionCode comes from the CI (the workflow run number); local builds use 1.
+def versionCodeEnv = System.getenv("VERSION_CODE")?.trim()
+if (versionCodeEnv && !(versionCodeEnv ==~ /[1-9][0-9]{0,8}/)) {
+    throw new GradleException("VERSION_CODE must be a positive integer, got '${versionCodeEnv}'")
+}
+def appVersionCode = versionCodeEnv ? versionCodeEnv.toInteger() : 1
+// versionName comes from the CI too (APP_VERSION); local builds say "dev".
+def versionNameEnv = System.getenv("APP_VERSION")?.trim()
+if (versionNameEnv && !(versionNameEnv ==~ /[0-9]+(\.[0-9]+){0,3}/)) {
+    throw new GradleException("APP_VERSION must look like 1.2.3, got '${versionNameEnv}'")
+}
+def appVersionName = versionNameEnv ?: "dev"
+
+android {
+    namespace = "com.m3athrazaq.manara"
+    compileSdk = 36
+
+    defaultConfig {
+        applicationId "com.m3athrazaq.manara"
+        minSdk 21
+        targetSdk 36
+        versionCode appVersionCode
+        versionName appVersionName
+    }
+
+    buildTypes {
+        release {
+            // Signed later in the workflow, so the build never sees the key.
+            minifyEnabled false
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    buildFeatures {
+        buildConfig true
+    }
+
+    lint {
+        checkReleaseBuilds false
+        abortOnError false
+    }
+}
