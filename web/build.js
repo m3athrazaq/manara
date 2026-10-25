@@ -37,6 +37,15 @@ const screenFonts = [
   ...faces(nm('@fontsource', 'el-messiri', '700.css'), 'El Messiri', ['arabic']),
   ...faces(nm('@fontsource', 'amiri', '400.css'), 'Amiri', ['arabic', 'latin']),
   ...faces(nm('@fontsource', 'amiri', '700.css'), 'Amiri', ['arabic', 'latin']),
+  // Optional faces chosen in the screen's settings (only the selected ones are ever decoded).
+  ...faces(nm('@fontsource-variable', 'readex-pro', 'wght.css'), 'Readex Pro', ['arabic', 'latin']),
+  ...faces(nm('@fontsource-variable', 'noto-kufi-arabic', 'wght.css'), 'Noto Kufi Arabic', ['arabic', 'latin']),
+  ...faces(nm('@fontsource', 'almarai', '400.css'), 'Almarai', ['arabic', 'latin']),
+  ...faces(nm('@fontsource', 'almarai', '700.css'), 'Almarai', ['arabic', 'latin']),
+  ...faces(nm('@fontsource', 'almarai', '800.css'), 'Almarai', ['arabic', 'latin']),
+  ...faces(nm('@fontsource-variable', 'noto-naskh-arabic', 'wght.css'), 'Noto Naskh Arabic', ['arabic', 'latin']),
+  ...faces(nm('@fontsource', 'scheherazade-new', '400.css'), 'Scheherazade New', ['arabic', 'latin']),
+  ...faces(nm('@fontsource', 'scheherazade-new', '700.css'), 'Scheherazade New', ['arabic', 'latin']),
 ].join('\n');
 const phoneFonts = [
   ...faces(nm('@fontsource-variable', 'cairo', 'wght.css'), 'Cairo', ['arabic', 'latin']),

@@ -19,8 +19,10 @@
   --pattern:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cg fill='none' stroke='%23D6B26E' stroke-width='1.3'%3E%3Crect x='32' y='32' width='56' height='56'/%3E%3Crect x='32' y='32' width='56' height='56' transform='rotate(45 60 60)'/%3E%3Cpath d='M0 0L32 32M120 0L88 32M0 120L32 88M120 120L88 88M60 0V20M60 100V120M0 60H20M100 60H120'/%3E%3C/g%3E%3C/svg%3E");
   --pattern-op:.075;
   --font-display:"El Messiri","Amiri","Traditional Arabic",serif;
-  --font-ui:"Cairo","Segoe UI",Tahoma,"Noto Sans Arabic",sans-serif;
+  --font-ui:"Cairo","Amiri","Segoe UI",Tahoma,"Noto Sans Arabic",sans-serif;
   --font-text:"Amiri","Traditional Arabic","Noto Naskh Arabic","Cairo",serif;
+  --fs:1;
+  --dim:.5;
   color-scheme:dark;
 }
 :root[data-skin="emerald"]{
@@ -34,6 +36,11 @@
   --pattern:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cg fill='none' stroke='%2314213F' stroke-width='1.3'%3E%3Crect x='32' y='32' width='56' height='56'/%3E%3Crect x='32' y='32' width='56' height='56' transform='rotate(45 60 60)'/%3E%3Cpath d='M0 0L32 32M120 0L88 32M0 120L32 88M120 120L88 88M60 0V20M60 100V120M0 60H20M100 60H120'/%3E%3C/g%3E%3C/svg%3E");
   color-scheme:light;
 }
+:root[data-fui="readex"]{--font-display:"Readex Pro","Amiri",sans-serif;--font-ui:"Readex Pro","Amiri","Segoe UI",Tahoma,sans-serif}
+:root[data-fui="kufi"]{--font-display:"Noto Kufi Arabic","Amiri",sans-serif;--font-ui:"Noto Kufi Arabic","Amiri","Segoe UI",Tahoma,sans-serif}
+:root[data-fui="almarai"]{--font-display:"Almarai","Amiri",sans-serif;--font-ui:"Almarai","Amiri","Segoe UI",Tahoma,sans-serif}
+:root[data-ftx="naskh"]{--font-text:"Noto Naskh Arabic","Amiri","Traditional Arabic",serif}
+:root[data-ftx="scheherazade"]{--font-text:"Scheherazade New","Amiri","Traditional Arabic",serif}
 :root[data-skin="onyx"]{
   --bg:#000000;--bg-2:#0A0A0C;--surface:#0E0E11;--surface-2:#17171C;--ink:#EEEAE0;--muted:#8F9198;--brass:#CBA65E;--turq:#57B7AB;
   --line:rgba(203,166,94,.25);--brass-soft:rgba(203,166,94,.10);--sheet:#0B0B0D;--pattern-op:0;
@@ -52,20 +59,20 @@ body{height:100%;margin:0;background:var(--bg);color:var(--ink);font-family:var(
 #app{position:absolute;left:50%;top:50%;width:100%;height:100%}
 #stage{position:absolute;left:50%;top:50%;width:1920px;height:1080px;transform-origin:50% 50%;transition:filter 1.2s}
 #stage.portrait{width:1080px;height:1920px}
-#stage.dim{filter:brightness(.55)}
-.dg{display:inline-block;width:.57em;text-align:center}
-.sp{display:inline-block;width:.27em;text-align:center}
+#stage.dim{filter:brightness(var(--dim))}
+.dg{display:inline-block;width:var(--dgw,.6em);text-align:center}
+.sp{display:inline-block;width:var(--spw,.28em);text-align:center}
 
 /* ---------- main screen ---------- */
-#main{position:absolute;top:0;left:0;width:100%;height:100%;padding:44px 64px 34px;display:grid;grid-template-columns:minmax(0,1fr) 720px;grid-template-rows:112px minmax(0,1fr) 296px 62px;grid-template-areas:"head head" "clock niche" "prayers prayers" "ticker ticker";grid-gap:28px 60px}
+#main{position:absolute;top:0;left:0;width:100%;height:100%;padding:44px 64px 34px;display:grid;grid-template-columns:minmax(0,1fr) 720px;grid-template-rows:minmax(112px,auto) minmax(0,1fr) minmax(296px,auto) minmax(62px,auto);grid-template-areas:"head head" "clock niche" "prayers prayers" "ticker ticker";grid-gap:28px 60px}
 #main.off{display:none}
 .head{grid-area:head;display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;grid-gap:40px;min-width:0}
 .mosque{display:grid;grid-template-columns:auto minmax(0,1fr);align-items:center;grid-gap:24px;min-width:0}
 .emblem{width:64px;height:64px;display:block;color:var(--brass)}
-#mName{font-family:var(--font-display);font-weight:700;font-size:66px;line-height:1.25;color:var(--brass);margin:0;white-space:nowrap;overflow:hidden;min-width:0}
-.dates{text-align:left;line-height:1.3}
-.hijri{font-size:44px;font-weight:700}
-.greg{font-size:30px;color:var(--muted);font-weight:500}
+#mName{font-family:var(--font-display);font-weight:700;font-size:66px;line-height:1.6;color:var(--brass);margin:0;white-space:nowrap;overflow:hidden;min-width:0}
+.dates{text-align:left;line-height:1.3;white-space:nowrap}
+.hijri{font-size:calc(46px * var(--fs));font-weight:700}
+.greg{font-size:calc(34px * var(--fs));color:var(--muted);font-weight:600}
 
 .clockwrap{grid-area:clock;display:grid;align-content:center;justify-items:start;grid-gap:26px;min-width:0}
 .clock{display:grid;grid-template-columns:auto auto;align-items:end;grid-gap:28px}
@@ -73,10 +80,10 @@ body{height:100%;margin:0;background:var(--bg);color:var(--ink);font-family:var(
 .hm .hm-s{font-size:84px;font-weight:700;color:var(--brass);margin-left:8px}
 .cap{font-size:66px;font-weight:700;color:var(--muted);line-height:1;padding-bottom:18px}
 .next{display:grid;grid-template-columns:auto auto auto auto;align-items:center;grid-gap:22px;padding:10px 34px 12px;border-radius:26px;background:var(--brass-soft);border:1px solid var(--line)}
-.nlabel{font-size:28px;color:var(--muted);font-weight:600}
-.nname{font-family:var(--font-display);font-weight:700;font-size:60px;color:var(--brass);line-height:1.2}
-.nafter{font-size:30px;color:var(--muted);font-weight:600}
-.nin{direction:ltr;font-size:64px;font-weight:800;color:var(--turq);line-height:1.15}
+.nlabel{font-size:calc(32px * var(--fs));color:var(--muted);font-weight:600}
+.nname{font-family:var(--font-display);font-weight:700;font-size:calc(60px * var(--fs));color:var(--brass);line-height:1.2}
+.nafter{font-size:calc(32px * var(--fs));color:var(--muted);font-weight:600}
+.nin{direction:ltr;font-size:calc(64px * var(--fs));font-weight:800;color:var(--turq);line-height:1.15}
 .next.soon .nin{color:var(--brass)}
 .next.soon{border-color:var(--brass)}
 
@@ -85,66 +92,69 @@ body{height:100%;margin:0;background:var(--bg);color:var(--ink);font-family:var(
 .arch .o{fill:var(--surface);fill-opacity:.6;stroke:var(--brass);stroke-width:2.5}
 .arch .i{fill:none;stroke:var(--line);stroke-width:1.5}
 .finial{position:absolute;top:-17px;left:50%;width:34px;height:34px;margin-left:-17px;color:var(--brass)}
-.niche-in{position:absolute;top:0;left:0;right:0;bottom:0;padding:128px 60px 40px;display:grid;grid-template-rows:auto minmax(0,1fr) auto;justify-items:center;text-align:center;grid-gap:10px;overflow:hidden}
-.eyebrow{font-family:var(--font-display);font-size:30px;color:var(--brass);line-height:1.3}
-.ntext{font-family:var(--font-text);font-weight:700;font-size:44px;line-height:1.75;align-self:center;width:100%;transition:opacity .6s}
-.nsrc{font-size:24px;color:var(--muted);font-weight:600}
+.niche-in{position:absolute;top:0;left:0;right:0;bottom:0;padding:128px 48px 30px;display:grid;grid-template-rows:auto minmax(0,1fr) auto;justify-items:center;text-align:center;grid-gap:10px;overflow:hidden}
+.eyebrow{font-family:var(--font-display);font-size:calc(34px * var(--fs));color:var(--brass);line-height:1.3}
+.ntext{font-family:var(--font-text);font-weight:700;font-size:44px;line-height:1.7;text-wrap:balance;align-self:center;width:100%;transition:opacity .6s}
+.nsrc{font-size:calc(28px * var(--fs));color:var(--muted);font-weight:600;line-height:1.4}
 .niche-in.fade .ntext,.niche-in.fade .nsrc,.niche-in.fade .eyebrow{opacity:0}
 .niche-in .eyebrow,.niche-in .nsrc{transition:opacity .6s}
 
 .prayers{grid-area:prayers;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));grid-gap:22px;min-width:0}
 .phead{display:none}
 .pcard{position:relative;display:grid;grid-template-rows:auto auto minmax(0,1fr);justify-items:center;text-align:center;padding:22px 12px 18px;border-radius:22px;background:var(--surface);border:1px solid var(--line);min-width:0}
-.pname{font-family:var(--font-display);font-weight:600;font-size:42px;line-height:1.2}
-.ptime{display:grid;grid-template-columns:auto auto;align-items:baseline;grid-gap:10px;margin-top:6px}
-.ptime .t{direction:ltr;font-weight:800;font-size:82px;line-height:1.05}
-.ptime .ap{font-size:30px;font-weight:700;color:var(--muted)}
+.pname{font-family:var(--font-display);font-weight:700;font-size:calc(44px * var(--fs));line-height:1.2;white-space:nowrap}
+.ptime{display:grid;grid-template-columns:auto auto;align-items:baseline;grid-gap:10px;margin-top:6px;white-space:nowrap}
+.ptime .t{direction:ltr;font-weight:800;font-size:calc(84px * var(--fs));line-height:1.05}
+.ptime .ap{font-size:calc(32px * var(--fs));font-weight:700;color:var(--muted)}
 .pfoot{align-self:end;width:100%;border-top:1px solid var(--line);margin-top:12px;padding-top:10px;display:grid;justify-items:center}
-.pfoot .lbl{font-size:22px;color:var(--muted);font-weight:600;line-height:1.3}
-.pfoot .it{direction:ltr;font-size:44px;font-weight:700;line-height:1.2}
-.pfoot .it.txt{direction:rtl;font-size:28px;color:var(--muted);font-weight:600;line-height:1.6}
+.pfoot .lbl{font-size:calc(28px * var(--fs));color:var(--muted);font-weight:600;line-height:1.3}
+.pfoot .it{direction:ltr;font-size:calc(50px * var(--fs));font-weight:700;line-height:1.2}
+.pfoot .it.txt{direction:rtl;font-size:calc(32px * var(--fs));color:var(--muted);font-weight:600;line-height:1.6}
 .pcard.is-past .t,.pcard.is-past .it,.pcard.is-past .ap{opacity:.5}
 .pcard.is-next{background:var(--surface-2);border:3px solid var(--brass)}
-.pcard.is-next::before{content:"القادمة";position:absolute;top:-17px;left:50%;transform:translateX(-50%);background:var(--brass);color:var(--bg);font-size:20px;font-weight:800;line-height:1.6;padding:0 16px;border-radius:999px;white-space:nowrap}
+.pcard.is-next::before{content:"القادمة";position:absolute;top:-.85em;left:50%;transform:translateX(-50%);background:var(--brass);color:var(--bg);font-size:calc(24px * var(--fs));font-weight:800;line-height:1.6;padding:0 16px;border-radius:999px;white-space:nowrap}
 .pcard.sun .pname{color:var(--muted)}
 
-.ticker{grid-area:ticker;display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;grid-gap:20px;border-top:1px solid var(--line);padding-top:6px;min-width:0}
-.mega{width:34px;height:34px;color:var(--brass);transform:scaleX(-1)}
-.ttext{font-size:30px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;transition:opacity .6s;min-width:0}
+.ticker{grid-area:ticker;display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;grid-gap:24px;border-top:1px solid var(--line);padding-top:6px;min-width:0}
+.mega{width:calc(38px * var(--fs));height:calc(38px * var(--fs));color:var(--brass);transform:scaleX(-1)}
+.ttext{font-size:calc(36px * var(--fs));font-weight:600;line-height:1.6;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;transition:opacity .6s;min-width:0}
 .ttext.fade{opacity:0}
-.brand{font-family:var(--font-display);font-size:26px;color:var(--muted)}
+.contact{display:flex;align-items:center;gap:.4em;font-size:calc(36px * var(--fs));font-weight:700;white-space:nowrap;line-height:1.3}
+.contact svg{width:1em;height:1em;color:var(--brass);flex:none}
+.c-lbl{color:var(--muted);font-weight:600}
+.c-num{direction:ltr;unicode-bidi:isolate;letter-spacing:.03em}
 
 /* portrait main */
-#stage.portrait #main{padding:56px 48px 40px;grid-template-columns:minmax(0,1fr);grid-template-rows:178px 420px minmax(0,1fr) 360px 62px;grid-template-areas:"head" "clock" "prayers" "niche" "ticker";grid-gap:24px}
+#stage.portrait #main{padding:56px 48px 40px;grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(178px,auto) 420px minmax(0,1fr) 340px minmax(62px,auto);grid-template-areas:"head" "clock" "prayers" "niche" "ticker";grid-gap:24px}
 #stage.portrait .head{grid-template-columns:minmax(0,1fr);justify-items:center;text-align:center;grid-gap:6px}
 #stage.portrait .mosque{grid-template-columns:auto auto;justify-content:center;max-width:100%}
-#stage.portrait .dates{text-align:center;display:grid;grid-template-columns:auto auto;grid-gap:28px;align-items:baseline;justify-content:center}
-#stage.portrait .hijri{font-size:40px}
+#stage.portrait .dates{text-align:center;display:flex;flex-wrap:wrap;column-gap:28px;align-items:baseline;justify-content:center}
+#stage.portrait .hijri{font-size:calc(42px * var(--fs))}
 #stage.portrait .clockwrap{justify-items:center}
-#stage.portrait .niche-in{padding:104px 56px 34px}
 #stage.portrait .hm{font-size:248px}
 #stage.portrait .prayers{grid-template-columns:minmax(0,1fr);grid-template-rows:42px repeat(6,minmax(0,1fr));grid-gap:10px}
-#stage.portrait .phead{display:grid;grid-template-columns:1.15fr 1fr 1fr;align-items:center;justify-items:center;padding:0 36px;font-size:26px;color:var(--muted);font-weight:700}
+#stage.portrait .phead{display:grid;grid-template-columns:1.15fr 1fr 1fr;align-items:center;justify-items:center;padding:0 36px;font-size:calc(30px * var(--fs));color:var(--muted);font-weight:700}
 #stage.portrait .pcard{grid-template-columns:1.15fr 1fr 1fr;grid-template-rows:minmax(0,1fr);align-items:center;padding:0 36px;border-radius:20px}
-#stage.portrait .pname{justify-self:start;font-size:48px}
+#stage.portrait .pname{justify-self:start;font-size:calc(50px * var(--fs))}
 #stage.portrait .ptime{margin:0}
-#stage.portrait .ptime .t{font-size:66px}
+#stage.portrait .ptime .t{font-size:calc(70px * var(--fs))}
 #stage.portrait .pfoot{border:0;margin:0;padding:0;align-self:center}
 #stage.portrait .pfoot .lbl{display:none}
-#stage.portrait .pfoot .it{font-size:54px}
-#stage.portrait .pfoot .it.txt{font-size:30px}
-#stage.portrait .pcard.is-next::before{top:-15px;left:auto;right:30px;transform:none}
+#stage.portrait .pfoot .it{font-size:calc(56px * var(--fs))}
+#stage.portrait .pfoot .it.txt{font-size:calc(34px * var(--fs))}
+#stage.portrait .pcard.is-next::before{content:none}
+#stage.portrait .pcard.is-next .pname::after{content:"القادمة";display:inline-block;vertical-align:middle;margin-right:.5em;font-family:var(--font-ui);font-size:.45em;font-weight:800;line-height:1.6;padding:0 .7em;border-radius:999px;background:var(--brass);color:var(--bg)}
 
 /* ---------- scenes ---------- */
 .scene{position:absolute;top:0;left:0;width:100%;height:100%;display:none;padding:40px 64px}
 .scene.on{display:grid;animation:fadeIn .8s ease both}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
 .sc-top{position:absolute;top:34px;left:64px;right:64px;text-align:right;display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;grid-gap:24px;z-index:1}
-.sc-mosque{font-family:var(--font-display);font-size:40px;color:var(--brass);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
-.sc-clock{font-size:44px;font-weight:700;white-space:nowrap}
+.sc-mosque{line-height:1.6;font-family:var(--font-display);font-size:calc(44px * var(--fs));color:var(--brass);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+.sc-clock{font-size:calc(46px * var(--fs));font-weight:700;white-space:nowrap}
 .tm{direction:ltr;unicode-bidi:isolate;display:inline-block}
 .tap{color:var(--muted);font-size:.75em;margin-right:.3em}
-.sc-date{font-size:36px;font-weight:600;color:var(--muted);white-space:nowrap}
+.sc-date{font-size:calc(38px * var(--fs));font-weight:600;color:var(--muted);white-space:nowrap}
 
 #sc-adhan.on{align-content:center;justify-items:center;text-align:center}
 .rings{position:absolute;top:44%;left:50%;width:0;height:0}
@@ -153,43 +163,47 @@ body{height:100%;margin:0;background:var(--bg);color:var(--ink);font-family:var(
 .rings i:nth-child(3){animation-delay:5s}
 @keyframes ring{0%{transform:scale(.35);opacity:.5}100%{transform:scale(2.3);opacity:0}}
 .ad-body{position:relative;display:grid;justify-items:center;grid-gap:6px;max-width:1560px}
-.ad-label{font-family:var(--font-display);font-size:64px;color:var(--muted)}
+.ad-label{font-family:var(--font-display);font-size:calc(64px * var(--fs));color:var(--muted)}
 .ad-title{font-family:var(--font-display);font-weight:700;font-size:196px;line-height:1.25;color:var(--brass)}
-.ad-note{font-size:32px;color:var(--muted);font-weight:600;margin-top:26px}
-.ad-dua{font-family:var(--font-text);font-weight:700;font-size:52px;line-height:1.85}
-.ad-src{font-size:26px;color:var(--muted);font-weight:600}
+.ad-note{font-size:calc(36px * var(--fs));color:var(--muted);font-weight:600;margin-top:26px}
+.ad-dua{font-family:var(--font-text);font-weight:700;font-size:calc(54px * var(--fs));line-height:1.85}
+.ad-src{font-size:calc(30px * var(--fs));color:var(--muted);font-weight:600}
 
 #sc-iqama.on{align-content:center;justify-items:center;text-align:center;grid-gap:20px;padding-top:110px}
-.iq-label{font-family:var(--font-display);font-size:68px;line-height:1.2}
+.iq-label{font-family:var(--font-display);font-size:calc(68px * var(--fs));line-height:1.2}
 .iq-label b{color:var(--brass);font-weight:700}
 .ring{position:relative;width:560px;height:560px}
 .ring svg{width:100%;height:100%;transform:rotate(-90deg)}
 .ring .track{fill:none;stroke:var(--line);stroke-width:14}
 .ring .arc{fill:none;stroke:var(--turq);stroke-width:14;stroke-linecap:round;transition:stroke-dashoffset 1s linear}
-.iq-count{position:absolute;top:0;left:0;right:0;bottom:0;display:grid;align-items:center;justify-items:center;direction:ltr;font-weight:800;font-size:196px;line-height:1}
+.iq-count{position:absolute;top:0;left:0;right:0;bottom:0;display:grid;align-items:center;justify-items:center;direction:ltr;font-weight:800;font-size:196px;line-height:1;white-space:nowrap}
 .iq-count.end{color:var(--alert)}
-.iq-note{font-family:var(--font-text);font-size:46px;font-weight:700;line-height:1.6}
-.iq-note small{display:block;font-family:var(--font-ui);font-size:24px;color:var(--muted);font-weight:600}
-.iq-phone{display:grid;grid-template-columns:auto auto;align-items:center;grid-gap:22px;font-size:50px;font-weight:800;color:var(--alert);padding:12px 44px;border:3px solid var(--alert);border-radius:999px;animation:pulse 1.6s ease-in-out infinite}
-.iq-phone svg{width:58px;height:58px}
+.iq-note{font-family:var(--font-text);font-size:calc(48px * var(--fs));font-weight:700;line-height:1.6}
+.iq-note small{display:block;font-family:var(--font-ui);font-size:calc(28px * var(--fs));color:var(--muted);font-weight:600}
+.iq-phone{display:grid;grid-template-columns:auto auto;align-items:center;grid-gap:22px;font-size:calc(52px * var(--fs));font-weight:800;color:var(--alert);padding:12px 44px;border:3px solid var(--alert);border-radius:999px;animation:pulse 1.6s ease-in-out infinite}
+.iq-phone svg{width:1.15em;height:1.15em}
 @keyframes pulse{50%{opacity:.55}}
 
 .scene.dark{background:var(--night)}
 .scene.dark.on{align-items:center;justify-items:center}
 .drift{text-align:center;max-width:1500px;animation:drift 300s linear infinite}
 .pr-title{font-family:var(--font-display);font-size:78px;color:var(--night-ink);opacity:.4}
-.pr-sub{font-size:30px;color:var(--night-ink);opacity:.32;margin-top:8px;font-weight:600}
-.pr-clock{font-size:36px;color:var(--night-ink);opacity:.32;margin-top:20px;font-weight:700}
+.pr-sub{font-size:calc(34px * var(--fs));color:var(--night-ink);opacity:.32;margin-top:8px;font-weight:600}
+.pr-clock{font-size:calc(38px * var(--fs));color:var(--night-ink);opacity:.32;margin-top:20px;font-weight:700}
 .pr-clock .tap{color:inherit}
-.kh-text{font-family:var(--font-text);font-weight:700;font-size:48px;line-height:1.8;color:var(--night-ink);opacity:.55;margin-top:16px}
+.kh-text{font-family:var(--font-text);font-weight:700;font-size:calc(50px * var(--fs));line-height:1.8;color:var(--night-ink);opacity:.55;margin-top:16px}
 #sc-prayer.black .drift{visibility:hidden}
 @keyframes drift{0%{transform:translate(-90px,-60px)}25%{transform:translate(80px,-30px)}50%{transform:translate(60px,70px)}75%{transform:translate(-70px,40px)}100%{transform:translate(-90px,-60px)}}
 
-#sc-adhkar.on{grid-template-rows:auto minmax(0,1fr) auto;grid-gap:14px;padding:30px 72px 22px}
+#sc-adhkar.on{grid-template-rows:auto minmax(0,1fr);grid-gap:12px;padding:26px 52px 20px}
 #sc-adhkar .sc-top{position:static}
-.ak-head{font-family:var(--font-display);font-size:46px;color:var(--brass);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
-.ak-page{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);min-height:0;overflow:hidden;font-family:var(--font-text);font-size:40px;line-height:1.7}
-.ak-col{display:grid;align-content:space-between;grid-gap:.36em;min-height:0;min-width:0;overflow:hidden}
+.ak-tw{display:flex;align-items:baseline;column-gap:.6em;min-width:0;overflow:hidden;line-height:1.6;white-space:nowrap;font-size:calc(44px * var(--fs))}
+.ak-head{flex:none;font-family:var(--font-display);font-size:1em;font-weight:700;color:var(--brass);white-space:nowrap}
+.ak-sub{flex:0 1 auto;min-width:0;overflow:hidden;text-overflow:ellipsis;font-size:.6em;color:var(--muted);font-weight:600;white-space:nowrap}
+.ak-pg{flex:none;font-size:.6em;color:var(--turq);font-weight:700;white-space:nowrap}
+.ak-page{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);min-height:0;overflow:hidden;padding:.16em 0;font-family:var(--font-text);font-size:40px;line-height:1.7;transition:opacity .5s}
+.ak-page.fade{opacity:0}
+.ak-col{display:grid;align-content:space-between;grid-gap:.36em;min-height:0;min-width:0}
 .ak-a{padding-left:1.1em}
 .ak-b{border-right:1px solid var(--line);padding-right:1.1em}
 .ak-i,.ak-qb{margin:0;font-weight:700}
@@ -201,7 +215,6 @@ body{height:100%;margin:0;background:var(--bg);color:var(--ink);font-family:var(
 .ak-qh .ak-n{font-size:.78em}
 .ak-bas{color:var(--muted);font-weight:400}
 .an{color:var(--brass);font-weight:400;font-size:.8em;white-space:nowrap}
-.ak-foot{text-align:center;font-size:24px;color:var(--muted);font-weight:600;line-height:1.4}
 #stage.portrait .scene{padding:40px 48px}
 #stage.portrait .sc-top{left:48px;right:48px}
 #stage.portrait .ad-title{font-size:170px}
@@ -209,14 +222,15 @@ body{height:100%;margin:0;background:var(--bg);color:var(--ink);font-family:var(
 #stage.portrait .ring{width:800px;height:800px}
 #stage.portrait .iq-count{font-size:250px}
 #stage.portrait #sc-iqama.on{grid-gap:34px}
-#stage.portrait #sc-adhkar.on{padding:40px 48px 34px}
+#stage.portrait #sc-adhkar.on{padding:36px 40px 30px}
+#stage.portrait .ak-tw{flex-wrap:wrap;line-height:1.45}
 #stage.portrait .ak-page{grid-template-columns:minmax(0,1fr);grid-template-rows:auto auto;align-content:center}
-#stage.portrait .ak-col{overflow:visible;align-content:start}
+#stage.portrait .ak-col{align-content:start}
 #stage.portrait .ak-a{padding:0 0 .36em}
 #stage.portrait .ak-b{border-right:0;border-top:1px solid var(--line);padding:.36em 0 0}
 #stage.portrait .drift{max-width:900px}
 
-.pv{position:absolute;top:18px;left:50%;transform:translateX(-50%);z-index:3;background:var(--brass);color:var(--bg);font-size:28px;font-weight:800;padding:6px 28px;border-radius:999px;white-space:nowrap}
+.pv{position:absolute;top:18px;font-family:var(--font-ui);left:50%;transform:translateX(-50%);z-index:3;background:var(--brass);color:var(--bg);font-size:28px;font-weight:800;padding:6px 28px;border-radius:999px;white-space:nowrap}
 .err{position:absolute;top:0;left:0;width:100%;height:100%;z-index:4;display:grid;align-items:center;justify-items:center;text-align:center;padding:120px;font-size:44px;font-weight:700;background:var(--bg);color:var(--ink);line-height:1.6}
 
 /* ---------- controls outside the stage ---------- */
@@ -294,7 +308,7 @@ body{height:100%;margin:0;background:var(--bg);color:var(--ink);font-family:var(
      <footer class="ticker" id="ticker">
       <svg class="mega" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true"><path d="M3 10v4h3l7 4V6L6 10H3z"/><path d="M16 9a4 4 0 0 1 0 6M18.5 6.5a7.5 7.5 0 0 1 0 11"/></svg>
       <div id="tText" class="ttext"></div>
-      <div class="brand">مَنارة</div>
+      <div class="contact" id="contact"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg><span class="c-lbl">للتواصل</span><span class="c-num" id="cNum"></span></div>
      </footer>
     </div>
 
@@ -323,9 +337,8 @@ body{height:100%;margin:0;background:var(--bg);color:var(--ink);font-family:var(
     </section>
 
     <section id="sc-adhkar" class="scene">
-     <div class="sc-top"><span class="ak-head" id="akHead"></span><span class="sc-clock" data-clock></span></div>
+     <div class="sc-top"><div class="ak-tw"><span class="ak-head" id="akHead"></span><span class="ak-sub">من «تحفة الأخيار» للشيخ ابن باز رحمه الله</span><span class="ak-pg" id="akPg" hidden></span></div><span class="sc-clock" data-clock></span></div>
      <div class="ak-page" id="akPage"><div class="ak-col ak-a" id="akA"></div><div class="ak-col ak-b" id="akB"></div></div>
-     <div class="ak-foot">من رسالة «تحفة الأخيار» لسماحة الشيخ عبد العزيز بن باز رحمه الله</div>
     </section>
 
     <section id="sc-khutbah" class="scene dark">
@@ -438,11 +451,19 @@ var DEF = {
  prayMin:{fajr:10,dhuhr:10,asr:10,maghrib:8,isha:10},
  adhanMin:2, phoneSec:60, prayerScreen:'dim', adhkarMin:5,
  jumuah:true, jumuahMin:40,
- skin:'lapis', orientation:'auto', digits:'latn', clock24:false, showSeconds:true,
+ skin:'lapis', orientation:'auto', digits:'latn', clock24:false, showSeconds:true, edge:'0',
+ fontUI:'cairo', fontText:'amiri', fontScale:'m', adhkarMode:'one',
+ dimAfter:{on:false, fajr:30, dhuhr:30, asr:30, maghrib:30, isha:30}, dimLevel:'50',
+ contact:'99901925',
  nightDim:false, burnIn:true, beep:false, autoFS:true, showTicker:true,
  ann:['نرجو إغلاق الهاتف الجوال داخل المسجد','حافظوا على نظافة بيت الله','',''],
  remote:{on:false, ch:'', key:'', server:''}
 };
+var FS = {m:1, l:1.12, xl:1.25};
+var DIM = {'70':0.7, '50':0.5, '30':0.32};
+var UI_FONTS = [['cairo','المسيري والقاهرة','"Cairo"'],['readex','ريدكس','"Readex Pro"'],['kufi','نوتو كوفي','"Noto Kufi Arabic"'],['almarai','المراعي','"Almarai"']];
+var TX_FONTS = [['amiri','أميري','"Amiri"'],['naskh','نوتو نسخ','"Noto Naskh Arabic"'],['scheherazade','شهرزاد','"Scheherazade New"']];
+function fsNow(){ return FS[cfg.fontScale] || 1; }
 var KEY = 'manara.settings.v1';
 var storageOK = true, noSave = false;
 function clone(o){ return JSON.parse(JSON.stringify(o)); }
@@ -478,7 +499,7 @@ function setP(path, v){ var p = path.split('.'), o = cfg; for (var i = 0; i < p.
 var Q = {}, simOffset = 0;
 try { location.search.replace(/^\?/, '').split('&').forEach(function(kv){ if (!kv) return; var i = kv.indexOf('='); Q[decodeURIComponent(i < 0 ? kv : kv.slice(0, i))] = i < 0 ? '' : decodeURIComponent(kv.slice(i + 1)); }); } catch (e) {}
 if (Q.at) { var mt = Q.at.match(/(\d+)-(\d+)-(\d+)T(\d+):(\d+)(?::(\d+))?/); if (mt) simOffset = new Date(+mt[1], mt[2] - 1, +mt[3], +mt[4], +mt[5], +(mt[6] || 0)).getTime() - Date.now(); }
-['orientation','skin','digits','prayerScreen'].forEach(function(k){ var q = k === 'orientation' ? Q.orient : Q[k]; if (q) { cfg[k] = q; noSave = true; } });
+['orientation','skin','digits','prayerScreen','fontUI','fontText','fontScale','adhkarMode','edge'].forEach(function(k){ var q = k === 'orientation' ? Q.orient : Q[k]; if (q) { cfg[k] = q; noSave = true; } });
 if (Q.at || Q.preview || Q.sheet || Q.test) noSave = true;
 function nowDate(){ return new Date(Date.now() + simOffset); }
 
@@ -670,7 +691,8 @@ function layout(){
  app.style.transform = 'translate(-50%,-50%)' + (rot ? ' rotate(' + rot + 'deg)' : '');
  portrait = rot ? true : (o === 'portrait' ? true : (o === 'landscape' ? false : ah > aw * 1.05));
  stage.classList.toggle('portrait', portrait);
- scale = Math.min(aw / (portrait ? 1080 : 1920), ah / (portrait ? 1920 : 1080));
+ // Optional safe margin for TVs that crop the picture edges (overscan).
+ scale = Math.min(aw / (portrait ? 1080 : 1920), ah / (portrait ? 1920 : 1080)) * (1 - clampN(+cfg.edge || 0, 0, 10) / 50);
  placeStage();
  fit.style.setProperty('--tile', Math.max(40, Math.round(150 * scale)) + 'px');
  drawArch(); refitAll();
@@ -687,6 +709,7 @@ function drawArch(){
  $('arch').setAttribute('viewBox', '0 0 ' + w + ' ' + h);
  $('archO').setAttribute('d', archPath(w, h, 2, rise));
  $('archI').setAttribute('d', archPath(w, h, 16, rise - 8));
+ $('nicheIn').style.paddingTop = Math.round(rise * 0.55 + 14) + 'px';
 }
 function fitText(target, boxEl, max, min, sub, subRatio){
  var s = max, guard = 0;
@@ -696,19 +719,32 @@ function fitText(target, boxEl, max, min, sub, subRatio){
 function fitName(){ var h = $('mName'), s = portrait ? 70 : 66; h.style.fontSize = s + 'px'; while (s > 34 && h.scrollWidth > h.clientWidth + 1) { s -= 2; h.style.fontSize = s + 'px'; } }
 function innerH(e){ var cs = window.getComputedStyle(e); return e.clientHeight - parseFloat(cs.paddingTop) - parseFloat(cs.paddingBottom); }
 function sumH(e){ var h = 0; Array.prototype.forEach.call(e.children, function(c){ if (!c.hidden) h += c.offsetHeight; }); return h; }
+// The verse or hadith gets the most room; its heading and source follow its size, up to their own sizes.
 function fitNiche(){
- var b = $('nicheIn'), t = $('nText'), s = portrait ? 48 : 44, avail = innerH(b) - $('nKind').offsetHeight - $('nSrc').offsetHeight - 24;
- t.style.fontSize = s + 'px';
- while (s > 22 && t.offsetHeight > avail) { s -= 2; t.style.fontSize = s + 'px'; }
+ drawArch();
+ var b = $('nicheIn'), k = $('nKind'), t = $('nText'), sc = $('nSrc'), f = fsNow();
+ var room = innerH(b) - 24, s = Math.round((portrait ? 56 : 50) * f);
+ var put = function(v){
+  t.style.fontSize = v + 'px';
+  k.style.fontSize = Math.round(Math.min(34 * f, Math.max(24, v * 0.72))) + 'px';
+  sc.style.fontSize = Math.round(Math.min(28 * f, Math.max(20, v * 0.6))) + 'px';
+ };
+ put(s);
+ while (s > 22 && k.offsetHeight + t.offsetHeight + sc.offsetHeight > room) { s -= 2; put(s); }
 }
 function fitAdhkar(){
- // Largest type that keeps the whole page on screen. In landscape it also tries a few column widths,
+ // Largest type that keeps the whole page on screen; returns the chosen column split and size. In landscape it also tries a few column widths,
  // so the longer Quran column gets more room and neither column is left half empty.
  var page = $('akPage'), cols = [$('akA'), $('akB')];
- if (!page.clientHeight) return;
+ if (!page.clientHeight) return {cols:'', size:40};
+ // Heights come from the items' own boxes, not scrollHeight: fonts with tall marks (Scheherazade) reach a little
+ // past their lines, which scrollHeight counts as overflow at every size.
+ var gapOf = function(e){ var cs = window.getComputedStyle(e); return parseFloat(cs.rowGap || cs.gridRowGap) || 0; };
+ var natH = function(e){ var h = 0, n = 0; for (var c = e.firstElementChild; c; c = c.nextElementSibling) { h += c.offsetHeight; n++; } return h + Math.max(0, n - 1) * gapOf(e); };
+ var outerNat = function(e){ return natH(e) + e.offsetHeight - innerH(e); };   // with its padding and border
  var fits = function(){
-  if (page.scrollHeight > page.clientHeight + 1) return false;
-  for (var j = 0; j < cols.length; j++) if (cols[j].scrollHeight > cols[j].clientHeight + 1) return false;
+  if (portrait) return outerNat(cols[0]) + outerNat(cols[1]) + gapOf(page) <= innerH(page) + 1;
+  for (var j = 0; j < cols.length; j++) if (natH(cols[j]) > innerH(cols[j]) + 1) return false;
   return true;
  };
  var search = function(){
@@ -722,24 +758,78 @@ function fitAdhkar(){
   var size = search();
   if (size > bestSize + 0.2) { bestSize = size; bestShare = a; }
  });
- page.style.gridTemplateColumns = bestShare ? 'minmax(0,' + bestShare + 'fr) minmax(0,' + (1 - bestShare).toFixed(2) + 'fr)' : '';
+ var colsCss = bestShare ? 'minmax(0,' + bestShare + 'fr) minmax(0,' + (1 - bestShare).toFixed(2) + 'fr)' : '';
+ page.style.gridTemplateColumns = colsCss;
  page.style.fontSize = bestSize + 'px';
+ return {cols:colsCss, size:bestSize};
 }
-function refitAll(){ if (!$('main').classList.contains('off')) { fitName(); fitNiche(); } if (curScene && curScene.k === 'adhkar') fitAdhkar(); }
+// Shrinks the big prayer times together (never one card alone) when a font or size leaves them too wide.
+function fitCards(){
+ var cs = ALL.map(function(k){ return cards[k]; }), worst = 1;
+ cs.forEach(function(c){ c.t.style.fontSize = ''; });
+ cs.forEach(function(c){
+  var row = c.t.parentNode, need = row.scrollWidth, tw = c.t.offsetWidth;
+  var avail = portrait ? row.clientWidth : c.el.clientWidth - 28;
+  if (need > avail && tw > 0) worst = Math.min(worst, (avail - (need - tw)) / tw);
+ });
+ if (worst < 1) {
+  var px = parseFloat(window.getComputedStyle(cs[0].t).fontSize) * Math.max(0.5, worst) * 0.98;
+  cs.forEach(function(c){ c.t.style.fontSize = px.toFixed(1) + 'px'; });
+ }
+}
+// Clock digits keep a fixed width so the time does not jitter; the width follows the chosen font.
+var digitProbe = null;
+function measureDigits(){
+ // Every digit of the clock and the countdowns sits in a cell of one width, so the time never jitters as it ticks.
+ // The cell fits the widest digit's ink with a small gap; side bearings are left out, so fonts with proportional
+ // Arabic-Indic digits (narrow ١ and ٠, wide ٣) do not get wide gaps around the narrow ones.
+ var host = stage;
+ if (!digitProbe) { digitProbe = el('span'); digitProbe.style.cssText = 'position:absolute;left:0;top:0;visibility:hidden;font-family:var(--font-ui);font-weight:800;font-size:100px;line-height:1;white-space:nowrap;direction:ltr'; }
+ host.appendChild(digitProbe);
+ var adv = 0, ink = 0, ds = dg('0123456789'), ctx = null;
+ try { ctx = document.createElement('canvas').getContext('2d'); ctx.font = '800 100px ' + window.getComputedStyle(digitProbe).fontFamily; } catch (e) { ctx = null; }
+ for (var i = 0; i < ds.length; i++) {
+  digitProbe.textContent = ds.charAt(i); adv = Math.max(adv, digitProbe.offsetWidth);
+  if (ctx) { var m = ctx.measureText(ds.charAt(i)); if (m.actualBoundingBoxRight != null) ink = Math.max(ink, m.actualBoundingBoxLeft + m.actualBoundingBoxRight); }
+ }
+ digitProbe.textContent = ':'; var colon = digitProbe.offsetWidth;
+ host.removeChild(digitProbe);
+ var cell = ink > 0 ? Math.min(adv, ink + 7) : adv;
+ if (cell > 0) { stage.style.setProperty('--dgw', (cell / 100 + 0.02).toFixed(3) + 'em'); stage.style.setProperty('--spw', (Math.max(colon, 18) / 100 + 0.03).toFixed(3) + 'em'); }
+}
+function refitAll(){
+ measureDigits();
+ if (!$('main').classList.contains('off')) { fitName(); fitNiche(); fitCards(); fitTicker(); }
+ if (curScene && curScene.k === 'adhkar') enterAdhkar(curScene);
+ if (curScene && curScene.k === 'iqama') fitIqCount();
+}
+var refitT = 0;
+function refitSoon(){ clearTimeout(refitT); refitT = setTimeout(refitAll, 120); }
 
 /* ---------- look ---------- */
 function applyLook(){
- document.documentElement.setAttribute('data-skin', cfg.skin);
- var name = (cfg.mosqueName || '').trim() || 'مَنارة';
+ var root = document.documentElement;
+ root.setAttribute('data-skin', cfg.skin);
+ root.setAttribute('data-fui', cfg.fontUI);
+ root.setAttribute('data-ftx', cfg.fontText);
+ root.style.setProperty('--fs', String(fsNow()));
+ root.style.setProperty('--dim', String(DIM[cfg.dimLevel] || 0.5));
+ var name = (cfg.mosqueName || '').trim();
  $('mName').textContent = name;
+ document.querySelector('.mosque .emblem').style.visibility = name ? '' : 'hidden';   // no lone emblem without a name
  Array.prototype.forEach.call(document.querySelectorAll('[data-mosque]'), function(e){ e.textContent = name; });
+ var c = String(cfg.contact || '').trim();
+ $('cNum').textContent = dg(c); $('contact').hidden = !c;
+ measureDigits();
 }
 
 /* ---------- main screen ---------- */
 var lastMin = -1, nIdx = -1, tIdx = -1, curDayKey = '';
 function renderDates(now){ $('hijri').textContent = hijriText(dayStart(now)); $('greg').textContent = gregText(now); }
 function renderClock(now){
- var x = hm(now); mono($('hmT'), x.t);
+ // Hours and minutes change once a minute, so they keep the font's own spacing; the seconds and the countdowns
+ // tick every second and use equal digit cells (mono) so they never jitter.
+ var x = hm(now), ht = $('hmT'); if (ht.__s !== x.t) { ht.__s = x.t; ht.textContent = x.t; }
  $('hmS').hidden = !cfg.showSeconds; if (cfg.showSeconds) mono($('hmS'), dg(':' + pad2(now.getSeconds())));
  $('cap').textContent = x.ap; $('cap').hidden = !x.ap;
 }
@@ -758,6 +848,7 @@ function renderCards(now){
   c.el.classList.toggle('is-next', isNext);
   c.el.classList.toggle('is-past', !isNext && !!t && src === day && t <= now);
  });
+ fitCards();
 }
 function renderNext(now){
  var nx = nextAdhan(now);
@@ -774,13 +865,19 @@ function renderNiche(now, force){
  var r = list[i], box2 = $('nicheIn');
  var apply = function(){
   $('nKind').textContent = r.q ? 'قال الله تعالى' : 'قال رسول الله ﷺ';
-  $('nText').textContent = r.q ? OPEN + ' ' + r.t + ' ' + CLOSE : '«' + r.t + '»';
+  $('nText').textContent = r.q ? OPEN + '\u00a0' + r.t + '\u00a0' + CLOSE : '«' + r.t + '»';
   $('nSrc').textContent = r.s;
   fitNiche(); box2.classList.remove('fade');
  };
  if (force) apply(); else { box2.classList.add('fade'); setTimeout(apply, 650); }
 }
 function annList(){ return cfg.ann.filter(function(a){ return a && a.trim(); }); }
+function fitTicker(){
+ var t = $('tText'); t.style.fontSize = '';
+ if (t.hidden || !t.clientWidth) return;
+ var base = parseFloat(window.getComputedStyle(t).fontSize), s = base;
+ while (t.scrollWidth > t.clientWidth + 1 && s > base * 0.72) { s -= 1; t.style.fontSize = s + 'px'; }
+}
 function renderTicker(now, force){
  var anns = annList(), show = cfg.showTicker && anns.length > 0;
  $('tText').hidden = !show; document.querySelector('.mega').style.visibility = show ? '' : 'hidden';
@@ -788,8 +885,27 @@ function renderTicker(now, force){
  var i = Math.floor(now.getTime() / 9000) % anns.length;
  if (i === tIdx && !force) return; tIdx = i;
  var t = $('tText');
- if (force) { t.textContent = anns[i]; t.classList.remove('fade'); return; }
- t.classList.add('fade'); setTimeout(function(){ t.textContent = anns[i]; t.classList.remove('fade'); }, 650);
+ if (force) { t.textContent = anns[i]; fitTicker(); t.classList.remove('fade'); return; }
+ t.classList.add('fade'); setTimeout(function(){ t.textContent = anns[i]; fitTicker(); t.classList.remove('fade'); }, 650);
+}
+// After each prayer's adhkar the screen can dim for a set time; brightness returns 10 minutes before the next adhan.
+var dimPreviewUntil = 0;
+function postPrayerDim(now){
+ if (!cfg.dimAfter.on || !timeline) return false;
+ var T = now.getTime(), ends = {};
+ timeline.forEach(function(ph){
+  if (ph.prev || (ph.k !== 'prayer' && ph.k !== 'adhkar' && ph.k !== 'khutbah')) return;
+  var key = ph.p + '|' + ph.a.getTime();
+  if (!ends[key] || ph.e > ends[key].e) ends[key] = {p:ph.p, e:ph.e};
+ });
+ for (var k in ends) {
+  var g = ends[k], mins = clampN(cfg.dimAfter[g.p], 0, 240);
+  if (!mins) continue;
+  var s0 = g.e.getTime(), e0 = s0 + mins * 60000, nx = nextAdhan(new Date(s0 + 1000));
+  if (nx) e0 = Math.min(e0, nx.a.getTime() - 10 * 60000);
+  if (T >= s0 && T < e0) return true;
+ }
+ return false;
 }
 function frameMain(now){
  renderClock(now); renderNext(now);
@@ -798,7 +914,7 @@ function frameMain(now){
  renderNiche(now); renderTicker(now);
  var day = computeDay(dayStart(now));
  var night = cfg.nightDim && day.t.isha && day.t.fajr && (now > addMin(day.t.isha, 90) || now < addMin(day.t.fajr, -30));
- stage.classList.toggle('dim', !!night);
+ stage.classList.toggle('dim', !!night || postPrayerDim(now) || Date.now() < dimPreviewUntil);
 }
 
 /* ---------- scenes ---------- */
@@ -807,28 +923,54 @@ var curScene = null, curKey = 'none', preview = null, timeline = null;
 function esc(t){ return String(t).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
 function arNum(n){ return String(n).replace(/[0-9]/g, function(c){ return '٠١٢٣٤٥٦٧٨٩'.charAt(+c); }); }
 function pill(t){ return '<span class="ak-n">' + esc(t) + '</span>'; }
-function renderAdhkar(p, jm){
- var fm = !jm && (p === 'fajr' || p === 'maghrib'), a = '', b = '';
+var AK_PAGE_MS = 45000;
+var akPages = [], akFits = [], akIdx = -1;
+function textLen(h){ return h.replace(/<[^>]+>/g, '').replace(/[\u064B-\u065F\u0670\u06D6-\u06ED]/g, '').length; }
+// Splits blocks into two columns of similar length, keeping the book's order (right column first).
+function splitTwo(items){
+ var total = 0, run = 0, best = 1, bestD = Infinity;
+ items.forEach(function(h){ total += textLen(h); });
+ for (var i = 0; i < items.length - 1; i++) { run += textLen(items[i]); var d = Math.abs(total - 2 * run); if (d < bestD) { bestD = d; best = i + 1; } }
+ return [items.slice(0, best).join(''), items.slice(best).join('')];
+}
+function adhkarBlocks(p, jm){
+ var fm = !jm && (p === 'fajr' || p === 'maghrib'), dh = [], qu = [];
  AK_DHIKR.forEach(function(x){
-  if (x.tas) { a += '<p class="ak-i ak-tas">' + x.tas.map(function(t){ return '<span>' + esc(t[0]) + pill(dg(t[1])) + '</span>'; }).join('') + '</p>'; return; }
-  a += '<p class="ak-i">' + (x.lead ? '<span class="ak-lead">' + esc(x.lead) + '</span> ' : '') + esc(x.t) + (x.n ? pill(x.n) : '') + '</p>';
+  if (x.tas) { dh.push('<p class="ak-i ak-tas">' + x.tas.map(function(t){ return '<span>' + esc(t[0]) + pill(dg(t[1])) + '</span>'; }).join('') + '</p>'); return; }
+  dh.push('<p class="ak-i">' + (x.lead ? '<span class="ak-lead">' + esc(x.lead) + '</span> ' : '') + esc(x.t) + (x.n ? pill(x.n) : '') + '</p>');
  });
  AK_QURAN.forEach(function(x){
   var start = x.first || 1;
   var body = x.v.map(function(v, i){ return esc(v) + ' <span class="an">' + OPEN + arNum(start + i) + CLOSE + '</span>'; }).join(' ');
-  b += '<div class="ak-q"><div class="ak-qh">' + esc(x.title) + (fm && x.three ? pill('ثلاث مرات') : '') + '</div>' +
-       '<p class="ak-qb">' + (x.bas ? '<span class="ak-bas">' + esc(BASMALA) + '</span> ' : '') + body + '</p></div>';
+  qu.push('<div class="ak-q"><div class="ak-qh">' + esc(x.title) + (fm && x.three ? pill('ثلاث مرات') : '') + '</div>' +
+          '<p class="ak-qb">' + (x.bas ? '<span class="ak-bas">' + esc(BASMALA) + '</span> ' : '') + body + '</p></div>');
  });
- if (fm) b += '<p class="ak-i"><span class="ak-lead">' + esc(AK_FM.lead) + '</span> ' + esc(AK_FM.t) + pill(AK_FM.n) + '</p>';
- $('akA').innerHTML = a; $('akB').innerHTML = b;
- fitAdhkar();
+ if (fm) qu.push('<p class="ak-i"><span class="ak-lead">' + esc(AK_FM.lead) + '</span> ' + esc(AK_FM.t) + pill(AK_FM.n) + '</p>');
+ return {dh:dh, qu:qu};
+}
+function showAkPage(i){
+ akIdx = i;
+ $('akA').innerHTML = akPages[i][0]; $('akB').innerHTML = akPages[i][1];
+ var f = akFits[i], page = $('akPage');
+ if (f) { page.style.gridTemplateColumns = f.cols; page.style.fontSize = f.size + 'px'; }
+ var pg = $('akPg'); pg.hidden = akPages.length < 2;
+ pg.textContent = 'الصفحة ' + dg(i + 1) + ' من ' + dg(akPages.length);
+}
+function enterAdhkar(ph){
+ var b = adhkarBlocks(ph.jm ? 'dhuhr' : ph.p, ph.jm);
+ akPages = cfg.adhkarMode === 'two' ? [splitTwo(b.dh), splitTwo(b.qu)] : [[b.dh.join(''), b.qu.join('')]];
+ // Every page gets its best column split; all pages share the smallest fitting size so the type stays steady.
+ akFits = akPages.map(function(pg){ $('akA').innerHTML = pg[0]; $('akB').innerHTML = pg[1]; return fitAdhkar(); });
+ var size = Math.min.apply(null, akFits.map(function(f){ return f.size; }));
+ akFits.forEach(function(f){ f.size = size; });
+ showAkPage(akIdx >= 0 && akIdx < akPages.length && curScene === ph ? akIdx : 0);
 }
 function enterScene(ph){
  var nm = pName(ph.p, ph.jm);
  if (ph.k === 'adhan') $('adName').textContent = 'صلاة ' + nm;
  if (ph.k === 'iqama') { $('iqName').textContent = 'صلاة ' + nm; $('iqDate').textContent = hijriText(dayStart(nowDate())); }
  if (ph.k === 'prayer') { $('sc-prayer').classList.toggle('black', cfg.prayerScreen === 'black'); $('prClock').hidden = !!ph.hide; }
- if (ph.k === 'adhkar') { $('akHead').textContent = 'أذكار ما بعد صلاة ' + nm; renderAdhkar(ph.jm ? 'dhuhr' : ph.p, ph.jm); }
+ if (ph.k === 'adhkar') { $('akHead').textContent = 'أذكار ما بعد صلاة ' + nm; akIdx = -1; enterAdhkar(ph); }
 }
 function setScene(ph, now){
  var key = ph ? ph.k + '|' + ph.p + '|' + ph.s.getTime() + (ph.prev ? '|p' : '') : 'none';
@@ -844,11 +986,18 @@ function setScene(ph, now){
 }
 function setClocks(now){ var h = timeHTML(now); Array.prototype.forEach.call(document.querySelectorAll('.scene.on [data-clock]'), function(e){ if (e.__h !== h) { e.__h = h; e.innerHTML = h; } }); }
 var CIRC = 2 * Math.PI * 282;
+// The countdown stays on one line inside the ring, also for an hour or more ("1:05:00").
+function fitIqCount(){
+ var n = $('iqNum'), ring = n.parentNode.parentNode; n.style.fontSize = '';
+ var w = n.offsetWidth, room = ring.clientWidth * 0.84;
+ if (w > room) n.style.fontSize = Math.floor(parseFloat(window.getComputedStyle(n).fontSize) * room / w) + 'px';
+}
 function frameScene(ph, now){
  setClocks(now);
  if (ph.k === 'iqama') {
   var st = iqState(ph, now.getTime()), left = Math.max(0, st.left), span = Math.max(1, ph.i - ph.s);
-  mono($('iqNum'), dur(left));
+  var iqs = dur(left); mono($('iqNum'), iqs);
+  if ($('iqNum').__len !== iqs.length) { $('iqNum').__len = iqs.length; fitIqCount(); }
   $('iqCount').classList.toggle('end', left <= 10000);
   // Wake up exactly when the shown seconds change, so a slowed countdown still ticks evenly.
   var wait = Math.max(60, Math.min(2500, ((left % 1000) || 1000) / st.rate + 15));
@@ -857,6 +1006,13 @@ function frameScene(ph, now){
   var alertOn = cfg.phoneSec > 0 && left <= cfg.phoneSec * 1000;
   $('iqPhone').hidden = !alertOn; $('iqNote').hidden = alertOn;
   return wait;
+ }
+ if (ph.k === 'adhkar' && akPages.length > 1) {
+  var want = Math.floor((now - ph.s) / AK_PAGE_MS) % akPages.length;
+  if (want !== akIdx && !$('akPage').classList.contains('fade')) {
+   $('akPage').classList.add('fade');
+   setTimeout(function(){ showAkPage(want); $('akPage').classList.remove('fade'); }, 500);
+  }
  }
  return 0;
 }
@@ -888,6 +1044,7 @@ function rebuild(){ cache = {}; timeline = null; lastMin = -1; curKey = 'none'; 
 /* ---------- preview ---------- */
 function startPreview(kind){
  closeSheet();
+ if (kind === 'dim') { preview = null; dimPreviewUntil = Date.now() + 15000; tick(); return; }
  var now = nowDate(), nx = nextAdhan(now), p = nx ? nx.p : 'asr', ph;
  if (kind === 'adhan') ph = {k:'adhan', p:p, s:now, e:addSec(now, 20), a:now};
  else if (kind === 'iqama') ph = {k:'iqama', p:p, s:now, e:addSec(now, 75), a:addSec(now, -120), i:addSec(now, 75)};
@@ -896,7 +1053,7 @@ function startPreview(kind){
  else ph = {k:'khutbah', p:'dhuhr', jm:true, s:now, e:addSec(now, 15)};
  ph.prev = true; preview = ph; tick();
 }
-function stopPreview(){ preview = null; tick(); }
+function stopPreview(){ preview = null; dimPreviewUntil = 0; tick(); }
 
 /* ---------- sound, wake, fullscreen ---------- */
 var actx = null, gestured = false;
@@ -932,6 +1089,7 @@ function buildSchema(){
  var S = [];
  S.push({sec:'المسجد'});
  S.push({id:'mosqueName', type:'text', label:'اسم المسجد', hint:'يظهر أعلى الشاشة'});
+ S.push({id:'contact', type:'text', tel:true, label:'رقم التواصل', hint:'يظهر أسفل الشاشة الرئيسية. اتركه فارغًا لإخفائه'});
  S.push({sec:'الموقع وطريقة الحساب'});
  S.push({id:'city', type:'select', label:'المدينة', opts:function(){ return CITIES.map(function(c){ return [c.id, c.n]; }); }, on:function(v){ var c = findBy(CITIES, v); if (c && c.lat != null) { cfg.lat = c.lat; cfg.lng = c.lng; cfg.method = c.m; } }});
  S.push({id:'lat', type:'num', label:'خط العرض', hint:'مثال: 29.3759', show:function(){ return cfg.city === 'custom'; }});
@@ -952,21 +1110,32 @@ function buildSchema(){
  S.push({id:'phoneSec', type:'step', label:'تنبيه إغلاق الجوال قبل الإقامة', min:0, max:300, step:15, fmt:function(v){ return v ? pSec(v) : 'إيقاف'; }});
  PR.forEach(function(k){ S.push({id:'prayMin.' + k, type:'step', label:'مدة صلاة ' + NAMES[k], min:3, max:30, fmt:pMin, hint:k === 'dhuhr' ? 'يوم الجمعة تُستعمل مدة الخطبة والصلاة' : ''}); });
  S.push({id:'prayerScreen', type:'select', label:'أثناء الصلاة', opts:opts([['dim','رسالة خافتة'],['black','شاشة سوداء']])});
- S.push({id:'adhkarMin', type:'step', label:'أذكار ما بعد الصلاة', min:0, max:15, fmt:function(v){ return v ? pMin(v) : 'إيقاف'; }, hint:'تُعرض كاملة في صفحة واحدة بترتيب «تحفة الأخيار»'});
+ S.push({id:'adhkarMin', type:'step', label:'أذكار ما بعد الصلاة', min:0, max:15, fmt:function(v){ return v ? pMin(v) : 'إيقاف'; }, hint:'تُعرض كاملة بترتيب «تحفة الأخيار»'});
  S.push({sec:'الجمعة'});
  S.push({id:'jumuah', type:'toggle', label:'وضع صلاة الجمعة', hint:'يحل محل الظهر يوم الجمعة ويعرض شاشة الخطبة'});
  S.push({id:'jumuahMin', type:'step', label:'مدة الخطبة والصلاة', min:15, max:90, step:5, fmt:pMin, show:function(){ return cfg.jumuah; }});
+ S.push({sec:'التعتيم', hint:'يخفّف سطوع الشاشة بعد انتهاء أذكار الصلاة، ويعود السطوع قبل الأذان التالي بعشر دقائق'});
+ S.push({id:'dimAfter.on', type:'toggle', label:'تعتيم الشاشة بعد الصلاة'});
+ PR.forEach(function(k){ S.push({id:'dimAfter.' + k, type:'step', label:'التعتيم بعد ' + NAMES[k], min:0, max:240, step:5, fmt:function(v){ return v ? pMin(v) : 'بدون'; }, show:function(){ return cfg.dimAfter.on; }, hint:k === 'dhuhr' ? 'ويشمل الجمعة' : ''}); });
+ S.push({id:'nightDim', type:'toggle', label:'تعتيم ليلي', hint:'بعد العشاء بساعة ونصف حتى قبل الفجر بنصف ساعة'});
+ S.push({id:'dimLevel', type:'select', label:'درجة التعتيم', opts:opts([['70','خفيف'],['50','متوسط'],['30','قوي']])});
+ S.push({type:'button', label:'معاينة التعتيم ١٥ ثانية', act:function(){ startPreview('dim'); }});
  S.push({sec:'التحكم من الجوال', hint:'يؤخّر الإمام إقامة صلاة واحدة من دقيقة إلى ٣ دقائق من جواله، فيتباطأ العد على الشاشة دون أن يتغير أي وقت أمام المصلين. يحتاج اتصال الشاشة بالإنترنت.'});
  S.push({id:'remote.on', type:'toggle', label:'تفعيل التحكم من الجوال', on:function(v){ if (v) remoteEnsureKeys(); }});
  S.push({type:'qr', show:function(){ return remoteReady(); }});
  S.push({type:'button', label:'إنشاء رمز ربط جديد', danger:true, show:function(){ return remoteReady(); }, act:rotateAsk, hint:'الجوالات المربوطة سابقًا تتوقف'});
+ S.push({sec:'الخط وحجم النص', hint:'الأحجام مضبوطة للقراءة من بعيد على التلفزيون'});
+ S.push({id:'fontUI', type:'select', label:'خط الأوقات والعناوين', opts:function(){ return UI_FONTS.map(function(f){ return [f[0], f[1]]; }); }, fontOf:function(v){ var f = findBy(UI_FONTS, v); return f ? f[2] : ''; }});
+ S.push({id:'fontText', type:'select', label:'خط الأذكار والآيات', opts:function(){ return TX_FONTS.map(function(f){ return [f[0], f[1]]; }); }, fontOf:function(v){ var f = findBy(TX_FONTS, v); return f ? f[2] : ''; }});
+ S.push({id:'fontScale', type:'select', label:'حجم النص', opts:opts([['m','عادي'],['l','كبير'],['xl','كبير جدًا']]), hint:'يكبّر الأوقات والنصوص في كل الشاشات، والساعة الكبيرة تبقى كما هي'});
+ S.push({id:'adhkarMode', type:'select', label:'عرض الأذكار', opts:opts([['one','صفحة واحدة'],['two','صفحتان بخط أكبر']]), hint:function(){ return cfg.adhkarMode === 'two' ? 'الأذكار ثم الآيات، تتبادلان كل ٤٥ ثانية بخط أكبر' : 'كل الأذكار معًا بأكبر خط يتسع في الشاشة'; }});
  S.push({sec:'المظهر'});
  S.push({id:'skin', type:'select', label:'الألوان', opts:opts([['lapis','لازوردي'],['emerald','زمردي'],['marble','رخامي فاتح'],['onyx','أسود']])});
  S.push({id:'orientation', type:'select', label:'اتجاه الشاشة', opts:opts([['auto','تلقائي'],['landscape','أفقي'],['portrait','عمودي'],['rot90','عمودي بتدوير يمينًا'],['rot270','عمودي بتدوير يسارًا']]), hint:'اختر التدوير إذا عُلّقت الشاشة عموديًا والجهاز لا يدوّر الصورة'});
  S.push({id:'digits', type:'select', label:'الأرقام', opts:opts([['latn','123'],['arab','١٢٣']])});
  S.push({id:'clock24', type:'toggle', label:'نظام ٢٤ ساعة'});
  S.push({id:'showSeconds', type:'toggle', label:'إظهار الثواني'});
- S.push({id:'nightDim', type:'toggle', label:'تعتيم ليلي', hint:'بعد العشاء بساعة ونصف حتى قبل الفجر بنصف ساعة'});
+ S.push({id:'edge', type:'select', label:'هامش أمان للحواف', opts:opts([['0','بدون'],['3','٣٪'],['6','٦٪']]), hint:'إذا ظهرت أطراف الصورة مقصوصة على التلفزيون'});
  S.push({id:'burnIn', type:'toggle', label:'حماية الشاشة من الاحتراق', hint:'تحريك المحتوى قليلًا كل ٣ دقائق'});
  S.push({sec:'الإعلانات', hint:'تتناوب في الشريط السفلي كل ٩ ثوانٍ'});
  S.push({id:'showTicker', type:'toggle', label:'إظهار شريط الإعلانات'});
@@ -1026,6 +1195,7 @@ function buildSheet(){
    if (f.type === 'text' || f.type === 'num') {
     var inp = el('input', 'inp'); inp.type = 'text'; inp.id = fid; inp.setAttribute('data-nav', ''); inp.maxLength = 90; inp.setAttribute('dir', 'auto');
     if (f.type === 'num') { inp.setAttribute('inputmode', 'decimal'); inp.setAttribute('dir', 'ltr'); }
+    if (f.tel) { inp.setAttribute('inputmode', 'tel'); inp.setAttribute('dir', 'ltr'); inp.maxLength = 24; }
     lab.htmlFor = fid;
     inp.readOnly = true;
     var unlock = function(){ inp.readOnly = false; };
@@ -1073,7 +1243,7 @@ function refreshSheet(){
   if (f.type === 'qr') { renderQR(f); return; }
   if (!f.id) return;
   var v = f.get ? f.get() : getP(f.id);
-  if (f.val) f.val.textContent = valueText(f, v);
+  if (f.val) { f.val.textContent = valueText(f, v); if (f.fontOf) f.val.style.fontFamily = f.fontOf(v) + ',var(--font-ui)'; }
   if (f.sw) f.sw.setAttribute('aria-checked', v ? 'true' : 'false');
   if (f.inp && document.activeElement !== f.inp) f.inp.value = v;
   if (f.hintEl) { var h = typeof f.hint === 'function' ? f.hint() : (f.hint || ''); f.hintEl.textContent = h; f.hintEl.hidden = !h; }
@@ -1093,7 +1263,7 @@ function adjust(f, dir, rep){
  setP(f.id, v); if (f.on) f.on(v); commit();
 }
 function commit(){
- saveCfg(); applyLook(); layout(); rebuild(); remoteSync(); refreshSheet();
+ saveCfg(); applyLook(); layout(); rebuild(); remoteSync(); refreshSheet(); refitSoon();
 }
 function navList(){ return Array.prototype.filter.call($('sheet').querySelectorAll('[data-nav]'), function(e){ return e.offsetParent !== null; }); }
 function moveFocus(dir){
@@ -1217,7 +1387,7 @@ document.addEventListener('keydown', function(e){
   }
   return;
  }
- if (preview) { e.preventDefault(); stopPreview(); return; }
+ if (preview || Date.now() < dimPreviewUntil) { e.preventDefault(); stopPreview(); return; }
  if (k === 'enter') { if (!e.repeat) { e.preventDefault(); openSheet(); } return; }
  if (k === 's' || k === 'S' || k === 'س') { openSheet(); return; }
  if (k === 'f' || k === 'F') { toggleFS(); return; }
@@ -1247,7 +1417,7 @@ renderDates(nowDate());
 tick();
 wake();
 setTimeout(function(){ $('tip').classList.add('gone'); }, 9000);
-if (document.fonts && document.fonts.ready) document.fonts.ready.then(function(){ refitAll(); });
+if (document.fonts) { if (document.fonts.ready) document.fonts.ready.then(refitSoon); try { document.fonts.addEventListener('loadingdone', refitSoon); } catch (e) {} }
 remoteSync();
 if (Q.test) window.__manara = {applyDelay:applyDelay, iqState:iqState, timeline:function(){ return timeline || buildTimeline(nowDate()); }, delays:function(){ return delays; }, now:nowDate, phasesFor:function(k){ return phasesFor(computeDay(dayFromKey(k))); }, remoteLink:remoteLink, rState:function(){ return rState; }};
 if (Q.preview) startPreview(Q.preview);
