@@ -23,6 +23,7 @@ import android.webkit.JavascriptInterface;
 import android.webkit.RenderProcessGoneDetail;
 import android.webkit.WebChromeClient;
 import android.webkit.WebResourceRequest;
+import android.webkit.WebResourceResponse;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -31,18 +32,27 @@ import android.widget.Toast;
 import android.window.OnBackInvokedCallback;
 import android.window.OnBackInvokedDispatcher;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
+
 /**
- * Full-screen mosque display. The whole screen is the offline page in
- * assets/index.html; this activity keeps it awake, full screen and
- * reachable with a TV remote, and gives it a small bridge for settings
- * storage, start-on-boot and exiting.
+ * Full-screen mosque display. The whole screen is the page in assets/index.html,
+ * which works offline; internet is used only for the optional phone control.
+ * This activity keeps the page awake, full screen and reachable with a TV remote,
+ * and gives it a small bridge for settings storage, start-on-boot and exiting.
  */
 public class MainActivity extends Activity {
     static final String PREFS = "manara";
     static final String KEY_AUTOSTART = "autoStart";
     private static final String KEY_SETTINGS = "settings";
-    private static final String ASSET_ROOT = "file:///android_asset/";
-    private static final String START_URL = ASSET_ROOT + "index.html";
+    // The page is served from the app's own assets under a secure https origin (the host Android's
+    // WebViewAssetLoader uses), so it can reach the relay for phone control like any website.
+    private static final String ASSET_HOST = "appassets.androidplatform.net";
+    private static final String START_URL = "https://" + ASSET_HOST + "/index.html";
     private static final int BG = Color.rgb(10, 21, 48);
 
     private final Handler main = new Handler(Looper.getMainLooper());
@@ -70,7 +80,8 @@ public class MainActivity extends Activity {
         s.setJavaScriptEnabled(true);
         s.setDomStorageEnabled(true);
         s.setMediaPlaybackRequiresUserGesture(false);
-        s.setAllowFileAccess(true);
+        s.setAllowFileAccess(false);
+        s.setAllowContentAccess(false);
         s.setTextZoom(100);
         s.setSupportZoom(false);
         web.setFocusable(true);
@@ -81,13 +92,22 @@ public class MainActivity extends Activity {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 // The screen never leaves its own page.
-                return url == null || !url.startsWith(ASSET_ROOT);
+                return url == null || !url.startsWith("https://" + ASSET_HOST + "/");
             }
 
             @TargetApi(24)
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
                 return shouldOverrideUrlLoading(view, request.getUrl().toString());
+            }
+
+            @Override
+            public WebResourceResponse shouldInterceptRequest(WebView view, WebResourceRequest request) {
+                Uri u = request.getUrl();
+                if (!"https".equals(u.getScheme()) || !ASSET_HOST.equals(u.getHost())) {
+                    return null; // everything else (the relay) goes to the network as usual
+                }
+                return assetResponse(u.getPath());
             }
 
             @TargetApi(26)
@@ -103,6 +123,39 @@ public class MainActivity extends Activity {
                 ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         web.loadUrl(START_URL);
         web.requestFocus();
+    }
+
+    /** Serves a file from the APK's assets folder, or a 404 for anything that is not there. */
+    private WebResourceResponse assetResponse(String path) {
+        String name = (path == null || path.isEmpty() || "/".equals(path)) ? "index.html" : path.substring(1);
+        if (name.contains("..")) return notFound();
+        try {
+            InputStream in = getAssets().open(name);
+            WebResourceResponse r = new WebResourceResponse(mimeOf(name), "UTF-8", in);
+            Map<String, String> headers = new HashMap<>();
+            headers.put("Cache-Control", "no-cache");
+            r.setResponseHeaders(headers);
+            return r;
+        } catch (IOException e) {
+            return notFound();
+        }
+    }
+
+    private static WebResourceResponse notFound() {
+        return new WebResourceResponse("text/plain", "UTF-8", 404, "Not Found",
+                new HashMap<String, String>(), new ByteArrayInputStream(new byte[0]));
+    }
+
+    private static String mimeOf(String name) {
+        String n = name.toLowerCase(Locale.ROOT);
+        if (n.endsWith(".html")) return "text/html";
+        if (n.endsWith(".js")) return "text/javascript";
+        if (n.endsWith(".css")) return "text/css";
+        if (n.endsWith(".json")) return "application/json";
+        if (n.endsWith(".svg")) return "image/svg+xml";
+        if (n.endsWith(".png")) return "image/png";
+        if (n.endsWith(".woff2")) return "font/woff2";
+        return "application/octet-stream";
     }
 
     private void rebuildWebView() {

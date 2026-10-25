@@ -93,9 +93,12 @@ jobs:
           grep -E "^package:|^sdkVersion|^targetSdkVersion|^application-label|^leanback-launchable-activity" badging.txt | cut -c1-300
           grep -q "^leanback-launchable-activity" badging.txt || { echo "::error::The app would not show in the TV launcher"; exit 1; }
           "$BT/aapt2" dump permissions "$APK" | tee perms.txt
-          if grep -q "android.permission.INTERNET" perms.txt; then echo "::error::The app must not have internet access"; exit 1; fi
+          # Only these permissions are expected: internet (phone control), start on boot, and the overlay right for starting on boot.
+          EXTRA=$(grep -o "name='[^']*'" perms.txt | sed "s/name='//;s/'//" | grep -v -x -e android.permission.INTERNET -e android.permission.RECEIVE_BOOT_COMPLETED -e android.permission.SYSTEM_ALERT_WINDOW -e 'com.m3athrazaq.manara.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION' || true)
+          if [ -n "$EXTRA" ]; then echo "::error::Unexpected permissions: $EXTRA"; exit 1; fi
           if "$BT/aapt2" dump xmltree "$APK" --file AndroidManifest.xml | grep -q 'android:debuggable.*0xffffffff'; then echo "::error::Release APK must not be debuggable"; exit 1; fi
           unzip -l "$APK" | grep -E "assets/index.html$" || { echo "::error::The screen page is missing from the APK"; exit 1; }
+          unzip -p "$APK" assets/index.html | grep -q "ManaraLink" || { echo "::error::The screen page in the APK is out of date"; exit 1; }
           ls -la "$APK"
           sha256sum "$APK" | tee out/sha256.txt
 

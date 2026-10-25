@@ -10,6 +10,7 @@
     "@fontsource-variable/cairo": "^5.3.0",
     "@fontsource/amiri": "^5.3.0",
     "@fontsource/el-messiri": "^5.3.0",
-    "adhan": "^4.4.6"
+    "adhan": "4.4.6",
+    "qrcode-generator": "1.4.4"
   }
 }

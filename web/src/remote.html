@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0A1530">
+<meta name="robots" content="noindex, nofollow">
+<meta name="referrer" content="no-referrer">
+<title>تحكم مَنارة</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230A1530'/%3E%3Cg fill='%23D6B26E'%3E%3Crect x='19' y='19' width='26' height='26'/%3E%3Crect x='19' y='19' width='26' height='26' transform='rotate(45 32 32)'/%3E%3C/g%3E%3Ccircle cx='32' cy='32' r='7' fill='%230A1530'/%3E%3C/svg%3E">
+<style>
+/*@FONTS@*/
+:root{
+  /* Layout: one thumb-reachable column. Prayer chips, the chosen prayer, then four large delay buttons. */
+  --bg:#0A1530;
+  --bg-2:#14295C;
+  --surface:#11234B;
+  --surface-2:#1A336C;
+  --ink:#F4EFE1;
+  --muted:#9DADCC;
+  --brass:#D6B26E;
+  --turq:#5CC8B9;
+  --line:rgba(214,178,110,.28);
+  --brass-soft:rgba(214,178,110,.12);
+  --alert:#F27C7C;
+  --font-display:"El Messiri","Amiri","Traditional Arabic",serif;
+  --font-ui:"Cairo","Segoe UI",Tahoma,"Noto Sans Arabic",sans-serif;
+  color-scheme:dark;
+}
+*,*::before,*::after{box-sizing:border-box}
+[hidden]{display:none!important}
+html{background:var(--bg)}
+body{margin:0;min-height:100vh;background:var(--bg);background-image:radial-gradient(ellipse at 70% 0%,var(--bg-2) 0%,rgba(0,0,0,0) 60%);color:var(--ink);font-family:var(--font-ui);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent}
+.wrap{max-width:520px;margin:0 auto;padding-top:max(14px,env(safe-area-inset-top,0px));padding-bottom:max(22px,env(safe-area-inset-bottom,0px));padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:grid;grid-gap:16px}
+.top{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;grid-gap:12px}
+.star{width:40px;height:40px;color:var(--brass)}
+.ttl{min-width:0}
+.ttl h1{margin:0;font-family:var(--font-display);font-weight:700;font-size:24px;line-height:1.3;color:var(--brass);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ttl p{margin:0;font-size:13px;color:var(--muted)}
+.conn{font-size:13px;font-weight:700;padding:3px 12px;border-radius:999px;border:1px solid var(--line);color:var(--muted);white-space:nowrap}
+.conn.ok{color:var(--turq);border-color:var(--turq)}
+.conn.bad{color:var(--alert);border-color:var(--alert)}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:16px 18px}
+.card h2{margin:0 0 6px;font-family:var(--font-display);font-size:21px;color:var(--brass)}
+.card ol{margin:0;padding-inline-start:1.3em;color:var(--ink)}
+.tabs{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));grid-gap:6px}
+.tab{font:inherit;display:grid;justify-items:center;grid-gap:0;padding:8px 2px 7px;border-radius:14px;border:1px solid var(--line);background:transparent;color:var(--ink);cursor:pointer;min-width:0}
+.tab .tn{font-weight:700;font-size:15px;line-height:1.4}
+.tab .tt{direction:ltr;font-size:12px;color:var(--muted);line-height:1.4;font-variant-numeric:tabular-nums}
+.tab .td{font-size:11px;font-weight:800;color:var(--turq);line-height:1.2;min-height:1.2em;unicode-bidi:plaintext}
+.tab[aria-selected="true"]{background:var(--surface-2);border-color:var(--brass);box-shadow:inset 0 0 0 1px var(--brass)}
+.tab:focus-visible,.opt:focus-visible,.link:focus-visible{outline:3px solid var(--brass);outline-offset:2px}
+.focus{display:grid;grid-gap:6px}
+.fhead{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:baseline;grid-gap:10px}
+.fname{font-family:var(--font-display);font-weight:700;font-size:34px;line-height:1.2;color:var(--brass)}
+.fwhen{font-size:15px;font-weight:700;color:var(--muted)}
+.fwhen.soon{color:var(--alert)}
+.ftimes{display:grid;grid-template-columns:auto auto;justify-content:start;grid-gap:22px;color:var(--muted);font-size:15px}
+.ftimes b{color:var(--ink);font-size:20px;font-weight:800;font-variant-numeric:tabular-nums}
+.fdelay{font-size:14px;font-weight:700;color:var(--turq)}
+.q{margin:4px 2px 0;font-size:17px;font-weight:700}
+.opts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-gap:10px}
+.opt{font:inherit;display:grid;justify-items:center;align-content:center;min-height:92px;padding:8px;border-radius:20px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer;transition:background .15s,border-color .15s}
+.opt b{font-size:38px;font-weight:800;line-height:1.05;direction:ltr}
+.opt span{font-size:14px;color:var(--muted);font-weight:600}
+.opt:active{transform:translateY(1px)}
+.opt.cur{border-color:var(--turq);box-shadow:inset 0 0 0 2px var(--turq)}
+.opt.cur span{color:var(--turq)}
+.opt:disabled{opacity:.45;cursor:default}
+.msg{margin:0;min-height:1.6em;font-weight:700;font-size:15px}
+.msg.ok{color:var(--turq)}
+.msg.bad{color:var(--alert)}
+.msg.wait{color:var(--muted)}
+.note{margin:0;font-size:13px;color:var(--muted)}
+.foot{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px;font-size:12px;color:var(--muted);border-top:1px solid var(--line);padding-top:12px}
+.link{font:inherit;background:none;border:0;padding:4px 0;color:var(--muted);text-decoration:underline;cursor:pointer}
+@media (prefers-reduced-motion:reduce){.opt{transition:none}}
+</style>
+</head>
+<body>
+<main class="wrap">
+ <header class="top">
+  <svg class="star" viewBox="0 0 64 64" aria-hidden="true"><g fill="currentColor"><rect x="17" y="17" width="30" height="30"/><rect x="17" y="17" width="30" height="30" transform="rotate(45 32 32)"/></g><circle cx="32" cy="32" r="8" fill="#0A1530"/><circle cx="32" cy="32" r="3.6" fill="currentColor"/></svg>
+  <div class="ttl"><h1 id="mosque">مَنارة</h1><p>التحكم من الجوال</p></div>
+  <span id="conn" class="conn">جارٍ الاتصال</span>
+ </header>
+
+ <section id="pair" class="card" hidden>
+  <h2>هذا الجوال غير مربوط بعد</h2>
+  <ol>
+   <li>افتح إعدادات شاشة المسجد بزر OK في الريموت.</li>
+   <li>فعّل «التحكم من الجوال».</li>
+   <li>امسح الرمز الظاهر بكاميرا هذا الجوال.</li>
+  </ol>
+ </section>
+
+ <section id="panel" class="wrap" style="padding:0" hidden>
+  <div class="tabs" id="tabs" role="tablist" aria-label="اختر الصلاة"></div>
+  <div class="card focus" id="focus">
+   <div class="fhead"><span class="fname" id="fName">—</span><span class="fwhen" id="fWhen"></span></div>
+   <div class="ftimes"><span>الأذان <b id="fA">—</b></span><span>الإقامة <b id="fI">—</b></span></div>
+   <div class="fdelay" id="fDelay" hidden></div>
+  </div>
+  <p class="q" id="q">كم تؤخّر الإقامة؟</p>
+  <div class="opts" id="opts">
+   <button type="button" class="opt" data-m="1"><b>+1</b><span>دقيقة</span></button>
+   <button type="button" class="opt" data-m="2"><b>+2</b><span>دقيقتان</span></button>
+   <button type="button" class="opt" data-m="3"><b>+3</b><span>ثلاث دقائق</span></button>
+   <button type="button" class="opt" data-m="0"><b>0</b><span>في وقتها</span></button>
+  </div>
+  <p id="msg" class="msg" role="status" aria-live="polite"></p>
+  <p class="note">يسري التأخير على هذه الصلاة وحدها. يتباطأ العد على الشاشة قليلًا ولا يتغير أي وقت معروض، وكلما أرسلته أبكر كان التباطؤ أخفى.</p>
+ </section>
+
+ <footer class="foot"><span id="footTxt">رمز الربط محفوظ على هذا الجوال.</span><button type="button" class="link" id="forget">إلغاء الربط</button></footer>
+</main>
+<!--@LINK@-->
+<script>
+(function(){
+'use strict';
+var L = window.ManaraLink;
+var NAMES = {fajr:'الفجر', dhuhr:'الظهر', asr:'العصر', maghrib:'المغرب', isha:'العشاء'};
+var SKEY = 'manara.remote.pair.v1';
+var ID = /^[A-Za-z0-9_-]{16,64}$/;
+function $(id){ return document.getElementById(id); }
+function hm(ms){ var d = new Date(ms), h = d.getHours(), m = d.getMinutes(), ap = h < 12 ? 'ص' : 'م'; h = h % 12 || 12; return h + ':' + (m < 10 ? '0' : '') + m + ' ' + ap; }
+function mins(n){ n = Math.round(n); if (n <= 0) return 'الآن'; if (n === 1) return 'دقيقة'; if (n === 2) return 'دقيقتين'; if (n <= 10) return n + ' دقائق'; if (n < 60) return n + ' دقيقة'; var h = Math.floor(n / 60), r = n % 60; return (h === 1 ? 'ساعة' : h === 2 ? 'ساعتين' : h + ' ساعات') + (r ? ' و' + mins(r) : ''); }
+function pname(p, fri){ return p === 'dhuhr' && fri ? 'الجمعة' : NAMES[p]; }
+
+/* ---------- pairing ---------- */
+function readPair(){
+ var o = {};
+ location.hash.replace(/^#/, '').split('&').forEach(function(kv){ var i = kv.indexOf('='); if (i > 0) { try { o[kv.slice(0, i)] = decodeURIComponent(kv.slice(i + 1)); } catch (e) {} } });
+ if (ID.test(o.c || '') && ID.test(o.k || '')) {
+  var p = {c:o.c, k:o.k, s:/^https?:\/\//.test(o.s || '') ? o.s : ''};
+  try { localStorage.setItem(SKEY, JSON.stringify(p)); } catch (e) {}
+  return p;
+ }
+ try { var s = JSON.parse(localStorage.getItem(SKEY) || 'null'); if (s && ID.test(s.c) && ID.test(s.k)) return s; } catch (e) {}
+ return null;
+}
+var pair = readPair();
+$('forget').addEventListener('click', function(){
+ var b = this;
+ if (!b.__armed) { b.__armed = true; b.textContent = 'اضغط مرة أخرى للتأكيد'; setTimeout(function(){ b.__armed = false; b.textContent = 'إلغاء الربط'; }, 5000); return; }
+ try { localStorage.removeItem(SKEY); } catch (e) {}
+ if (ch) ch.close();
+ location.hash = ''; pair = null; show();
+});
+
+/* ---------- state ---------- */
+var ch = null, status = null, offset = 0, sel = '', pending = {}, helloAt = 0, lastStatusAt = 0, netState = 'connecting';
+function tvNow(){ return Date.now() + offset; }
+function send(obj){
+ obj.v = 1; obj.from = 'ph'; obj.ts = Date.now(); obj.n = L.newId(9);
+ pending[obj.n] = {k:obj.k, at:Date.now(), p:obj.p, date:obj.date, m:obj.m};
+ return ch.publish(L.seal(pair.k, obj)).then(function(){ return obj.n; });
+}
+function hello(){ if (!ch || netState !== 'online') return; helloAt = Date.now(); send({k:'hello'}).then(null, function(){}); setTimeout(paintConn, 15500); }
+
+function onMessage(text){
+ var m = L.open(pair.k, text);
+ if (!m || m.from !== 'tv') return;
+ if (m.k === 'status') {
+  if (status && m.ts < status.ts) return;
+  status = m; offset = m.now - Date.now(); lastStatusAt = Date.now();
+  if (m.re) delete pending[m.re];
+  $('mosque').textContent = m.name || 'مَنارة';
+  paint(); paintConn();
+ } else if (m.k === 'ack' && pending[m.re]) {
+  delete pending[m.re];
+  setBusy(false);
+  ackText(m);
+  hello();
+ }
+}
+
+/* ---------- view ---------- */
+function items(){
+ if (!status) return [];
+ var out = [], now = tvNow();
+ status.days.forEach(function(d, di){ d.list.forEach(function(x){ if (x.i) out.push({key:d.date + '|' + x.p, date:d.date, day:di, fri:d.fri, p:x.p, a:x.a, i:x.i, act:x.act, m:x.m, x:x.x}); }); });
+ return out.filter(function(it){ return (it.act || it.i) + 15 * 60000 > now; }).slice(0, 5);
+}
+function current(list){
+ var now = tvNow(), it = null;
+ list.forEach(function(x){ if (x.key === sel) it = x; });
+ if (it) return it;
+ for (var i = 0; i < list.length; i++) if ((list[i].act || list[i].i) > now) { sel = list[i].key; return list[i]; }
+ if (list[0]) { sel = list[0].key; return list[0]; }
+ return null;
+}
+function paint(){
+ var list = items(), it = current(list), tabs = $('tabs');
+ tabs.innerHTML = '';
+ list.forEach(function(x){
+  var b = document.createElement('button');
+  b.type = 'button'; b.className = 'tab'; b.setAttribute('role', 'tab'); b.setAttribute('aria-selected', x === it ? 'true' : 'false');
+  b.innerHTML = '<span class="tn"></span><span class="tt"></span><span class="td"></span>';
+  b.querySelector('.tn').textContent = pname(x.p, x.fri);
+  b.querySelector('.tt').textContent = hm(x.i).replace(/ [صم]$/, '');
+  b.querySelector('.td').textContent = x.m > 0 ? '\u2066+' + x.m + '\u2069' : (x.day ? 'غدًا' : '');
+  b.addEventListener('click', function(){ sel = x.key; $('msg').textContent = ''; $('msg').className = 'msg'; paint(); });
+  tabs.appendChild(b);
+ });
+ if (!it) { $('fName').textContent = '—'; return; }
+ var now = tvNow(), left = (it.i - now) / 60000, jm = it.p === 'dhuhr' && it.fri;
+ $('fName').textContent = pname(it.p, it.fri) + (it.day ? ' (غدًا)' : '');
+ $('fA').textContent = hm(it.a);
+ $('fI').textContent = jm ? 'بعد الخطبة' : hm(it.i);
+ var when = $('fWhen');
+ if (now < it.a) { when.textContent = 'الأذان بعد ' + mins((it.a - now) / 60000); when.className = 'fwhen'; }
+ else if (now < (it.act || it.i)) { when.textContent = 'الإقامة بعد ' + mins(Math.max(0, left)); when.className = 'fwhen' + (left < 4 ? ' soon' : ''); }
+ else { when.textContent = 'بدأت الصلاة'; when.className = 'fwhen'; }
+ var fd = $('fDelay');
+ if (it.m > 0 && it.act) { fd.hidden = false; fd.textContent = 'مؤخَّرة ' + mins(it.m) + ' · الإقامة الفعلية ' + hm(it.act); }
+ else fd.hidden = true;
+ $('q').textContent = jm ? 'يوم الجمعة لا يوجد عد تنازلي للإقامة على الشاشة.' : 'كم تؤخّر إقامة ' + pname(it.p, it.fri) + '؟';
+ Array.prototype.forEach.call($('opts').children, function(b){
+  b.classList.toggle('cur', +b.getAttribute('data-m') === (it.m || 0));
+  b.disabled = jm || busy || now >= (it.act || it.i) + 10 * 60000;
+ });
+}
+function paintConn(){
+ var c = $('conn'), t, cls = 'conn';
+ if (netState === 'offline') { t = 'لا يوجد اتصال'; cls += ' bad'; }
+ else if (netState !== 'online') t = 'جارٍ الاتصال';
+ else if (status && Date.now() - lastStatusAt < 150000) { t = 'الشاشة متصلة'; cls += ' ok'; }
+ else if (helloAt && Date.now() - helloAt > 15000) { t = 'الشاشة لا ترد'; cls += ' bad'; }
+ else t = 'بانتظار الشاشة';
+ c.textContent = t; c.className = cls;
+}
+function say(t, cls){ var m = $('msg'); m.textContent = t; m.className = 'msg' + (cls ? ' ' + cls : ''); }
+function ackText(a){
+ if (!a.ok) {
+  say(a.why === 'jumuah' ? 'يوم الجمعة لا يوجد عد تنازلي للإقامة على الشاشة.' : a.why === 'past' ? 'انتهت هذه الصلاة على الشاشة.' : 'تعذّر تطبيق التأخير على الشاشة.', 'bad');
+  return;
+ }
+ if (a.late) { say('كانت الصلاة قد بدأت على الشاشة، فبقيت شاشة الصلاة ' + mins(a.m) + ' إضافية.', 'ok'); return; }
+ if (!a.m) { say(a.act > a.sched ? '✓ أُلغي التأخير. يكمل العد بسرعته المعتادة والإقامة ' + hm(a.act) + '.' : '✓ أُلغي التأخير. الإقامة في وقتها ' + hm(a.sched) + '.', 'ok'); return; }
+ var t = '✓ وصل للشاشة: الإقامة الفعلية ' + hm(a.act) + ' بدل ' + hm(a.sched) + '.';
+ if (a.slow > 0) t += ' يمضي العد أبطأ بنحو ' + a.slow + '٪' + (a.slow > 45 ? '، وقد يُلاحظ لأن الوقت كان قصيرًا.' : ' فقط.');
+ say(t, 'ok');
+}
+var busy = false, busyT = 0;
+function setBusy(b){ busy = b; clearTimeout(busyT); paint(); }
+Array.prototype.forEach.call($('opts').children, function(b){
+ b.addEventListener('click', function(){
+  var list = items(), it = current(list);
+  if (!it || busy) return;
+  if (!status || netState !== 'online') { say('انتظر حتى تتصل الشاشة.', 'bad'); return; }
+  var m = +b.getAttribute('data-m');
+  setBusy(true); say('جارٍ الإرسال…', 'wait');
+  send({k:'delay', date:it.date, p:it.p, m:m}).then(function(n){
+   busyT = setTimeout(function(){ if (pending[n]) { delete pending[n]; setBusy(false); say('لم يصل تأكيد من الشاشة. تأكد أنها متصلة بالإنترنت ثم أعد المحاولة.', 'bad'); } }, 25000);
+  }, function(){ setBusy(false); say('تعذّر الإرسال. تحقق من اتصال الجوال بالإنترنت.', 'bad'); });
+ });
+});
+
+/* ---------- start ---------- */
+function show(){
+ $('pair').hidden = !!pair; $('panel').hidden = !pair; $('forget').hidden = !pair; $('footTxt').hidden = !pair;
+ if (!pair) { $('conn').textContent = 'غير مربوط'; $('conn').className = 'conn'; return; }
+ ch = L.Channel({server:pair.s || L.DEFAULT_SERVER, topic:L.topic(pair.c), since:'2m', onMessage:onMessage, onState:function(s){
+  var was = netState; netState = s; paintConn();
+  if (s === 'online' && was !== 'online') hello();
+ }});
+}
+show();
+setInterval(function(){ if (pair && status) paint(); paintConn(); }, 15000);
+setInterval(function(){ if (pair && document.visibilityState === 'visible') hello(); }, 60000);
+document.addEventListener('visibilitychange', function(){ if (document.visibilityState === 'visible' && ch) { ch.reconnect(); hello(); } });
+})();
+</script>
+</body>
+</html>

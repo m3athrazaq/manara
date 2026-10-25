@@ -160,6 +160,7 @@ body{height:100%;margin:0;background:var(--bg);color:var(--ink);font-family:var(
 .sc-clock{font-size:44px;font-weight:700;white-space:nowrap}
 .tm{direction:ltr;unicode-bidi:isolate;display:inline-block}
 .tap{color:var(--muted);font-size:.75em;margin-right:.3em}
+.sc-date{font-size:36px;font-weight:600;color:var(--muted);white-space:nowrap}
 
 #sc-adhan.on{align-content:center;justify-items:center;text-align:center}
 .rings{position:absolute;top:44%;left:50%;width:0;height:0}
@@ -183,9 +184,6 @@ body{height:100%;margin:0;background:var(--bg);color:var(--ink);font-family:var(
 .ring .arc{fill:none;stroke:var(--turq);stroke-width:14;stroke-linecap:round;transition:stroke-dashoffset 1s linear}
 .iq-count{position:absolute;top:0;left:0;right:0;bottom:0;display:grid;align-items:center;justify-items:center;direction:ltr;font-weight:800;font-size:196px;line-height:1}
 .iq-count.end{color:var(--alert)}
-.iq-meta{display:grid;grid-template-columns:auto auto auto;align-items:center;grid-gap:28px;font-size:34px;color:var(--muted);font-weight:600}
-.iq-meta b{color:var(--ink);font-weight:700}
-.iq-meta .dot{width:10px;height:10px;border-radius:50%;background:var(--brass)}
 .iq-note{font-family:var(--font-text);font-size:46px;font-weight:700;line-height:1.6}
 .iq-note small{display:block;font-family:var(--font-ui);font-size:24px;color:var(--muted);font-weight:600}
 .iq-phone{display:grid;grid-template-columns:auto auto;align-items:center;grid-gap:22px;font-size:50px;font-weight:800;color:var(--alert);padding:12px 44px;border:3px solid var(--alert);border-radius:999px;animation:pulse 1.6s ease-in-out infinite}
@@ -203,25 +201,23 @@ body{height:100%;margin:0;background:var(--bg);color:var(--ink);font-family:var(
 #sc-prayer.black .drift{visibility:hidden}
 @keyframes drift{0%{transform:translate(-90px,-60px)}25%{transform:translate(80px,-30px)}50%{transform:translate(60px,70px)}75%{transform:translate(-70px,40px)}100%{transform:translate(-90px,-60px)}}
 
-#sc-adhkar.on{grid-template-rows:auto minmax(0,1fr) auto auto;grid-gap:22px;padding:34px 110px 40px}
+#sc-adhkar.on{grid-template-rows:auto minmax(0,1fr) auto;grid-gap:14px;padding:30px 72px 22px}
 #sc-adhkar .sc-top{position:static}
 .ak-head{font-family:var(--font-display);font-size:46px;color:var(--brass);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
-.ak-card{position:relative;display:grid;grid-template-rows:auto auto auto auto;align-content:center;justify-items:center;text-align:center;padding:36px 70px;border-radius:32px;background:var(--surface);border:1px solid var(--line);min-height:0;overflow:hidden}
-.ak-card.swap{animation:fadeIn .7s ease both}
-.ak-title{font-family:var(--font-display);font-size:48px;color:var(--brass);line-height:1.4}
-.ak-bas{font-family:var(--font-text);font-size:40px;color:var(--muted);line-height:1.8}
-.ak-text{font-family:var(--font-text);font-weight:700;font-size:64px;line-height:1.95;white-space:pre-line}
-.ak-text .mut{color:var(--muted);font-weight:400}
-.ak-text .an{color:var(--brass);font-weight:400;font-size:.8em;white-space:nowrap}
-.ak-sub{font-family:var(--font-text);font-weight:400;font-size:44px;line-height:1.85;margin-top:6px}
-.ak-meta{display:grid;grid-auto-flow:column;justify-content:center;align-items:center;grid-gap:26px}
-.chip{font-size:32px;font-weight:700;color:var(--turq);border:2px solid var(--turq);padding:2px 26px;border-radius:999px;line-height:1.6}
-.ak-note{font-size:28px;color:var(--ink);font-weight:600}
-.ak-src{font-size:28px;color:var(--muted);font-weight:600}
-.ak-prog{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(0,1fr);grid-gap:10px;height:8px}
-.ak-prog i{display:block;background:var(--line);border-radius:4px;overflow:hidden}
-.ak-prog b{display:block;height:100%;width:0;background:var(--brass);transition:width 1s linear}
-
+.ak-page{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);min-height:0;overflow:hidden;font-family:var(--font-text);font-size:40px;line-height:1.7}
+.ak-col{display:grid;align-content:space-between;grid-gap:.36em;min-height:0;min-width:0;overflow:hidden}
+.ak-a{padding-left:1.1em}
+.ak-b{border-right:1px solid var(--line);padding-right:1.1em}
+.ak-i,.ak-qb{margin:0;font-weight:700}
+.ak-i + .ak-i,.ak-q + .ak-q,.ak-q + .ak-i{border-top:1px solid var(--line);padding-top:.36em}
+.ak-n{display:inline-block;font-family:var(--font-ui);font-size:.5em;font-weight:700;color:var(--turq);border:2px solid currentColor;border-radius:999px;padding:0 .75em;margin-right:.55em;line-height:1.5;vertical-align:.25em;white-space:nowrap}
+.ak-lead{color:var(--muted);font-weight:400}
+.ak-tas{display:flex;flex-wrap:wrap;align-items:baseline;column-gap:1.1em}
+.ak-qh{font-family:var(--font-display);font-size:.62em;color:var(--brass);line-height:1.5}
+.ak-qh .ak-n{font-size:.78em}
+.ak-bas{color:var(--muted);font-weight:400}
+.an{color:var(--brass);font-weight:400;font-size:.8em;white-space:nowrap}
+.ak-foot{text-align:center;font-size:24px;color:var(--muted);font-weight:600;line-height:1.4}
 #stage.portrait .scene{padding:40px 48px}
 #stage.portrait .sc-top{left:48px;right:48px}
 #stage.portrait .ad-title{font-size:170px}
@@ -229,11 +225,11 @@ body{height:100%;margin:0;background:var(--bg);color:var(--ink);font-family:var(
 #stage.portrait .ring{width:800px;height:800px}
 #stage.portrait .iq-count{font-size:250px}
 #stage.portrait #sc-iqama.on{grid-gap:34px}
-#stage.portrait .iq-meta{grid-template-columns:auto;grid-gap:10px}
-#stage.portrait .iq-meta .dot{display:none}
-#stage.portrait #sc-adhkar.on{padding:40px 48px 44px}
-#stage.portrait .ak-card{padding:44px 44px}
-#stage.portrait .ak-meta{grid-auto-flow:row;justify-items:center;grid-gap:14px}
+#stage.portrait #sc-adhkar.on{padding:40px 48px 34px}
+#stage.portrait .ak-page{grid-template-columns:minmax(0,1fr);grid-template-rows:auto auto;align-content:center}
+#stage.portrait .ak-col{overflow:visible;align-content:start}
+#stage.portrait .ak-a{padding:0 0 .36em}
+#stage.portrait .ak-b{border-right:0;border-top:1px solid var(--line);padding:.36em 0 0}
 #stage.portrait .drift{max-width:900px}
 
 .pv{position:absolute;top:18px;left:50%;transform:translateX(-50%);z-index:3;background:var(--brass);color:var(--bg);font-size:28px;font-weight:800;padding:6px 28px;border-radius:999px;white-space:nowrap}
@@ -277,8 +273,16 @@ body{height:100%;margin:0;background:var(--bg);color:var(--ink);font-family:var(
 .btn.danger{color:var(--alert);border-color:var(--alert)}
 .btn.primary{background:var(--brass);color:var(--bg);border-color:var(--brass);text-align:center;width:auto;padding:.45em 1.4em}
 .sh-foot{font-size:.82em;color:var(--muted);padding:6px 20px 28px;line-height:1.6}
-@media (max-width:560px){.row{grid-template-columns:minmax(0,1fr)}.ctl,.sw{justify-self:start}.inp{width:100%}}
-@media (prefers-reduced-motion:reduce){.rings{display:none}.drift,.iq-phone,.scene.on,.ak-card.swap{animation:none}}
+.qr-row{display:grid;grid-template-columns:auto minmax(0,1fr);align-items:center;grid-gap:1em;padding:.5em .8em}
+.qr-box{width:11.5em;height:11.5em;background:#fff;border:1px solid var(--line);border-radius:.6em;padding:.3em}
+.qr-box svg{display:block;width:100%;height:100%}
+.qr-side{display:grid;grid-gap:.3em;min-width:0;line-height:1.5}
+.qr-side .muted{color:var(--muted);font-size:.85em}
+.rstat{font-weight:700;font-size:.92em}
+.rstat.on{color:var(--turq)}
+.rstat.bad{color:var(--alert)}
+@media (max-width:560px){.row{grid-template-columns:minmax(0,1fr)}.ctl,.sw{justify-self:start}.inp{width:100%}.qr-row{grid-template-columns:minmax(0,1fr)}.qr-box{justify-self:center}}
+@media (prefers-reduced-motion:reduce){.rings{display:none}.drift,.iq-phone,.scene.on{animation:none}}
 </style>
 
 <div id="fit">
@@ -323,23 +327,21 @@ body{height:100%;margin:0;background:var(--bg);color:var(--ink);font-family:var(
     </section>
 
     <section id="sc-iqama" class="scene">
-     <div class="sc-top"><span class="sc-mosque" data-mosque></span><span class="sc-clock" data-clock></span></div>
+     <div class="sc-top"><span class="sc-mosque" data-mosque></span><span class="sc-date" id="iqDate"></span></div>
      <div class="iq-label">إقامة <b id="iqName"></b> بعد</div>
      <div class="ring"><svg viewBox="0 0 600 600" aria-hidden="true"><circle class="track" cx="300" cy="300" r="282"/><circle class="arc" id="iqArc" cx="300" cy="300" r="282"/></svg><div id="iqCount" class="iq-count"><span id="iqNum"></span></div></div>
-     <div class="iq-meta"><span>الأذان <b id="iqA"></b></span><i class="dot"></i><span>الإقامة <b id="iqI"></b></span></div>
      <div class="iq-note" id="iqNote">«الدُّعَاءُ لَا يُرَدُّ بَيْنَ الْأَذَانِ وَالْإِقَامَةِ»<small>رواه أبو داود والترمذي</small></div>
      <div class="iq-phone" id="iqPhone" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="7" y="2.5" width="10" height="19" rx="2"/><path d="M11 18.5h2"/><path d="M3 3l18 18"/></svg><span>نرجو إغلاق الهاتف الجوال</span></div>
     </section>
 
     <section id="sc-prayer" class="scene dark">
-     <div class="drift"><div class="pr-title">الصلاة قائمة</div><div class="pr-sub">نرجو إغلاق الهاتف الجوال</div><div class="pr-clock" data-clock></div></div>
+     <div class="drift"><div class="pr-title">الصلاة قائمة</div><div class="pr-sub">نرجو إغلاق الهاتف الجوال</div><div class="pr-clock" id="prClock" data-clock></div></div>
     </section>
 
     <section id="sc-adhkar" class="scene">
      <div class="sc-top"><span class="ak-head" id="akHead"></span><span class="sc-clock" data-clock></span></div>
-     <div class="ak-card" id="akCard"><div class="ak-title" id="akTitle"></div><div class="ak-bas" id="akBas">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div><div class="ak-text" id="akText"></div><div class="ak-sub" id="akSub"></div></div>
-     <div class="ak-meta"><span class="chip" id="akCount"></span><span class="ak-note" id="akNote"></span><span class="ak-src" id="akSrc"></span></div>
-     <div class="ak-prog" id="akProg"></div>
+     <div class="ak-page" id="akPage"><div class="ak-col ak-a" id="akA"></div><div class="ak-col ak-b" id="akB"></div></div>
+     <div class="ak-foot">من رسالة «تحفة الأخيار» لسماحة الشيخ عبد العزيز بن باز رحمه الله</div>
     </section>
 
     <section id="sc-khutbah" class="scene dark">
@@ -367,6 +369,2503 @@ body{height:100%;margin:0;background:var(--bg);color:var(--ink);font-family:var(
 !function(t,e){"object"==typeof exports&&"undefined"!=typeof module?e(exports):"function"==typeof define&&define.amd?define(["exports"],e):e((t="undefined"!=typeof globalThis?globalThis:t||self).adhan={})}(this,function(t){"use strict";function e(t,e,n){return(e=function(t){var e=function(t,e){if("object"!=typeof t||!t)return t;var n=t[Symbol.toPrimitive];if(void 0!==n){var r=n.call(t,e);if("object"!=typeof r)return r;throw new TypeError("@@toPrimitive must return a primitive value.")}return("string"===e?String:Number)(t)}(t,"string");return"symbol"==typeof e?e:e+""}(e))in t?Object.defineProperty(t,e,{value:n,enumerable:!0,configurable:!0,writable:!0}):t[e]=n,t}function n(t,e){var n=Object.keys(t);if(Object.getOwnPropertySymbols){var r=Object.getOwnPropertySymbols(t);e&&(r=r.filter(function(e){return Object.getOwnPropertyDescriptor(t,e).enumerable})),n.push.apply(n,r)}return n}function r(t){for(var r=1;r<arguments.length;r++){var i=null!=arguments[r]?arguments[r]:{};r%2?n(Object(i),!0).forEach(function(n){e(t,n,i[n])}):Object.getOwnPropertyDescriptors?Object.defineProperties(t,Object.getOwnPropertyDescriptors(i)):n(Object(i)).forEach(function(e){Object.defineProperty(t,e,Object.getOwnPropertyDescriptor(i,e))})}return t}const i={Shafi:"shafi",Hanafi:"hanafi"};const a={MiddleOfTheNight:"middleofthenight",SeventhOfTheNight:"seventhofthenight",TwilightAngle:"twilightangle",recommended:t=>t.latitude>48?a.SeventhOfTheNight:a.MiddleOfTheNight};class s{constructor(t,e){this.latitude=t,this.longitude=e}}const o={Nearest:"nearest",Up:"up",None:"none"};function h(t,e){const n=t.getFullYear(),r=t.getMonth(),i=t.getDate()+e,a=t.getHours(),s=t.getMinutes(),o=t.getSeconds();return new Date(n,r,i,a,s,o)}function u(t,e){return l(t,60*e)}function l(t,e){return new Date(t.getTime()+1e3*e)}function c(t){let e=arguments.length>1&&void 0!==arguments[1]?arguments[1]:o.Nearest;const n=t.getUTCSeconds();let r=n>=30?60-n:-1*n;return e===o.Up?r=60-n:e===o.None&&(r=0),l(t,r)}function d(t){return t%4==0&&(t%100!=0||t%400==0)}function g(t){let e=0;const n=[31,d(t.getFullYear())?29:28,31,30,31,30,31,31,30,31,30,31];for(let r=0;r<t.getMonth();r++)e+=n[r];return e+=t.getDate(),e}function m(t){return t instanceof Date&&!isNaN(t.valueOf())}function f(t){return t*Math.PI/180}function M(t){return 180*t/Math.PI}function p(t,e){return t-e*Math.floor(t/e)}function b(t){return p(t,360)}const w={General:"general",Ahmer:"ahmer",Abyad:"abyad"},A={meanSolarLongitude(t){const e=t;return b(280.4664567+36000.76983*e+3032e-7*Math.pow(e,2))},meanLunarLongitude:t=>b(218.3165+481267.8813*t),ascendingLunarNodeLongitude(t){const e=t;return b(125.04452-1934.136261*e+.0020708*Math.pow(e,2)+Math.pow(e,3)/45e4)},meanSolarAnomaly(t){const e=t;return b(357.52911+35999.05029*e-1537e-7*Math.pow(e,2))},solarEquationOfTheCenter(t,e){const n=t,r=f(e);return(1.914602-.004817*n-14e-6*Math.pow(n,2))*Math.sin(r)+(.019993-101e-6*n)*Math.sin(2*r)+289e-6*Math.sin(3*r)},apparentSolarLongitude(t,e){const n=t,r=125.04-1934.136*n;return b(e+A.solarEquationOfTheCenter(n,A.meanSolarAnomaly(n))-.00569-.00478*Math.sin(f(r)))},meanObliquityOfTheEcliptic(t){const e=t;return 23.439291-.013004167*e-1.639e-7*Math.pow(e,2)+5.036e-7*Math.pow(e,3)},apparentObliquityOfTheEcliptic(t,e){const n=125.04-1934.136*t;return e+.00256*Math.cos(f(n))},meanSiderealTime(t){const e=t;return b(280.46061837+360.98564736629*(36525*e+2451545-2451545)+387933e-9*Math.pow(e,2)-Math.pow(e,3)/3871e4)},nutationInLongitude(t,e,n,r){const i=e,a=n,s=r;return-17.2/3600*Math.sin(f(s))-1.32/3600*Math.sin(2*f(i))-.23/3600*Math.sin(2*f(a))+.21/3600*Math.sin(2*f(s))},nutationInObliquity(t,e,n,r){const i=e,a=n,s=r;return 9.2/3600*Math.cos(f(s))+.57/3600*Math.cos(2*f(i))+.1/3600*Math.cos(2*f(a))-.09/3600*Math.cos(2*f(s))},altitudeOfCelestialBody(t,e,n){const r=t,i=e,a=n,s=Math.sin(f(r))*Math.sin(f(i)),o=Math.cos(f(r))*Math.cos(f(i))*Math.cos(f(a));return M(Math.asin(s+o))},approximateTransit(t,e,n){const r=t,i=p((n+-1*r-e)/360,1),a=p((12-r/15)/24,1);return i-a>.5?i-1:a-i>.5?i+1:i},correctedTransit(t,e,n,r,i,a){const s=t,o=r,h=i,u=a,l=-1*e,c=b(n+360.985647*s),d=b(A.interpolateAngles(o,h,u,s));var g;return 24*(s+((g=c-l-d)>=-180&&g<=180?g:g-360*Math.round(g/360))/-360)},correctedHourAngle(t,e,n,r,i,a,s,o,h,u,l){const c=t,d=e,g=i,m=a,p=s,w=o,j=h,T=u,S=l,v=-1*n.longitude,y=Math.sin(f(d))-Math.sin(f(n.latitude))*Math.sin(f(j)),D=Math.cos(f(n.latitude))*Math.cos(f(j)),O=M(Math.acos(y/D)),N=r?c+O/360:c-O/360,P=b(g+360.985647*N),C=b(A.interpolateAngles(m,p,w,N)),L=A.interpolate(j,T,S,N),F=P-v-C;return 24*(N+(A.altitudeOfCelestialBody(n.latitude,L,F)-d)/(360*Math.cos(f(L))*Math.cos(f(n.latitude))*Math.sin(f(F))))},interpolate(t,e,n,r){const i=t-e,a=n-t;return t+r/2*(i+a+r*(a-i))},interpolateAngles(t,e,n,r){const i=b(t-e),a=b(n-t);return t+r/2*(i+a+r*(a-i))},julianDay(t,e,n){let r=arguments.length>3&&void 0!==arguments[3]?arguments[3]:0;const i=Math.trunc,a=i(e>2?t:t-1),s=i(e>2?e:e+12),o=n+r/24,h=i(a/100),u=i(2-h+i(h/4));return i(365.25*(a+4716))+i(30.6001*(s+1))+o+u-1524.5},julianCentury:t=>(t-2451545)/36525,seasonAdjustedMorningTwilight(t,e,n,r){const i=75+28.65/55*Math.abs(t),a=75+19.44/55*Math.abs(t),s=75+32.74/55*Math.abs(t),o=75+48.1/55*Math.abs(t),h=function(){const r=A.daysSinceSolstice(e,n,t);return r<91?i+(a-i)/91*r:r<137?a+(s-a)/46*(r-91):r<183?s+(o-s)/46*(r-137):r<229?o+(s-o)/46*(r-183):r<275?s+(a-s)/46*(r-229):a+(i-a)/91*(r-275)}();return l(r,Math.round(-60*h))},seasonAdjustedEveningTwilight(t,e,n,r,i){let a,s,o,h;i===w.Ahmer?(a=62+17.4/55*Math.abs(t),s=62-7.16/55*Math.abs(t),o=62+5.12/55*Math.abs(t),h=62+19.44/55*Math.abs(t)):i===w.Abyad?(a=75+25.6/55*Math.abs(t),s=75+7.16/55*Math.abs(t),o=75+36.84/55*Math.abs(t),h=75+1.488*Math.abs(t)):(a=75+25.6/55*Math.abs(t),s=75+2.05/55*Math.abs(t),o=75-9.21/55*Math.abs(t),h=75+6.14/55*Math.abs(t));const u=function(){const r=A.daysSinceSolstice(e,n,t);return r<91?a+(s-a)/91*r:r<137?s+(o-s)/46*(r-91):r<183?o+(h-o)/46*(r-137):r<229?h+(o-h)/46*(r-183):r<275?o+(s-o)/46*(r-229):s+(a-s)/91*(r-275)}();return l(r,Math.round(60*u))},daysSinceSolstice(t,e,n){let r;const i=d(e)?173:172,a=d(e)?366:365;return n>=0?(r=t+10,r>=a&&(r-=a)):(r=t-i,r<0&&(r+=a)),r}};class j{constructor(t){const e=A.julianCentury(t),n=A.meanSolarLongitude(e),r=A.meanLunarLongitude(e),i=A.ascendingLunarNodeLongitude(e),a=f(A.apparentSolarLongitude(e,n)),s=A.meanSiderealTime(e),o=A.nutationInLongitude(e,n,r,i),h=A.nutationInObliquity(e,n,r,i),u=A.meanObliquityOfTheEcliptic(e),l=f(A.apparentObliquityOfTheEcliptic(e,u));this.declination=M(Math.asin(Math.sin(l)*Math.sin(a))),this.rightAscension=b(M(Math.atan2(Math.cos(l)*Math.sin(a),Math.cos(a)))),this.apparentSiderealTime=s+3600*o*Math.cos(f(u+h))/3600}}class T{constructor(t,e){const n=A.julianDay(t.getFullYear(),t.getMonth()+1,t.getDate(),0);this.observer=e,this.solar=new j(n),this.prevSolar=new j(n-1),this.nextSolar=new j(n+1);const r=A.approximateTransit(e.longitude,this.solar.apparentSiderealTime,this.solar.rightAscension),i=-50/60;this.approxTransit=r,this.transit=A.correctedTransit(r,e.longitude,this.solar.apparentSiderealTime,this.solar.rightAscension,this.prevSolar.rightAscension,this.nextSolar.rightAscension),this.sunrise=A.correctedHourAngle(r,i,e,!1,this.solar.apparentSiderealTime,this.solar.rightAscension,this.prevSolar.rightAscension,this.nextSolar.rightAscension,this.solar.declination,this.prevSolar.declination,this.nextSolar.declination),this.sunset=A.correctedHourAngle(r,i,e,!0,this.solar.apparentSiderealTime,this.solar.rightAscension,this.prevSolar.rightAscension,this.nextSolar.rightAscension,this.solar.declination,this.prevSolar.declination,this.nextSolar.declination)}hourAngle(t,e){return A.correctedHourAngle(this.approxTransit,t,this.observer,e,this.solar.apparentSiderealTime,this.solar.rightAscension,this.prevSolar.rightAscension,this.nextSolar.rightAscension,this.solar.declination,this.prevSolar.declination,this.nextSolar.declination)}afternoon(t){const e=Math.abs(this.observer.latitude-this.solar.declination),n=t+Math.tan(f(e)),r=M(Math.atan(1/n));return this.hourAngle(r,!0)}}const S={AqrabBalad:"AqrabBalad",AqrabYaum:"AqrabYaum",Unresolved:"Unresolved"},v=t=>!isNaN(t.sunrise)&&!isNaN(t.sunset),y=function(t,e){let n=arguments.length>2&&void 0!==arguments[2]?arguments[2]:1,r=arguments.length>3&&void 0!==arguments[3]?arguments[3]:1;if(n>Math.ceil(182.5))return null;const i=new Date(e.getTime());i.setDate(i.getDate()+r*n);const a=h(i,1),s=new T(i,t),o=new T(a,t);return v(s)&&v(o)?{date:e,tomorrow:a,coordinates:t,solarTime:s,tomorrowSolarTime:o}:y(t,e,n+(r>0?0:1),-r)},D=(t,e,n)=>{const i=new T(e,r(r({},t),{},{latitude:n})),a=h(e,1),o=new T(a,r(r({},t),{},{latitude:n}));return v(i)&&v(o)?{date:e,tomorrow:a,coordinates:new s(n,t.longitude),solarTime:i,tomorrowSolarTime:o}:Math.abs(n)>=65?D(t,e,n-.5*Math.sign(n)):null};class O{constructor(t){let n=arguments.length>1&&void 0!==arguments[1]?arguments[1]:0,r=arguments.length>2&&void 0!==arguments[2]?arguments[2]:0,s=arguments.length>3&&void 0!==arguments[3]?arguments[3]:0,h=arguments.length>4&&void 0!==arguments[4]?arguments[4]:0;e(this,"madhab",i.Shafi),e(this,"highLatitudeRule",a.MiddleOfTheNight),e(this,"adjustments",{fajr:0,sunrise:0,dhuhr:0,asr:0,maghrib:0,isha:0}),e(this,"methodAdjustments",{fajr:0,sunrise:0,dhuhr:0,asr:0,maghrib:0,isha:0}),e(this,"polarCircleResolution",S.Unresolved),e(this,"rounding",o.Nearest),e(this,"shafaq",w.General),this.method=t,this.fajrAngle=n,this.ishaAngle=r,this.ishaInterval=s,this.maghribAngle=h,null===this.method&&(this.method="Other")}nightPortions(){switch(this.highLatitudeRule){case a.MiddleOfTheNight:return{fajr:.5,isha:.5};case a.SeventhOfTheNight:return{fajr:1/7,isha:1/7};case a.TwilightAngle:return{fajr:this.fajrAngle/60,isha:this.ishaAngle/60};default:throw"Invalid high latitude rule found when attempting to compute night portions: ".concat(this.highLatitudeRule)}}}const N={MuslimWorldLeague(){const t=new O("MuslimWorldLeague",18,17);return t.methodAdjustments.dhuhr=1,t},Egyptian(){const t=new O("Egyptian",19.5,17.5);return t.methodAdjustments.dhuhr=1,t},Karachi(){const t=new O("Karachi",18,18);return t.methodAdjustments.dhuhr=1,t},UmmAlQura:()=>new O("UmmAlQura",18.5,0,90),Dubai(){const t=new O("Dubai",18.2,18.2);return t.methodAdjustments=r(r({},t.methodAdjustments),{},{sunrise:-3,dhuhr:3,asr:3,maghrib:3}),t},MoonsightingCommittee(){const t=new O("MoonsightingCommittee",18,18);return t.methodAdjustments=r(r({},t.methodAdjustments),{},{dhuhr:5,maghrib:3}),t},NorthAmerica(){const t=new O("NorthAmerica",15,15);return t.methodAdjustments.dhuhr=1,t},Kuwait:()=>new O("Kuwait",18,17.5),Qatar:()=>new O("Qatar",18,0,90),Singapore(){const t=new O("Singapore",20,18);return t.methodAdjustments.dhuhr=1,t.rounding=o.Up,t},Tehran:()=>new O("Tehran",17.7,14,0,4.5),Turkey(){const t=new O("Turkey",18,17);return t.methodAdjustments=r(r({},t.methodAdjustments),{},{sunrise:-7,dhuhr:5,asr:4,maghrib:7}),t},Other:()=>new O("Other",0,0)},P={Fajr:"fajr",Sunrise:"sunrise",Dhuhr:"dhuhr",Asr:"asr",Maghrib:"maghrib",Isha:"isha",None:"none"};class C{constructor(t){return this.hours=Math.floor(t),this.minutes=Math.floor(60*(t-this.hours)),this.seconds=Math.floor(60*(t-(this.hours+this.minutes/60))*60),this}utcDate(t,e,n){return new Date(Date.UTC(t,e,n,this.hours,this.minutes,this.seconds))}}class L{constructor(t,e,n){this.coordinates=t,this.date=e,this.calculationParameters=n;let r,a,s,o,d,f,M,p,b=new T(e,t);s=new C(b.transit).utcDate(e.getFullYear(),e.getMonth(),e.getDate()),a=new C(b.sunrise).utcDate(e.getFullYear(),e.getMonth(),e.getDate()),d=new C(b.sunset).utcDate(e.getFullYear(),e.getMonth(),e.getDate());const w=h(e,1);let j=new T(w,t);const v=n.polarCircleResolution;if((!m(a)||!m(d)||isNaN(j.sunrise))&&v!==S.Unresolved){const n=((t,e,n)=>{const r={date:e,tomorrow:h(e,1),coordinates:n,solarTime:new T(e,n),tomorrowSolarTime:new T(h(e,1),n)};switch(t){case S.AqrabYaum:return y(n,e)||r;case S.AqrabBalad:{const t=n.latitude;return D(n,e,t-.5*Math.sign(t))||r}default:return r}})(v,e,t);b=n.solarTime,j=n.tomorrowSolarTime;const r=[e.getFullYear(),e.getMonth(),e.getDate()];s=new C(b.transit).utcDate(...r),a=new C(b.sunrise).utcDate(...r),d=new C(b.sunset).utcDate(...r)}o=new C(b.afternoon(function(t){switch(t){case i.Shafi:return 1;case i.Hanafi:return 2;default:throw"Invalid Madhab"}}(n.madhab))).utcDate(e.getFullYear(),e.getMonth(),e.getDate());const O=new C(j.sunrise).utcDate(w.getFullYear(),w.getMonth(),w.getDate()),N=(Number(O)-Number(d))/1e3;r=new C(b.hourAngle(-1*n.fajrAngle,!1)).utcDate(e.getFullYear(),e.getMonth(),e.getDate()),"MoonsightingCommittee"===n.method&&t.latitude>=55&&(p=N/7,r=l(a,-p));const P=function(){if("MoonsightingCommittee"===n.method)return A.seasonAdjustedMorningTwilight(t.latitude,g(e),e.getFullYear(),a);{const t=n.nightPortions().fajr;return p=t*N,l(a,-p)}}();if((isNaN(r.getTime())||P>r)&&(r=P),n.ishaInterval>0)M=u(d,n.ishaInterval);else{M=new C(b.hourAngle(-1*n.ishaAngle,!0)).utcDate(e.getFullYear(),e.getMonth(),e.getDate()),"MoonsightingCommittee"===n.method&&t.latitude>=55&&(p=N/7,M=l(d,p));const r=function(){if("MoonsightingCommittee"===n.method)return A.seasonAdjustedEveningTwilight(t.latitude,g(e),e.getFullYear(),d,n.shafaq);{const t=n.nightPortions().isha;return p=t*N,l(d,p)}}();(isNaN(M.getTime())||r<M)&&(M=r)}if(f=d,n.maghribAngle){const t=new C(b.hourAngle(-1*n.maghribAngle,!0)).utcDate(e.getFullYear(),e.getMonth(),e.getDate());d<t&&M>t&&(f=t)}const L=(n.adjustments.fajr||0)+(n.methodAdjustments.fajr||0),F=(n.adjustments.sunrise||0)+(n.methodAdjustments.sunrise||0),q=(n.adjustments.dhuhr||0)+(n.methodAdjustments.dhuhr||0),Y=(n.adjustments.asr||0)+(n.methodAdjustments.asr||0),x=(n.adjustments.maghrib||0)+(n.methodAdjustments.maghrib||0),I=(n.adjustments.isha||0)+(n.methodAdjustments.isha||0);this.fajr=c(u(r,L),n.rounding),this.sunrise=c(u(a,F),n.rounding),this.dhuhr=c(u(s,q),n.rounding),this.asr=c(u(o,Y),n.rounding),this.sunset=c(d,n.rounding),this.maghrib=c(u(f,x),n.rounding),this.isha=c(u(M,I),n.rounding)}timeForPrayer(t){return t===P.Fajr?this.fajr:t===P.Sunrise?this.sunrise:t===P.Dhuhr?this.dhuhr:t===P.Asr?this.asr:t===P.Maghrib?this.maghrib:t===P.Isha?this.isha:null}currentPrayer(){let t=arguments.length>0&&void 0!==arguments[0]?arguments[0]:new Date;return t>=this.isha?P.Isha:t>=this.maghrib?P.Maghrib:t>=this.asr?P.Asr:t>=this.dhuhr?P.Dhuhr:t>=this.sunrise?P.Sunrise:t>=this.fajr?P.Fajr:P.None}nextPrayer(){let t=arguments.length>0&&void 0!==arguments[0]?arguments[0]:new Date;return t>=this.isha?P.None:t>=this.maghrib?P.Isha:t>=this.asr?P.Maghrib:t>=this.dhuhr?P.Asr:t>=this.sunrise?P.Dhuhr:t>=this.fajr?P.Sunrise:P.Fajr}}t.CalculationMethod=N,t.CalculationParameters=O,t.Coordinates=s,t.HighLatitudeRule=a,t.Madhab=i,t.PolarCircleResolution=S,t.Prayer=P,t.PrayerTimes=L,t.Qibla=function(t){const e=new s(21.4225241,39.8261818),n=Math.sin(f(e.longitude)-f(t.longitude)),r=Math.cos(f(t.latitude))*Math.tan(f(e.latitude)),i=Math.sin(f(t.latitude))*Math.cos(f(e.longitude)-f(t.longitude));return b(M(Math.atan2(n,r-i)))},t.Rounding=o,t.Shafaq=w,t.SunnahTimes=class{constructor(t){const e=h(t.date,1),n=(new L(t.coordinates,e,t.calculationParameters).fajr.getTime()-t.maghrib.getTime())/1e3;this.middleOfTheNight=c(l(t.maghrib,n/2)),this.lastThirdOfTheNight=c(l(t.maghrib,n*(2/3)))}}});
 
 </script>
+<script>/* qrcode-generator 1.4.4 — MIT License, Copyright (c) 2009 Kazuhiko Arase */
+
+var qrcode = function() {
+
+  //---------------------------------------------------------------------
+  // qrcode
+  //---------------------------------------------------------------------
+
+  /**
+   * qrcode
+   * @param typeNumber 1 to 40
+   * @param errorCorrectionLevel 'L','M','Q','H'
+   */
+  var qrcode = function(typeNumber, errorCorrectionLevel) {
+
+    var PAD0 = 0xEC;
+    var PAD1 = 0x11;
+
+    var _typeNumber = typeNumber;
+    var _errorCorrectionLevel = QRErrorCorrectionLevel[errorCorrectionLevel];
+    var _modules = null;
+    var _moduleCount = 0;
+    var _dataCache = null;
+    var _dataList = [];
+
+    var _this = {};
+
+    var makeImpl = function(test, maskPattern) {
+
+      _moduleCount = _typeNumber * 4 + 17;
+      _modules = function(moduleCount) {
+        var modules = new Array(moduleCount);
+        for (var row = 0; row < moduleCount; row += 1) {
+          modules[row] = new Array(moduleCount);
+          for (var col = 0; col < moduleCount; col += 1) {
+            modules[row][col] = null;
+          }
+        }
+        return modules;
+      }(_moduleCount);
+
+      setupPositionProbePattern(0, 0);
+      setupPositionProbePattern(_moduleCount - 7, 0);
+      setupPositionProbePattern(0, _moduleCount - 7);
+      setupPositionAdjustPattern();
+      setupTimingPattern();
+      setupTypeInfo(test, maskPattern);
+
+      if (_typeNumber >= 7) {
+        setupTypeNumber(test);
+      }
+
+      if (_dataCache == null) {
+        _dataCache = createData(_typeNumber, _errorCorrectionLevel, _dataList);
+      }
+
+      mapData(_dataCache, maskPattern);
+    };
+
+    var setupPositionProbePattern = function(row, col) {
+
+      for (var r = -1; r <= 7; r += 1) {
+
+        if (row + r <= -1 || _moduleCount <= row + r) continue;
+
+        for (var c = -1; c <= 7; c += 1) {
+
+          if (col + c <= -1 || _moduleCount <= col + c) continue;
+
+          if ( (0 <= r && r <= 6 && (c == 0 || c == 6) )
+              || (0 <= c && c <= 6 && (r == 0 || r == 6) )
+              || (2 <= r && r <= 4 && 2 <= c && c <= 4) ) {
+            _modules[row + r][col + c] = true;
+          } else {
+            _modules[row + r][col + c] = false;
+          }
+        }
+      }
+    };
+
+    var getBestMaskPattern = function() {
+
+      var minLostPoint = 0;
+      var pattern = 0;
+
+      for (var i = 0; i < 8; i += 1) {
+
+        makeImpl(true, i);
+
+        var lostPoint = QRUtil.getLostPoint(_this);
+
+        if (i == 0 || minLostPoint > lostPoint) {
+          minLostPoint = lostPoint;
+          pattern = i;
+        }
+      }
+
+      return pattern;
+    };
+
+    var setupTimingPattern = function() {
+
+      for (var r = 8; r < _moduleCount - 8; r += 1) {
+        if (_modules[r][6] != null) {
+          continue;
+        }
+        _modules[r][6] = (r % 2 == 0);
+      }
+
+      for (var c = 8; c < _moduleCount - 8; c += 1) {
+        if (_modules[6][c] != null) {
+          continue;
+        }
+        _modules[6][c] = (c % 2 == 0);
+      }
+    };
+
+    var setupPositionAdjustPattern = function() {
+
+      var pos = QRUtil.getPatternPosition(_typeNumber);
+
+      for (var i = 0; i < pos.length; i += 1) {
+
+        for (var j = 0; j < pos.length; j += 1) {
+
+          var row = pos[i];
+          var col = pos[j];
+
+          if (_modules[row][col] != null) {
+            continue;
+          }
+
+          for (var r = -2; r <= 2; r += 1) {
+
+            for (var c = -2; c <= 2; c += 1) {
+
+              if (r == -2 || r == 2 || c == -2 || c == 2
+                  || (r == 0 && c == 0) ) {
+                _modules[row + r][col + c] = true;
+              } else {
+                _modules[row + r][col + c] = false;
+              }
+            }
+          }
+        }
+      }
+    };
+
+    var setupTypeNumber = function(test) {
+
+      var bits = QRUtil.getBCHTypeNumber(_typeNumber);
+
+      for (var i = 0; i < 18; i += 1) {
+        var mod = (!test && ( (bits >> i) & 1) == 1);
+        _modules[Math.floor(i / 3)][i % 3 + _moduleCount - 8 - 3] = mod;
+      }
+
+      for (var i = 0; i < 18; i += 1) {
+        var mod = (!test && ( (bits >> i) & 1) == 1);
+        _modules[i % 3 + _moduleCount - 8 - 3][Math.floor(i / 3)] = mod;
+      }
+    };
+
+    var setupTypeInfo = function(test, maskPattern) {
+
+      var data = (_errorCorrectionLevel << 3) | maskPattern;
+      var bits = QRUtil.getBCHTypeInfo(data);
+
+      // vertical
+      for (var i = 0; i < 15; i += 1) {
+
+        var mod = (!test && ( (bits >> i) & 1) == 1);
+
+        if (i < 6) {
+          _modules[i][8] = mod;
+        } else if (i < 8) {
+          _modules[i + 1][8] = mod;
+        } else {
+          _modules[_moduleCount - 15 + i][8] = mod;
+        }
+      }
+
+      // horizontal
+      for (var i = 0; i < 15; i += 1) {
+
+        var mod = (!test && ( (bits >> i) & 1) == 1);
+
+        if (i < 8) {
+          _modules[8][_moduleCount - i - 1] = mod;
+        } else if (i < 9) {
+          _modules[8][15 - i - 1 + 1] = mod;
+        } else {
+          _modules[8][15 - i - 1] = mod;
+        }
+      }
+
+      // fixed module
+      _modules[_moduleCount - 8][8] = (!test);
+    };
+
+    var mapData = function(data, maskPattern) {
+
+      var inc = -1;
+      var row = _moduleCount - 1;
+      var bitIndex = 7;
+      var byteIndex = 0;
+      var maskFunc = QRUtil.getMaskFunction(maskPattern);
+
+      for (var col = _moduleCount - 1; col > 0; col -= 2) {
+
+        if (col == 6) col -= 1;
+
+        while (true) {
+
+          for (var c = 0; c < 2; c += 1) {
+
+            if (_modules[row][col - c] == null) {
+
+              var dark = false;
+
+              if (byteIndex < data.length) {
+                dark = ( ( (data[byteIndex] >>> bitIndex) & 1) == 1);
+              }
+
+              var mask = maskFunc(row, col - c);
+
+              if (mask) {
+                dark = !dark;
+              }
+
+              _modules[row][col - c] = dark;
+              bitIndex -= 1;
+
+              if (bitIndex == -1) {
+                byteIndex += 1;
+                bitIndex = 7;
+              }
+            }
+          }
+
+          row += inc;
+
+          if (row < 0 || _moduleCount <= row) {
+            row -= inc;
+            inc = -inc;
+            break;
+          }
+        }
+      }
+    };
+
+    var createBytes = function(buffer, rsBlocks) {
+
+      var offset = 0;
+
+      var maxDcCount = 0;
+      var maxEcCount = 0;
+
+      var dcdata = new Array(rsBlocks.length);
+      var ecdata = new Array(rsBlocks.length);
+
+      for (var r = 0; r < rsBlocks.length; r += 1) {
+
+        var dcCount = rsBlocks[r].dataCount;
+        var ecCount = rsBlocks[r].totalCount - dcCount;
+
+        maxDcCount = Math.max(maxDcCount, dcCount);
+        maxEcCount = Math.max(maxEcCount, ecCount);
+
+        dcdata[r] = new Array(dcCount);
+
+        for (var i = 0; i < dcdata[r].length; i += 1) {
+          dcdata[r][i] = 0xff & buffer.getBuffer()[i + offset];
+        }
+        offset += dcCount;
+
+        var rsPoly = QRUtil.getErrorCorrectPolynomial(ecCount);
+        var rawPoly = qrPolynomial(dcdata[r], rsPoly.getLength() - 1);
+
+        var modPoly = rawPoly.mod(rsPoly);
+        ecdata[r] = new Array(rsPoly.getLength() - 1);
+        for (var i = 0; i < ecdata[r].length; i += 1) {
+          var modIndex = i + modPoly.getLength() - ecdata[r].length;
+          ecdata[r][i] = (modIndex >= 0)? modPoly.getAt(modIndex) : 0;
+        }
+      }
+
+      var totalCodeCount = 0;
+      for (var i = 0; i < rsBlocks.length; i += 1) {
+        totalCodeCount += rsBlocks[i].totalCount;
+      }
+
+      var data = new Array(totalCodeCount);
+      var index = 0;
+
+      for (var i = 0; i < maxDcCount; i += 1) {
+        for (var r = 0; r < rsBlocks.length; r += 1) {
+          if (i < dcdata[r].length) {
+            data[index] = dcdata[r][i];
+            index += 1;
+          }
+        }
+      }
+
+      for (var i = 0; i < maxEcCount; i += 1) {
+        for (var r = 0; r < rsBlocks.length; r += 1) {
+          if (i < ecdata[r].length) {
+            data[index] = ecdata[r][i];
+            index += 1;
+          }
+        }
+      }
+
+      return data;
+    };
+
+    var createData = function(typeNumber, errorCorrectionLevel, dataList) {
+
+      var rsBlocks = QRRSBlock.getRSBlocks(typeNumber, errorCorrectionLevel);
+
+      var buffer = qrBitBuffer();
+
+      for (var i = 0; i < dataList.length; i += 1) {
+        var data = dataList[i];
+        buffer.put(data.getMode(), 4);
+        buffer.put(data.getLength(), QRUtil.getLengthInBits(data.getMode(), typeNumber) );
+        data.write(buffer);
+      }
+
+      // calc num max data.
+      var totalDataCount = 0;
+      for (var i = 0; i < rsBlocks.length; i += 1) {
+        totalDataCount += rsBlocks[i].dataCount;
+      }
+
+      if (buffer.getLengthInBits() > totalDataCount * 8) {
+        throw 'code length overflow. ('
+          + buffer.getLengthInBits()
+          + '>'
+          + totalDataCount * 8
+          + ')';
+      }
+
+      // end code
+      if (buffer.getLengthInBits() + 4 <= totalDataCount * 8) {
+        buffer.put(0, 4);
+      }
+
+      // padding
+      while (buffer.getLengthInBits() % 8 != 0) {
+        buffer.putBit(false);
+      }
+
+      // padding
+      while (true) {
+
+        if (buffer.getLengthInBits() >= totalDataCount * 8) {
+          break;
+        }
+        buffer.put(PAD0, 8);
+
+        if (buffer.getLengthInBits() >= totalDataCount * 8) {
+          break;
+        }
+        buffer.put(PAD1, 8);
+      }
+
+      return createBytes(buffer, rsBlocks);
+    };
+
+    _this.addData = function(data, mode) {
+
+      mode = mode || 'Byte';
+
+      var newData = null;
+
+      switch(mode) {
+      case 'Numeric' :
+        newData = qrNumber(data);
+        break;
+      case 'Alphanumeric' :
+        newData = qrAlphaNum(data);
+        break;
+      case 'Byte' :
+        newData = qr8BitByte(data);
+        break;
+      case 'Kanji' :
+        newData = qrKanji(data);
+        break;
+      default :
+        throw 'mode:' + mode;
+      }
+
+      _dataList.push(newData);
+      _dataCache = null;
+    };
+
+    _this.isDark = function(row, col) {
+      if (row < 0 || _moduleCount <= row || col < 0 || _moduleCount <= col) {
+        throw row + ',' + col;
+      }
+      return _modules[row][col];
+    };
+
+    _this.getModuleCount = function() {
+      return _moduleCount;
+    };
+
+    _this.make = function() {
+      if (_typeNumber < 1) {
+        var typeNumber = 1;
+
+        for (; typeNumber < 40; typeNumber++) {
+          var rsBlocks = QRRSBlock.getRSBlocks(typeNumber, _errorCorrectionLevel);
+          var buffer = qrBitBuffer();
+
+          for (var i = 0; i < _dataList.length; i++) {
+            var data = _dataList[i];
+            buffer.put(data.getMode(), 4);
+            buffer.put(data.getLength(), QRUtil.getLengthInBits(data.getMode(), typeNumber) );
+            data.write(buffer);
+          }
+
+          var totalDataCount = 0;
+          for (var i = 0; i < rsBlocks.length; i++) {
+            totalDataCount += rsBlocks[i].dataCount;
+          }
+
+          if (buffer.getLengthInBits() <= totalDataCount * 8) {
+            break;
+          }
+        }
+
+        _typeNumber = typeNumber;
+      }
+
+      makeImpl(false, getBestMaskPattern() );
+    };
+
+    _this.createTableTag = function(cellSize, margin) {
+
+      cellSize = cellSize || 2;
+      margin = (typeof margin == 'undefined')? cellSize * 4 : margin;
+
+      var qrHtml = '';
+
+      qrHtml += '<table style="';
+      qrHtml += ' border-width: 0px; border-style: none;';
+      qrHtml += ' border-collapse: collapse;';
+      qrHtml += ' padding: 0px; margin: ' + margin + 'px;';
+      qrHtml += '">';
+      qrHtml += '<tbody>';
+
+      for (var r = 0; r < _this.getModuleCount(); r += 1) {
+
+        qrHtml += '<tr>';
+
+        for (var c = 0; c < _this.getModuleCount(); c += 1) {
+          qrHtml += '<td style="';
+          qrHtml += ' border-width: 0px; border-style: none;';
+          qrHtml += ' border-collapse: collapse;';
+          qrHtml += ' padding: 0px; margin: 0px;';
+          qrHtml += ' width: ' + cellSize + 'px;';
+          qrHtml += ' height: ' + cellSize + 'px;';
+          qrHtml += ' background-color: ';
+          qrHtml += _this.isDark(r, c)? '#000000' : '#ffffff';
+          qrHtml += ';';
+          qrHtml += '"/>';
+        }
+
+        qrHtml += '</tr>';
+      }
+
+      qrHtml += '</tbody>';
+      qrHtml += '</table>';
+
+      return qrHtml;
+    };
+
+    _this.createSvgTag = function(cellSize, margin, alt, title) {
+
+      var opts = {};
+      if (typeof arguments[0] == 'object') {
+        // Called by options.
+        opts = arguments[0];
+        // overwrite cellSize and margin.
+        cellSize = opts.cellSize;
+        margin = opts.margin;
+        alt = opts.alt;
+        title = opts.title;
+      }
+
+      cellSize = cellSize || 2;
+      margin = (typeof margin == 'undefined')? cellSize * 4 : margin;
+
+      // Compose alt property surrogate
+      alt = (typeof alt === 'string') ? {text: alt} : alt || {};
+      alt.text = alt.text || null;
+      alt.id = (alt.text) ? alt.id || 'qrcode-description' : null;
+
+      // Compose title property surrogate
+      title = (typeof title === 'string') ? {text: title} : title || {};
+      title.text = title.text || null;
+      title.id = (title.text) ? title.id || 'qrcode-title' : null;
+
+      var size = _this.getModuleCount() * cellSize + margin * 2;
+      var c, mc, r, mr, qrSvg='', rect;
+
+      rect = 'l' + cellSize + ',0 0,' + cellSize +
+        ' -' + cellSize + ',0 0,-' + cellSize + 'z ';
+
+      qrSvg += '<svg version="1.1" xmlns="http://www.w3.org/2000/svg"';
+      qrSvg += !opts.scalable ? ' width="' + size + 'px" height="' + size + 'px"' : '';
+      qrSvg += ' viewBox="0 0 ' + size + ' ' + size + '" ';
+      qrSvg += ' preserveAspectRatio="xMinYMin meet"';
+      qrSvg += (title.text || alt.text) ? ' role="img" aria-labelledby="' +
+          escapeXml([title.id, alt.id].join(' ').trim() ) + '"' : '';
+      qrSvg += '>';
+      qrSvg += (title.text) ? '<title id="' + escapeXml(title.id) + '">' +
+          escapeXml(title.text) + '</title>' : '';
+      qrSvg += (alt.text) ? '<description id="' + escapeXml(alt.id) + '">' +
+          escapeXml(alt.text) + '</description>' : '';
+      qrSvg += '<rect width="100%" height="100%" fill="white" cx="0" cy="0"/>';
+      qrSvg += '<path d="';
+
+      for (r = 0; r < _this.getModuleCount(); r += 1) {
+        mr = r * cellSize + margin;
+        for (c = 0; c < _this.getModuleCount(); c += 1) {
+          if (_this.isDark(r, c) ) {
+            mc = c*cellSize+margin;
+            qrSvg += 'M' + mc + ',' + mr + rect;
+          }
+        }
+      }
+
+      qrSvg += '" stroke="transparent" fill="black"/>';
+      qrSvg += '</svg>';
+
+      return qrSvg;
+    };
+
+    _this.createDataURL = function(cellSize, margin) {
+
+      cellSize = cellSize || 2;
+      margin = (typeof margin == 'undefined')? cellSize * 4 : margin;
+
+      var size = _this.getModuleCount() * cellSize + margin * 2;
+      var min = margin;
+      var max = size - margin;
+
+      return createDataURL(size, size, function(x, y) {
+        if (min <= x && x < max && min <= y && y < max) {
+          var c = Math.floor( (x - min) / cellSize);
+          var r = Math.floor( (y - min) / cellSize);
+          return _this.isDark(r, c)? 0 : 1;
+        } else {
+          return 1;
+        }
+      } );
+    };
+
+    _this.createImgTag = function(cellSize, margin, alt) {
+
+      cellSize = cellSize || 2;
+      margin = (typeof margin == 'undefined')? cellSize * 4 : margin;
+
+      var size = _this.getModuleCount() * cellSize + margin * 2;
+
+      var img = '';
+      img += '<img';
+      img += '\u0020src="';
+      img += _this.createDataURL(cellSize, margin);
+      img += '"';
+      img += '\u0020width="';
+      img += size;
+      img += '"';
+      img += '\u0020height="';
+      img += size;
+      img += '"';
+      if (alt) {
+        img += '\u0020alt="';
+        img += escapeXml(alt);
+        img += '"';
+      }
+      img += '/>';
+
+      return img;
+    };
+
+    var escapeXml = function(s) {
+      var escaped = '';
+      for (var i = 0; i < s.length; i += 1) {
+        var c = s.charAt(i);
+        switch(c) {
+        case '<': escaped += '&lt;'; break;
+        case '>': escaped += '&gt;'; break;
+        case '&': escaped += '&amp;'; break;
+        case '"': escaped += '&quot;'; break;
+        default : escaped += c; break;
+        }
+      }
+      return escaped;
+    };
+
+    var _createHalfASCII = function(margin) {
+      var cellSize = 1;
+      margin = (typeof margin == 'undefined')? cellSize * 2 : margin;
+
+      var size = _this.getModuleCount() * cellSize + margin * 2;
+      var min = margin;
+      var max = size - margin;
+
+      var y, x, r1, r2, p;
+
+      var blocks = {
+        '██': '█',
+        '█ ': '▀',
+        ' █': '▄',
+        '  ': ' '
+      };
+
+      var blocksLastLineNoMargin = {
+        '██': '▀',
+        '█ ': '▀',
+        ' █': ' ',
+        '  ': ' '
+      };
+
+      var ascii = '';
+      for (y = 0; y < size; y += 2) {
+        r1 = Math.floor((y - min) / cellSize);
+        r2 = Math.floor((y + 1 - min) / cellSize);
+        for (x = 0; x < size; x += 1) {
+          p = '█';
+
+          if (min <= x && x < max && min <= y && y < max && _this.isDark(r1, Math.floor((x - min) / cellSize))) {
+            p = ' ';
+          }
+
+          if (min <= x && x < max && min <= y+1 && y+1 < max && _this.isDark(r2, Math.floor((x - min) / cellSize))) {
+            p += ' ';
+          }
+          else {
+            p += '█';
+          }
+
+          // Output 2 characters per pixel, to create full square. 1 character per pixels gives only half width of square.
+          ascii += (margin < 1 && y+1 >= max) ? blocksLastLineNoMargin[p] : blocks[p];
+        }
+
+        ascii += '\n';
+      }
+
+      if (size % 2 && margin > 0) {
+        return ascii.substring(0, ascii.length - size - 1) + Array(size+1).join('▀');
+      }
+
+      return ascii.substring(0, ascii.length-1);
+    };
+
+    _this.createASCII = function(cellSize, margin) {
+      cellSize = cellSize || 1;
+
+      if (cellSize < 2) {
+        return _createHalfASCII(margin);
+      }
+
+      cellSize -= 1;
+      margin = (typeof margin == 'undefined')? cellSize * 2 : margin;
+
+      var size = _this.getModuleCount() * cellSize + margin * 2;
+      var min = margin;
+      var max = size - margin;
+
+      var y, x, r, p;
+
+      var white = Array(cellSize+1).join('██');
+      var black = Array(cellSize+1).join('  ');
+
+      var ascii = '';
+      var line = '';
+      for (y = 0; y < size; y += 1) {
+        r = Math.floor( (y - min) / cellSize);
+        line = '';
+        for (x = 0; x < size; x += 1) {
+          p = 1;
+
+          if (min <= x && x < max && min <= y && y < max && _this.isDark(r, Math.floor((x - min) / cellSize))) {
+            p = 0;
+          }
+
+          // Output 2 characters per pixel, to create full square. 1 character per pixels gives only half width of square.
+          line += p ? white : black;
+        }
+
+        for (r = 0; r < cellSize; r += 1) {
+          ascii += line + '\n';
+        }
+      }
+
+      return ascii.substring(0, ascii.length-1);
+    };
+
+    _this.renderTo2dContext = function(context, cellSize) {
+      cellSize = cellSize || 2;
+      var length = _this.getModuleCount();
+      for (var row = 0; row < length; row++) {
+        for (var col = 0; col < length; col++) {
+          context.fillStyle = _this.isDark(row, col) ? 'black' : 'white';
+          context.fillRect(row * cellSize, col * cellSize, cellSize, cellSize);
+        }
+      }
+    }
+
+    return _this;
+  };
+
+  //---------------------------------------------------------------------
+  // qrcode.stringToBytes
+  //---------------------------------------------------------------------
+
+  qrcode.stringToBytesFuncs = {
+    'default' : function(s) {
+      var bytes = [];
+      for (var i = 0; i < s.length; i += 1) {
+        var c = s.charCodeAt(i);
+        bytes.push(c & 0xff);
+      }
+      return bytes;
+    }
+  };
+
+  qrcode.stringToBytes = qrcode.stringToBytesFuncs['default'];
+
+  //---------------------------------------------------------------------
+  // qrcode.createStringToBytes
+  //---------------------------------------------------------------------
+
+  /**
+   * @param unicodeData base64 string of byte array.
+   * [16bit Unicode],[16bit Bytes], ...
+   * @param numChars
+   */
+  qrcode.createStringToBytes = function(unicodeData, numChars) {
+
+    // create conversion map.
+
+    var unicodeMap = function() {
+
+      var bin = base64DecodeInputStream(unicodeData);
+      var read = function() {
+        var b = bin.read();
+        if (b == -1) throw 'eof';
+        return b;
+      };
+
+      var count = 0;
+      var unicodeMap = {};
+      while (true) {
+        var b0 = bin.read();
+        if (b0 == -1) break;
+        var b1 = read();
+        var b2 = read();
+        var b3 = read();
+        var k = String.fromCharCode( (b0 << 8) | b1);
+        var v = (b2 << 8) | b3;
+        unicodeMap[k] = v;
+        count += 1;
+      }
+      if (count != numChars) {
+        throw count + ' != ' + numChars;
+      }
+
+      return unicodeMap;
+    }();
+
+    var unknownChar = '?'.charCodeAt(0);
+
+    return function(s) {
+      var bytes = [];
+      for (var i = 0; i < s.length; i += 1) {
+        var c = s.charCodeAt(i);
+        if (c < 128) {
+          bytes.push(c);
+        } else {
+          var b = unicodeMap[s.charAt(i)];
+          if (typeof b == 'number') {
+            if ( (b & 0xff) == b) {
+              // 1byte
+              bytes.push(b);
+            } else {
+              // 2bytes
+              bytes.push(b >>> 8);
+              bytes.push(b & 0xff);
+            }
+          } else {
+            bytes.push(unknownChar);
+          }
+        }
+      }
+      return bytes;
+    };
+  };
+
+  //---------------------------------------------------------------------
+  // QRMode
+  //---------------------------------------------------------------------
+
+  var QRMode = {
+    MODE_NUMBER :    1 << 0,
+    MODE_ALPHA_NUM : 1 << 1,
+    MODE_8BIT_BYTE : 1 << 2,
+    MODE_KANJI :     1 << 3
+  };
+
+  //---------------------------------------------------------------------
+  // QRErrorCorrectionLevel
+  //---------------------------------------------------------------------
+
+  var QRErrorCorrectionLevel = {
+    L : 1,
+    M : 0,
+    Q : 3,
+    H : 2
+  };
+
+  //---------------------------------------------------------------------
+  // QRMaskPattern
+  //---------------------------------------------------------------------
+
+  var QRMaskPattern = {
+    PATTERN000 : 0,
+    PATTERN001 : 1,
+    PATTERN010 : 2,
+    PATTERN011 : 3,
+    PATTERN100 : 4,
+    PATTERN101 : 5,
+    PATTERN110 : 6,
+    PATTERN111 : 7
+  };
+
+  //---------------------------------------------------------------------
+  // QRUtil
+  //---------------------------------------------------------------------
+
+  var QRUtil = function() {
+
+    var PATTERN_POSITION_TABLE = [
+      [],
+      [6, 18],
+      [6, 22],
+      [6, 26],
+      [6, 30],
+      [6, 34],
+      [6, 22, 38],
+      [6, 24, 42],
+      [6, 26, 46],
+      [6, 28, 50],
+      [6, 30, 54],
+      [6, 32, 58],
+      [6, 34, 62],
+      [6, 26, 46, 66],
+      [6, 26, 48, 70],
+      [6, 26, 50, 74],
+      [6, 30, 54, 78],
+      [6, 30, 56, 82],
+      [6, 30, 58, 86],
+      [6, 34, 62, 90],
+      [6, 28, 50, 72, 94],
+      [6, 26, 50, 74, 98],
+      [6, 30, 54, 78, 102],
+      [6, 28, 54, 80, 106],
+      [6, 32, 58, 84, 110],
+      [6, 30, 58, 86, 114],
+      [6, 34, 62, 90, 118],
+      [6, 26, 50, 74, 98, 122],
+      [6, 30, 54, 78, 102, 126],
+      [6, 26, 52, 78, 104, 130],
+      [6, 30, 56, 82, 108, 134],
+      [6, 34, 60, 86, 112, 138],
+      [6, 30, 58, 86, 114, 142],
+      [6, 34, 62, 90, 118, 146],
+      [6, 30, 54, 78, 102, 126, 150],
+      [6, 24, 50, 76, 102, 128, 154],
+      [6, 28, 54, 80, 106, 132, 158],
+      [6, 32, 58, 84, 110, 136, 162],
+      [6, 26, 54, 82, 110, 138, 166],
+      [6, 30, 58, 86, 114, 142, 170]
+    ];
+    var G15 = (1 << 10) | (1 << 8) | (1 << 5) | (1 << 4) | (1 << 2) | (1 << 1) | (1 << 0);
+    var G18 = (1 << 12) | (1 << 11) | (1 << 10) | (1 << 9) | (1 << 8) | (1 << 5) | (1 << 2) | (1 << 0);
+    var G15_MASK = (1 << 14) | (1 << 12) | (1 << 10) | (1 << 4) | (1 << 1);
+
+    var _this = {};
+
+    var getBCHDigit = function(data) {
+      var digit = 0;
+      while (data != 0) {
+        digit += 1;
+        data >>>= 1;
+      }
+      return digit;
+    };
+
+    _this.getBCHTypeInfo = function(data) {
+      var d = data << 10;
+      while (getBCHDigit(d) - getBCHDigit(G15) >= 0) {
+        d ^= (G15 << (getBCHDigit(d) - getBCHDigit(G15) ) );
+      }
+      return ( (data << 10) | d) ^ G15_MASK;
+    };
+
+    _this.getBCHTypeNumber = function(data) {
+      var d = data << 12;
+      while (getBCHDigit(d) - getBCHDigit(G18) >= 0) {
+        d ^= (G18 << (getBCHDigit(d) - getBCHDigit(G18) ) );
+      }
+      return (data << 12) | d;
+    };
+
+    _this.getPatternPosition = function(typeNumber) {
+      return PATTERN_POSITION_TABLE[typeNumber - 1];
+    };
+
+    _this.getMaskFunction = function(maskPattern) {
+
+      switch (maskPattern) {
+
+      case QRMaskPattern.PATTERN000 :
+        return function(i, j) { return (i + j) % 2 == 0; };
+      case QRMaskPattern.PATTERN001 :
+        return function(i, j) { return i % 2 == 0; };
+      case QRMaskPattern.PATTERN010 :
+        return function(i, j) { return j % 3 == 0; };
+      case QRMaskPattern.PATTERN011 :
+        return function(i, j) { return (i + j) % 3 == 0; };
+      case QRMaskPattern.PATTERN100 :
+        return function(i, j) { return (Math.floor(i / 2) + Math.floor(j / 3) ) % 2 == 0; };
+      case QRMaskPattern.PATTERN101 :
+        return function(i, j) { return (i * j) % 2 + (i * j) % 3 == 0; };
+      case QRMaskPattern.PATTERN110 :
+        return function(i, j) { return ( (i * j) % 2 + (i * j) % 3) % 2 == 0; };
+      case QRMaskPattern.PATTERN111 :
+        return function(i, j) { return ( (i * j) % 3 + (i + j) % 2) % 2 == 0; };
+
+      default :
+        throw 'bad maskPattern:' + maskPattern;
+      }
+    };
+
+    _this.getErrorCorrectPolynomial = function(errorCorrectLength) {
+      var a = qrPolynomial([1], 0);
+      for (var i = 0; i < errorCorrectLength; i += 1) {
+        a = a.multiply(qrPolynomial([1, QRMath.gexp(i)], 0) );
+      }
+      return a;
+    };
+
+    _this.getLengthInBits = function(mode, type) {
+
+      if (1 <= type && type < 10) {
+
+        // 1 - 9
+
+        switch(mode) {
+        case QRMode.MODE_NUMBER    : return 10;
+        case QRMode.MODE_ALPHA_NUM : return 9;
+        case QRMode.MODE_8BIT_BYTE : return 8;
+        case QRMode.MODE_KANJI     : return 8;
+        default :
+          throw 'mode:' + mode;
+        }
+
+      } else if (type < 27) {
+
+        // 10 - 26
+
+        switch(mode) {
+        case QRMode.MODE_NUMBER    : return 12;
+        case QRMode.MODE_ALPHA_NUM : return 11;
+        case QRMode.MODE_8BIT_BYTE : return 16;
+        case QRMode.MODE_KANJI     : return 10;
+        default :
+          throw 'mode:' + mode;
+        }
+
+      } else if (type < 41) {
+
+        // 27 - 40
+
+        switch(mode) {
+        case QRMode.MODE_NUMBER    : return 14;
+        case QRMode.MODE_ALPHA_NUM : return 13;
+        case QRMode.MODE_8BIT_BYTE : return 16;
+        case QRMode.MODE_KANJI     : return 12;
+        default :
+          throw 'mode:' + mode;
+        }
+
+      } else {
+        throw 'type:' + type;
+      }
+    };
+
+    _this.getLostPoint = function(qrcode) {
+
+      var moduleCount = qrcode.getModuleCount();
+
+      var lostPoint = 0;
+
+      // LEVEL1
+
+      for (var row = 0; row < moduleCount; row += 1) {
+        for (var col = 0; col < moduleCount; col += 1) {
+
+          var sameCount = 0;
+          var dark = qrcode.isDark(row, col);
+
+          for (var r = -1; r <= 1; r += 1) {
+
+            if (row + r < 0 || moduleCount <= row + r) {
+              continue;
+            }
+
+            for (var c = -1; c <= 1; c += 1) {
+
+              if (col + c < 0 || moduleCount <= col + c) {
+                continue;
+              }
+
+              if (r == 0 && c == 0) {
+                continue;
+              }
+
+              if (dark == qrcode.isDark(row + r, col + c) ) {
+                sameCount += 1;
+              }
+            }
+          }
+
+          if (sameCount > 5) {
+            lostPoint += (3 + sameCount - 5);
+          }
+        }
+      };
+
+      // LEVEL2
+
+      for (var row = 0; row < moduleCount - 1; row += 1) {
+        for (var col = 0; col < moduleCount - 1; col += 1) {
+          var count = 0;
+          if (qrcode.isDark(row, col) ) count += 1;
+          if (qrcode.isDark(row + 1, col) ) count += 1;
+          if (qrcode.isDark(row, col + 1) ) count += 1;
+          if (qrcode.isDark(row + 1, col + 1) ) count += 1;
+          if (count == 0 || count == 4) {
+            lostPoint += 3;
+          }
+        }
+      }
+
+      // LEVEL3
+
+      for (var row = 0; row < moduleCount; row += 1) {
+        for (var col = 0; col < moduleCount - 6; col += 1) {
+          if (qrcode.isDark(row, col)
+              && !qrcode.isDark(row, col + 1)
+              &&  qrcode.isDark(row, col + 2)
+              &&  qrcode.isDark(row, col + 3)
+              &&  qrcode.isDark(row, col + 4)
+              && !qrcode.isDark(row, col + 5)
+              &&  qrcode.isDark(row, col + 6) ) {
+            lostPoint += 40;
+          }
+        }
+      }
+
+      for (var col = 0; col < moduleCount; col += 1) {
+        for (var row = 0; row < moduleCount - 6; row += 1) {
+          if (qrcode.isDark(row, col)
+              && !qrcode.isDark(row + 1, col)
+              &&  qrcode.isDark(row + 2, col)
+              &&  qrcode.isDark(row + 3, col)
+              &&  qrcode.isDark(row + 4, col)
+              && !qrcode.isDark(row + 5, col)
+              &&  qrcode.isDark(row + 6, col) ) {
+            lostPoint += 40;
+          }
+        }
+      }
+
+      // LEVEL4
+
+      var darkCount = 0;
+
+      for (var col = 0; col < moduleCount; col += 1) {
+        for (var row = 0; row < moduleCount; row += 1) {
+          if (qrcode.isDark(row, col) ) {
+            darkCount += 1;
+          }
+        }
+      }
+
+      var ratio = Math.abs(100 * darkCount / moduleCount / moduleCount - 50) / 5;
+      lostPoint += ratio * 10;
+
+      return lostPoint;
+    };
+
+    return _this;
+  }();
+
+  //---------------------------------------------------------------------
+  // QRMath
+  //---------------------------------------------------------------------
+
+  var QRMath = function() {
+
+    var EXP_TABLE = new Array(256);
+    var LOG_TABLE = new Array(256);
+
+    // initialize tables
+    for (var i = 0; i < 8; i += 1) {
+      EXP_TABLE[i] = 1 << i;
+    }
+    for (var i = 8; i < 256; i += 1) {
+      EXP_TABLE[i] = EXP_TABLE[i - 4]
+        ^ EXP_TABLE[i - 5]
+        ^ EXP_TABLE[i - 6]
+        ^ EXP_TABLE[i - 8];
+    }
+    for (var i = 0; i < 255; i += 1) {
+      LOG_TABLE[EXP_TABLE[i] ] = i;
+    }
+
+    var _this = {};
+
+    _this.glog = function(n) {
+
+      if (n < 1) {
+        throw 'glog(' + n + ')';
+      }
+
+      return LOG_TABLE[n];
+    };
+
+    _this.gexp = function(n) {
+
+      while (n < 0) {
+        n += 255;
+      }
+
+      while (n >= 256) {
+        n -= 255;
+      }
+
+      return EXP_TABLE[n];
+    };
+
+    return _this;
+  }();
+
+  //---------------------------------------------------------------------
+  // qrPolynomial
+  //---------------------------------------------------------------------
+
+  function qrPolynomial(num, shift) {
+
+    if (typeof num.length == 'undefined') {
+      throw num.length + '/' + shift;
+    }
+
+    var _num = function() {
+      var offset = 0;
+      while (offset < num.length && num[offset] == 0) {
+        offset += 1;
+      }
+      var _num = new Array(num.length - offset + shift);
+      for (var i = 0; i < num.length - offset; i += 1) {
+        _num[i] = num[i + offset];
+      }
+      return _num;
+    }();
+
+    var _this = {};
+
+    _this.getAt = function(index) {
+      return _num[index];
+    };
+
+    _this.getLength = function() {
+      return _num.length;
+    };
+
+    _this.multiply = function(e) {
+
+      var num = new Array(_this.getLength() + e.getLength() - 1);
+
+      for (var i = 0; i < _this.getLength(); i += 1) {
+        for (var j = 0; j < e.getLength(); j += 1) {
+          num[i + j] ^= QRMath.gexp(QRMath.glog(_this.getAt(i) ) + QRMath.glog(e.getAt(j) ) );
+        }
+      }
+
+      return qrPolynomial(num, 0);
+    };
+
+    _this.mod = function(e) {
+
+      if (_this.getLength() - e.getLength() < 0) {
+        return _this;
+      }
+
+      var ratio = QRMath.glog(_this.getAt(0) ) - QRMath.glog(e.getAt(0) );
+
+      var num = new Array(_this.getLength() );
+      for (var i = 0; i < _this.getLength(); i += 1) {
+        num[i] = _this.getAt(i);
+      }
+
+      for (var i = 0; i < e.getLength(); i += 1) {
+        num[i] ^= QRMath.gexp(QRMath.glog(e.getAt(i) ) + ratio);
+      }
+
+      // recursive call
+      return qrPolynomial(num, 0).mod(e);
+    };
+
+    return _this;
+  };
+
+  //---------------------------------------------------------------------
+  // QRRSBlock
+  //---------------------------------------------------------------------
+
+  var QRRSBlock = function() {
+
+    var RS_BLOCK_TABLE = [
+
+      // L
+      // M
+      // Q
+      // H
+
+      // 1
+      [1, 26, 19],
+      [1, 26, 16],
+      [1, 26, 13],
+      [1, 26, 9],
+
+      // 2
+      [1, 44, 34],
+      [1, 44, 28],
+      [1, 44, 22],
+      [1, 44, 16],
+
+      // 3
+      [1, 70, 55],
+      [1, 70, 44],
+      [2, 35, 17],
+      [2, 35, 13],
+
+      // 4
+      [1, 100, 80],
+      [2, 50, 32],
+      [2, 50, 24],
+      [4, 25, 9],
+
+      // 5
+      [1, 134, 108],
+      [2, 67, 43],
+      [2, 33, 15, 2, 34, 16],
+      [2, 33, 11, 2, 34, 12],
+
+      // 6
+      [2, 86, 68],
+      [4, 43, 27],
+      [4, 43, 19],
+      [4, 43, 15],
+
+      // 7
+      [2, 98, 78],
+      [4, 49, 31],
+      [2, 32, 14, 4, 33, 15],
+      [4, 39, 13, 1, 40, 14],
+
+      // 8
+      [2, 121, 97],
+      [2, 60, 38, 2, 61, 39],
+      [4, 40, 18, 2, 41, 19],
+      [4, 40, 14, 2, 41, 15],
+
+      // 9
+      [2, 146, 116],
+      [3, 58, 36, 2, 59, 37],
+      [4, 36, 16, 4, 37, 17],
+      [4, 36, 12, 4, 37, 13],
+
+      // 10
+      [2, 86, 68, 2, 87, 69],
+      [4, 69, 43, 1, 70, 44],
+      [6, 43, 19, 2, 44, 20],
+      [6, 43, 15, 2, 44, 16],
+
+      // 11
+      [4, 101, 81],
+      [1, 80, 50, 4, 81, 51],
+      [4, 50, 22, 4, 51, 23],
+      [3, 36, 12, 8, 37, 13],
+
+      // 12
+      [2, 116, 92, 2, 117, 93],
+      [6, 58, 36, 2, 59, 37],
+      [4, 46, 20, 6, 47, 21],
+      [7, 42, 14, 4, 43, 15],
+
+      // 13
+      [4, 133, 107],
+      [8, 59, 37, 1, 60, 38],
+      [8, 44, 20, 4, 45, 21],
+      [12, 33, 11, 4, 34, 12],
+
+      // 14
+      [3, 145, 115, 1, 146, 116],
+      [4, 64, 40, 5, 65, 41],
+      [11, 36, 16, 5, 37, 17],
+      [11, 36, 12, 5, 37, 13],
+
+      // 15
+      [5, 109, 87, 1, 110, 88],
+      [5, 65, 41, 5, 66, 42],
+      [5, 54, 24, 7, 55, 25],
+      [11, 36, 12, 7, 37, 13],
+
+      // 16
+      [5, 122, 98, 1, 123, 99],
+      [7, 73, 45, 3, 74, 46],
+      [15, 43, 19, 2, 44, 20],
+      [3, 45, 15, 13, 46, 16],
+
+      // 17
+      [1, 135, 107, 5, 136, 108],
+      [10, 74, 46, 1, 75, 47],
+      [1, 50, 22, 15, 51, 23],
+      [2, 42, 14, 17, 43, 15],
+
+      // 18
+      [5, 150, 120, 1, 151, 121],
+      [9, 69, 43, 4, 70, 44],
+      [17, 50, 22, 1, 51, 23],
+      [2, 42, 14, 19, 43, 15],
+
+      // 19
+      [3, 141, 113, 4, 142, 114],
+      [3, 70, 44, 11, 71, 45],
+      [17, 47, 21, 4, 48, 22],
+      [9, 39, 13, 16, 40, 14],
+
+      // 20
+      [3, 135, 107, 5, 136, 108],
+      [3, 67, 41, 13, 68, 42],
+      [15, 54, 24, 5, 55, 25],
+      [15, 43, 15, 10, 44, 16],
+
+      // 21
+      [4, 144, 116, 4, 145, 117],
+      [17, 68, 42],
+      [17, 50, 22, 6, 51, 23],
+      [19, 46, 16, 6, 47, 17],
+
+      // 22
+      [2, 139, 111, 7, 140, 112],
+      [17, 74, 46],
+      [7, 54, 24, 16, 55, 25],
+      [34, 37, 13],
+
+      // 23
+      [4, 151, 121, 5, 152, 122],
+      [4, 75, 47, 14, 76, 48],
+      [11, 54, 24, 14, 55, 25],
+      [16, 45, 15, 14, 46, 16],
+
+      // 24
+      [6, 147, 117, 4, 148, 118],
+      [6, 73, 45, 14, 74, 46],
+      [11, 54, 24, 16, 55, 25],
+      [30, 46, 16, 2, 47, 17],
+
+      // 25
+      [8, 132, 106, 4, 133, 107],
+      [8, 75, 47, 13, 76, 48],
+      [7, 54, 24, 22, 55, 25],
+      [22, 45, 15, 13, 46, 16],
+
+      // 26
+      [10, 142, 114, 2, 143, 115],
+      [19, 74, 46, 4, 75, 47],
+      [28, 50, 22, 6, 51, 23],
+      [33, 46, 16, 4, 47, 17],
+
+      // 27
+      [8, 152, 122, 4, 153, 123],
+      [22, 73, 45, 3, 74, 46],
+      [8, 53, 23, 26, 54, 24],
+      [12, 45, 15, 28, 46, 16],
+
+      // 28
+      [3, 147, 117, 10, 148, 118],
+      [3, 73, 45, 23, 74, 46],
+      [4, 54, 24, 31, 55, 25],
+      [11, 45, 15, 31, 46, 16],
+
+      // 29
+      [7, 146, 116, 7, 147, 117],
+      [21, 73, 45, 7, 74, 46],
+      [1, 53, 23, 37, 54, 24],
+      [19, 45, 15, 26, 46, 16],
+
+      // 30
+      [5, 145, 115, 10, 146, 116],
+      [19, 75, 47, 10, 76, 48],
+      [15, 54, 24, 25, 55, 25],
+      [23, 45, 15, 25, 46, 16],
+
+      // 31
+      [13, 145, 115, 3, 146, 116],
+      [2, 74, 46, 29, 75, 47],
+      [42, 54, 24, 1, 55, 25],
+      [23, 45, 15, 28, 46, 16],
+
+      // 32
+      [17, 145, 115],
+      [10, 74, 46, 23, 75, 47],
+      [10, 54, 24, 35, 55, 25],
+      [19, 45, 15, 35, 46, 16],
+
+      // 33
+      [17, 145, 115, 1, 146, 116],
+      [14, 74, 46, 21, 75, 47],
+      [29, 54, 24, 19, 55, 25],
+      [11, 45, 15, 46, 46, 16],
+
+      // 34
+      [13, 145, 115, 6, 146, 116],
+      [14, 74, 46, 23, 75, 47],
+      [44, 54, 24, 7, 55, 25],
+      [59, 46, 16, 1, 47, 17],
+
+      // 35
+      [12, 151, 121, 7, 152, 122],
+      [12, 75, 47, 26, 76, 48],
+      [39, 54, 24, 14, 55, 25],
+      [22, 45, 15, 41, 46, 16],
+
+      // 36
+      [6, 151, 121, 14, 152, 122],
+      [6, 75, 47, 34, 76, 48],
+      [46, 54, 24, 10, 55, 25],
+      [2, 45, 15, 64, 46, 16],
+
+      // 37
+      [17, 152, 122, 4, 153, 123],
+      [29, 74, 46, 14, 75, 47],
+      [49, 54, 24, 10, 55, 25],
+      [24, 45, 15, 46, 46, 16],
+
+      // 38
+      [4, 152, 122, 18, 153, 123],
+      [13, 74, 46, 32, 75, 47],
+      [48, 54, 24, 14, 55, 25],
+      [42, 45, 15, 32, 46, 16],
+
+      // 39
+      [20, 147, 117, 4, 148, 118],
+      [40, 75, 47, 7, 76, 48],
+      [43, 54, 24, 22, 55, 25],
+      [10, 45, 15, 67, 46, 16],
+
+      // 40
+      [19, 148, 118, 6, 149, 119],
+      [18, 75, 47, 31, 76, 48],
+      [34, 54, 24, 34, 55, 25],
+      [20, 45, 15, 61, 46, 16]
+    ];
+
+    var qrRSBlock = function(totalCount, dataCount) {
+      var _this = {};
+      _this.totalCount = totalCount;
+      _this.dataCount = dataCount;
+      return _this;
+    };
+
+    var _this = {};
+
+    var getRsBlockTable = function(typeNumber, errorCorrectionLevel) {
+
+      switch(errorCorrectionLevel) {
+      case QRErrorCorrectionLevel.L :
+        return RS_BLOCK_TABLE[(typeNumber - 1) * 4 + 0];
+      case QRErrorCorrectionLevel.M :
+        return RS_BLOCK_TABLE[(typeNumber - 1) * 4 + 1];
+      case QRErrorCorrectionLevel.Q :
+        return RS_BLOCK_TABLE[(typeNumber - 1) * 4 + 2];
+      case QRErrorCorrectionLevel.H :
+        return RS_BLOCK_TABLE[(typeNumber - 1) * 4 + 3];
+      default :
+        return undefined;
+      }
+    };
+
+    _this.getRSBlocks = function(typeNumber, errorCorrectionLevel) {
+
+      var rsBlock = getRsBlockTable(typeNumber, errorCorrectionLevel);
+
+      if (typeof rsBlock == 'undefined') {
+        throw 'bad rs block @ typeNumber:' + typeNumber +
+            '/errorCorrectionLevel:' + errorCorrectionLevel;
+      }
+
+      var length = rsBlock.length / 3;
+
+      var list = [];
+
+      for (var i = 0; i < length; i += 1) {
+
+        var count = rsBlock[i * 3 + 0];
+        var totalCount = rsBlock[i * 3 + 1];
+        var dataCount = rsBlock[i * 3 + 2];
+
+        for (var j = 0; j < count; j += 1) {
+          list.push(qrRSBlock(totalCount, dataCount) );
+        }
+      }
+
+      return list;
+    };
+
+    return _this;
+  }();
+
+  //---------------------------------------------------------------------
+  // qrBitBuffer
+  //---------------------------------------------------------------------
+
+  var qrBitBuffer = function() {
+
+    var _buffer = [];
+    var _length = 0;
+
+    var _this = {};
+
+    _this.getBuffer = function() {
+      return _buffer;
+    };
+
+    _this.getAt = function(index) {
+      var bufIndex = Math.floor(index / 8);
+      return ( (_buffer[bufIndex] >>> (7 - index % 8) ) & 1) == 1;
+    };
+
+    _this.put = function(num, length) {
+      for (var i = 0; i < length; i += 1) {
+        _this.putBit( ( (num >>> (length - i - 1) ) & 1) == 1);
+      }
+    };
+
+    _this.getLengthInBits = function() {
+      return _length;
+    };
+
+    _this.putBit = function(bit) {
+
+      var bufIndex = Math.floor(_length / 8);
+      if (_buffer.length <= bufIndex) {
+        _buffer.push(0);
+      }
+
+      if (bit) {
+        _buffer[bufIndex] |= (0x80 >>> (_length % 8) );
+      }
+
+      _length += 1;
+    };
+
+    return _this;
+  };
+
+  //---------------------------------------------------------------------
+  // qrNumber
+  //---------------------------------------------------------------------
+
+  var qrNumber = function(data) {
+
+    var _mode = QRMode.MODE_NUMBER;
+    var _data = data;
+
+    var _this = {};
+
+    _this.getMode = function() {
+      return _mode;
+    };
+
+    _this.getLength = function(buffer) {
+      return _data.length;
+    };
+
+    _this.write = function(buffer) {
+
+      var data = _data;
+
+      var i = 0;
+
+      while (i + 2 < data.length) {
+        buffer.put(strToNum(data.substring(i, i + 3) ), 10);
+        i += 3;
+      }
+
+      if (i < data.length) {
+        if (data.length - i == 1) {
+          buffer.put(strToNum(data.substring(i, i + 1) ), 4);
+        } else if (data.length - i == 2) {
+          buffer.put(strToNum(data.substring(i, i + 2) ), 7);
+        }
+      }
+    };
+
+    var strToNum = function(s) {
+      var num = 0;
+      for (var i = 0; i < s.length; i += 1) {
+        num = num * 10 + chatToNum(s.charAt(i) );
+      }
+      return num;
+    };
+
+    var chatToNum = function(c) {
+      if ('0' <= c && c <= '9') {
+        return c.charCodeAt(0) - '0'.charCodeAt(0);
+      }
+      throw 'illegal char :' + c;
+    };
+
+    return _this;
+  };
+
+  //---------------------------------------------------------------------
+  // qrAlphaNum
+  //---------------------------------------------------------------------
+
+  var qrAlphaNum = function(data) {
+
+    var _mode = QRMode.MODE_ALPHA_NUM;
+    var _data = data;
+
+    var _this = {};
+
+    _this.getMode = function() {
+      return _mode;
+    };
+
+    _this.getLength = function(buffer) {
+      return _data.length;
+    };
+
+    _this.write = function(buffer) {
+
+      var s = _data;
+
+      var i = 0;
+
+      while (i + 1 < s.length) {
+        buffer.put(
+          getCode(s.charAt(i) ) * 45 +
+          getCode(s.charAt(i + 1) ), 11);
+        i += 2;
+      }
+
+      if (i < s.length) {
+        buffer.put(getCode(s.charAt(i) ), 6);
+      }
+    };
+
+    var getCode = function(c) {
+
+      if ('0' <= c && c <= '9') {
+        return c.charCodeAt(0) - '0'.charCodeAt(0);
+      } else if ('A' <= c && c <= 'Z') {
+        return c.charCodeAt(0) - 'A'.charCodeAt(0) + 10;
+      } else {
+        switch (c) {
+        case ' ' : return 36;
+        case '$' : return 37;
+        case '%' : return 38;
+        case '*' : return 39;
+        case '+' : return 40;
+        case '-' : return 41;
+        case '.' : return 42;
+        case '/' : return 43;
+        case ':' : return 44;
+        default :
+          throw 'illegal char :' + c;
+        }
+      }
+    };
+
+    return _this;
+  };
+
+  //---------------------------------------------------------------------
+  // qr8BitByte
+  //---------------------------------------------------------------------
+
+  var qr8BitByte = function(data) {
+
+    var _mode = QRMode.MODE_8BIT_BYTE;
+    var _data = data;
+    var _bytes = qrcode.stringToBytes(data);
+
+    var _this = {};
+
+    _this.getMode = function() {
+      return _mode;
+    };
+
+    _this.getLength = function(buffer) {
+      return _bytes.length;
+    };
+
+    _this.write = function(buffer) {
+      for (var i = 0; i < _bytes.length; i += 1) {
+        buffer.put(_bytes[i], 8);
+      }
+    };
+
+    return _this;
+  };
+
+  //---------------------------------------------------------------------
+  // qrKanji
+  //---------------------------------------------------------------------
+
+  var qrKanji = function(data) {
+
+    var _mode = QRMode.MODE_KANJI;
+    var _data = data;
+
+    var stringToBytes = qrcode.stringToBytesFuncs['SJIS'];
+    if (!stringToBytes) {
+      throw 'sjis not supported.';
+    }
+    !function(c, code) {
+      // self test for sjis support.
+      var test = stringToBytes(c);
+      if (test.length != 2 || ( (test[0] << 8) | test[1]) != code) {
+        throw 'sjis not supported.';
+      }
+    }('\u53cb', 0x9746);
+
+    var _bytes = stringToBytes(data);
+
+    var _this = {};
+
+    _this.getMode = function() {
+      return _mode;
+    };
+
+    _this.getLength = function(buffer) {
+      return ~~(_bytes.length / 2);
+    };
+
+    _this.write = function(buffer) {
+
+      var data = _bytes;
+
+      var i = 0;
+
+      while (i + 1 < data.length) {
+
+        var c = ( (0xff & data[i]) << 8) | (0xff & data[i + 1]);
+
+        if (0x8140 <= c && c <= 0x9FFC) {
+          c -= 0x8140;
+        } else if (0xE040 <= c && c <= 0xEBBF) {
+          c -= 0xC140;
+        } else {
+          throw 'illegal char at ' + (i + 1) + '/' + c;
+        }
+
+        c = ( (c >>> 8) & 0xff) * 0xC0 + (c & 0xff);
+
+        buffer.put(c, 13);
+
+        i += 2;
+      }
+
+      if (i < data.length) {
+        throw 'illegal char at ' + (i + 1);
+      }
+    };
+
+    return _this;
+  };
+
+  //=====================================================================
+  // GIF Support etc.
+  //
+
+  //---------------------------------------------------------------------
+  // byteArrayOutputStream
+  //---------------------------------------------------------------------
+
+  var byteArrayOutputStream = function() {
+
+    var _bytes = [];
+
+    var _this = {};
+
+    _this.writeByte = function(b) {
+      _bytes.push(b & 0xff);
+    };
+
+    _this.writeShort = function(i) {
+      _this.writeByte(i);
+      _this.writeByte(i >>> 8);
+    };
+
+    _this.writeBytes = function(b, off, len) {
+      off = off || 0;
+      len = len || b.length;
+      for (var i = 0; i < len; i += 1) {
+        _this.writeByte(b[i + off]);
+      }
+    };
+
+    _this.writeString = function(s) {
+      for (var i = 0; i < s.length; i += 1) {
+        _this.writeByte(s.charCodeAt(i) );
+      }
+    };
+
+    _this.toByteArray = function() {
+      return _bytes;
+    };
+
+    _this.toString = function() {
+      var s = '';
+      s += '[';
+      for (var i = 0; i < _bytes.length; i += 1) {
+        if (i > 0) {
+          s += ',';
+        }
+        s += _bytes[i];
+      }
+      s += ']';
+      return s;
+    };
+
+    return _this;
+  };
+
+  //---------------------------------------------------------------------
+  // base64EncodeOutputStream
+  //---------------------------------------------------------------------
+
+  var base64EncodeOutputStream = function() {
+
+    var _buffer = 0;
+    var _buflen = 0;
+    var _length = 0;
+    var _base64 = '';
+
+    var _this = {};
+
+    var writeEncoded = function(b) {
+      _base64 += String.fromCharCode(encode(b & 0x3f) );
+    };
+
+    var encode = function(n) {
+      if (n < 0) {
+        // error.
+      } else if (n < 26) {
+        return 0x41 + n;
+      } else if (n < 52) {
+        return 0x61 + (n - 26);
+      } else if (n < 62) {
+        return 0x30 + (n - 52);
+      } else if (n == 62) {
+        return 0x2b;
+      } else if (n == 63) {
+        return 0x2f;
+      }
+      throw 'n:' + n;
+    };
+
+    _this.writeByte = function(n) {
+
+      _buffer = (_buffer << 8) | (n & 0xff);
+      _buflen += 8;
+      _length += 1;
+
+      while (_buflen >= 6) {
+        writeEncoded(_buffer >>> (_buflen - 6) );
+        _buflen -= 6;
+      }
+    };
+
+    _this.flush = function() {
+
+      if (_buflen > 0) {
+        writeEncoded(_buffer << (6 - _buflen) );
+        _buffer = 0;
+        _buflen = 0;
+      }
+
+      if (_length % 3 != 0) {
+        // padding
+        var padlen = 3 - _length % 3;
+        for (var i = 0; i < padlen; i += 1) {
+          _base64 += '=';
+        }
+      }
+    };
+
+    _this.toString = function() {
+      return _base64;
+    };
+
+    return _this;
+  };
+
+  //---------------------------------------------------------------------
+  // base64DecodeInputStream
+  //---------------------------------------------------------------------
+
+  var base64DecodeInputStream = function(str) {
+
+    var _str = str;
+    var _pos = 0;
+    var _buffer = 0;
+    var _buflen = 0;
+
+    var _this = {};
+
+    _this.read = function() {
+
+      while (_buflen < 8) {
+
+        if (_pos >= _str.length) {
+          if (_buflen == 0) {
+            return -1;
+          }
+          throw 'unexpected end of file./' + _buflen;
+        }
+
+        var c = _str.charAt(_pos);
+        _pos += 1;
+
+        if (c == '=') {
+          _buflen = 0;
+          return -1;
+        } else if (c.match(/^\s$/) ) {
+          // ignore if whitespace.
+          continue;
+        }
+
+        _buffer = (_buffer << 6) | decode(c.charCodeAt(0) );
+        _buflen += 6;
+      }
+
+      var n = (_buffer >>> (_buflen - 8) ) & 0xff;
+      _buflen -= 8;
+      return n;
+    };
+
+    var decode = function(c) {
+      if (0x41 <= c && c <= 0x5a) {
+        return c - 0x41;
+      } else if (0x61 <= c && c <= 0x7a) {
+        return c - 0x61 + 26;
+      } else if (0x30 <= c && c <= 0x39) {
+        return c - 0x30 + 52;
+      } else if (c == 0x2b) {
+        return 62;
+      } else if (c == 0x2f) {
+        return 63;
+      } else {
+        throw 'c:' + c;
+      }
+    };
+
+    return _this;
+  };
+
+  //---------------------------------------------------------------------
+  // gifImage (B/W)
+  //---------------------------------------------------------------------
+
+  var gifImage = function(width, height) {
+
+    var _width = width;
+    var _height = height;
+    var _data = new Array(width * height);
+
+    var _this = {};
+
+    _this.setPixel = function(x, y, pixel) {
+      _data[y * _width + x] = pixel;
+    };
+
+    _this.write = function(out) {
+
+      //---------------------------------
+      // GIF Signature
+
+      out.writeString('GIF87a');
+
+      //---------------------------------
+      // Screen Descriptor
+
+      out.writeShort(_width);
+      out.writeShort(_height);
+
+      out.writeByte(0x80); // 2bit
+      out.writeByte(0);
+      out.writeByte(0);
+
+      //---------------------------------
+      // Global Color Map
+
+      // black
+      out.writeByte(0x00);
+      out.writeByte(0x00);
+      out.writeByte(0x00);
+
+      // white
+      out.writeByte(0xff);
+      out.writeByte(0xff);
+      out.writeByte(0xff);
+
+      //---------------------------------
+      // Image Descriptor
+
+      out.writeString(',');
+      out.writeShort(0);
+      out.writeShort(0);
+      out.writeShort(_width);
+      out.writeShort(_height);
+      out.writeByte(0);
+
+      //---------------------------------
+      // Local Color Map
+
+      //---------------------------------
+      // Raster Data
+
+      var lzwMinCodeSize = 2;
+      var raster = getLZWRaster(lzwMinCodeSize);
+
+      out.writeByte(lzwMinCodeSize);
+
+      var offset = 0;
+
+      while (raster.length - offset > 255) {
+        out.writeByte(255);
+        out.writeBytes(raster, offset, 255);
+        offset += 255;
+      }
+
+      out.writeByte(raster.length - offset);
+      out.writeBytes(raster, offset, raster.length - offset);
+      out.writeByte(0x00);
+
+      //---------------------------------
+      // GIF Terminator
+      out.writeString(';');
+    };
+
+    var bitOutputStream = function(out) {
+
+      var _out = out;
+      var _bitLength = 0;
+      var _bitBuffer = 0;
+
+      var _this = {};
+
+      _this.write = function(data, length) {
+
+        if ( (data >>> length) != 0) {
+          throw 'length over';
+        }
+
+        while (_bitLength + length >= 8) {
+          _out.writeByte(0xff & ( (data << _bitLength) | _bitBuffer) );
+          length -= (8 - _bitLength);
+          data >>>= (8 - _bitLength);
+          _bitBuffer = 0;
+          _bitLength = 0;
+        }
+
+        _bitBuffer = (data << _bitLength) | _bitBuffer;
+        _bitLength = _bitLength + length;
+      };
+
+      _this.flush = function() {
+        if (_bitLength > 0) {
+          _out.writeByte(_bitBuffer);
+        }
+      };
+
+      return _this;
+    };
+
+    var getLZWRaster = function(lzwMinCodeSize) {
+
+      var clearCode = 1 << lzwMinCodeSize;
+      var endCode = (1 << lzwMinCodeSize) + 1;
+      var bitLength = lzwMinCodeSize + 1;
+
+      // Setup LZWTable
+      var table = lzwTable();
+
+      for (var i = 0; i < clearCode; i += 1) {
+        table.add(String.fromCharCode(i) );
+      }
+      table.add(String.fromCharCode(clearCode) );
+      table.add(String.fromCharCode(endCode) );
+
+      var byteOut = byteArrayOutputStream();
+      var bitOut = bitOutputStream(byteOut);
+
+      // clear code
+      bitOut.write(clearCode, bitLength);
+
+      var dataIndex = 0;
+
+      var s = String.fromCharCode(_data[dataIndex]);
+      dataIndex += 1;
+
+      while (dataIndex < _data.length) {
+
+        var c = String.fromCharCode(_data[dataIndex]);
+        dataIndex += 1;
+
+        if (table.contains(s + c) ) {
+
+          s = s + c;
+
+        } else {
+
+          bitOut.write(table.indexOf(s), bitLength);
+
+          if (table.size() < 0xfff) {
+
+            if (table.size() == (1 << bitLength) ) {
+              bitLength += 1;
+            }
+
+            table.add(s + c);
+          }
+
+          s = c;
+        }
+      }
+
+      bitOut.write(table.indexOf(s), bitLength);
+
+      // end code
+      bitOut.write(endCode, bitLength);
+
+      bitOut.flush();
+
+      return byteOut.toByteArray();
+    };
+
+    var lzwTable = function() {
+
+      var _map = {};
+      var _size = 0;
+
+      var _this = {};
+
+      _this.add = function(key) {
+        if (_this.contains(key) ) {
+          throw 'dup key:' + key;
+        }
+        _map[key] = _size;
+        _size += 1;
+      };
+
+      _this.size = function() {
+        return _size;
+      };
+
+      _this.indexOf = function(key) {
+        return _map[key];
+      };
+
+      _this.contains = function(key) {
+        return typeof _map[key] != 'undefined';
+      };
+
+      return _this;
+    };
+
+    return _this;
+  };
+
+  var createDataURL = function(width, height, getPixel) {
+    var gif = gifImage(width, height);
+    for (var y = 0; y < height; y += 1) {
+      for (var x = 0; x < width; x += 1) {
+        gif.setPixel(x, y, getPixel(x, y) );
+      }
+    }
+
+    var b = byteArrayOutputStream();
+    gif.write(b);
+
+    var base64 = base64EncodeOutputStream();
+    var bytes = b.toByteArray();
+    for (var i = 0; i < bytes.length; i += 1) {
+      base64.writeByte(bytes[i]);
+    }
+    base64.flush();
+
+    return 'data:image/gif;base64,' + base64;
+  };
+
+  //---------------------------------------------------------------------
+  // returns qrcode function.
+
+  return qrcode;
+}();
+
+// multibyte support
+!function() {
+
+  qrcode.stringToBytesFuncs['UTF-8'] = function(s) {
+    // http://stackoverflow.com/questions/18729405/how-to-convert-utf8-string-to-byte-array
+    function toUTF8Array(str) {
+      var utf8 = [];
+      for (var i=0; i < str.length; i++) {
+        var charcode = str.charCodeAt(i);
+        if (charcode < 0x80) utf8.push(charcode);
+        else if (charcode < 0x800) {
+          utf8.push(0xc0 | (charcode >> 6),
+              0x80 | (charcode & 0x3f));
+        }
+        else if (charcode < 0xd800 || charcode >= 0xe000) {
+          utf8.push(0xe0 | (charcode >> 12),
+              0x80 | ((charcode>>6) & 0x3f),
+              0x80 | (charcode & 0x3f));
+        }
+        // surrogate pair
+        else {
+          i++;
+          // UTF-16 encodes 0x10000-0x10FFFF by
+          // subtracting 0x10000 and splitting the
+          // 20 bits of 0x0-0xFFFFF into two halves
+          charcode = 0x10000 + (((charcode & 0x3ff)<<10)
+            | (str.charCodeAt(i) & 0x3ff));
+          utf8.push(0xf0 | (charcode >>18),
+              0x80 | ((charcode>>12) & 0x3f),
+              0x80 | ((charcode>>6) & 0x3f),
+              0x80 | (charcode & 0x3f));
+        }
+      }
+      return utf8;
+    }
+    return toUTF8Array(s);
+  };
+
+}();
+
+(function (factory) {
+  if (typeof define === 'function' && define.amd) {
+      define([], factory);
+  } else if (typeof exports === 'object') {
+      module.exports = factory();
+  }
+}(function () {
+    return qrcode;
+}));
+</script>
+<script>/* Manara link — signed messages between the mosque screen and the imam's phone.
+ * Messages travel through an ntfy server (https://ntfy.sh by default) on a random topic.
+ * Each one is signed with HMAC-SHA256 using a key that lives only in the pairing QR code,
+ * so knowing the topic is not enough to control a screen. Plain ES5, no dependencies. */
+(function (root) {
+  'use strict';
+
+  /* ---------- bytes ---------- */
+  function utf8(s) {
+    s = String(s);
+    if (typeof TextEncoder !== 'undefined') return new TextEncoder().encode(s);
+    var b = unescape(encodeURIComponent(s)), a = new Uint8Array(b.length);
+    for (var i = 0; i < b.length; i++) a[i] = b.charCodeAt(i);
+    return a;
+  }
+  function concat(a, b) { var o = new Uint8Array(a.length + b.length); o.set(a, 0); o.set(b, a.length); return o; }
+  function hex(b) { var s = ''; for (var i = 0; i < b.length; i++) s += (b[i] < 16 ? '0' : '') + b[i].toString(16); return s; }
+  function b64u(b) {
+    var s = '';
+    for (var i = 0; i < b.length; i++) s += String.fromCharCode(b[i]);
+    return btoa(s).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+  }
+  function unb64u(s) {
+    s = String(s || '').replace(/-/g, '+').replace(/_/g, '/');
+    while (s.length % 4) s += '=';
+    var b = atob(s), a = new Uint8Array(b.length);
+    for (var i = 0; i < b.length; i++) a[i] = b.charCodeAt(i);
+    return a;
+  }
+  function rand(n) {
+    var a = new Uint8Array(n), c = root.crypto || root.msCrypto;
+    if (c && c.getRandomValues) c.getRandomValues(a);
+    else for (var i = 0; i < n; i++) a[i] = Math.floor(Math.random() * 256);
+    return a;
+  }
+  function newId(n) { return b64u(rand(n || 16)); }
+
+  /* ---------- SHA-256 / HMAC (FIPS 180-4, RFC 2104) ---------- */
+  var K = [
+    0x428a2f98, 0x71374491, 0xb5c0fbcf, 0xe9b5dba5, 0x3956c25b, 0x59f111f1, 0x923f82a4, 0xab1c5ed5,
+    0xd807aa98, 0x12835b01, 0x243185be, 0x550c7dc3, 0x72be5d74, 0x80deb1fe, 0x9bdc06a7, 0xc19bf174,
+    0xe49b69c1, 0xefbe4786, 0x0fc19dc6, 0x240ca1cc, 0x2de92c6f, 0x4a7484aa, 0x5cb0a9dc, 0x76f988da,
+    0x983e5152, 0xa831c66d, 0xb00327c8, 0xbf597fc7, 0xc6e00bf3, 0xd5a79147, 0x06ca6351, 0x14292967,
+    0x27b70a85, 0x2e1b2138, 0x4d2c6dfc, 0x53380d13, 0x650a7354, 0x766a0abb, 0x81c2c92e, 0x92722c85,
+    0xa2bfe8a1, 0xa81a664b, 0xc24b8b70, 0xc76c51a3, 0xd192e819, 0xd6990624, 0xf40e3585, 0x106aa070,
+    0x19a4c116, 0x1e376c08, 0x2748774c, 0x34b0bcb5, 0x391c0cb3, 0x4ed8aa4a, 0x5b9cca4f, 0x682e6ff3,
+    0x748f82ee, 0x78a5636f, 0x84c87814, 0x8cc70208, 0x90befffa, 0xa4506ceb, 0xbef9a3f7, 0xc67178f2
+  ];
+  function sha256(msg) {
+    var len = msg.length, bitLenHi = Math.floor(len / 0x20000000), bitLenLo = (len * 8) >>> 0;
+    var padLen = ((len + 9 + 63) >> 6) << 6, m = new Uint8Array(padLen);
+    m.set(msg); m[len] = 0x80;
+    m[padLen - 8] = (bitLenHi >>> 24) & 255; m[padLen - 7] = (bitLenHi >>> 16) & 255;
+    m[padLen - 6] = (bitLenHi >>> 8) & 255; m[padLen - 5] = bitLenHi & 255;
+    m[padLen - 4] = (bitLenLo >>> 24) & 255; m[padLen - 3] = (bitLenLo >>> 16) & 255;
+    m[padLen - 2] = (bitLenLo >>> 8) & 255; m[padLen - 1] = bitLenLo & 255;
+    var h0 = 0x6a09e667, h1 = 0xbb67ae85, h2 = 0x3c6ef372, h3 = 0xa54ff53a,
+        h4 = 0x510e527f, h5 = 0x9b05688c, h6 = 0x1f83d9ab, h7 = 0x5be0cd19;
+    var w = new Array(64);
+    for (var off = 0; off < padLen; off += 64) {
+      for (var i = 0; i < 16; i++) {
+        var j = off + i * 4;
+        w[i] = ((m[j] << 24) | (m[j + 1] << 16) | (m[j + 2] << 8) | m[j + 3]) | 0;
+      }
+      for (i = 16; i < 64; i++) {
+        var x = w[i - 15], y = w[i - 2];
+        var s0 = ((x >>> 7) | (x << 25)) ^ ((x >>> 18) | (x << 14)) ^ (x >>> 3);
+        var s1 = ((y >>> 17) | (y << 15)) ^ ((y >>> 19) | (y << 13)) ^ (y >>> 10);
+        w[i] = (w[i - 16] + s0 + w[i - 7] + s1) | 0;
+      }
+      var a = h0, b = h1, c = h2, d = h3, e = h4, f = h5, g = h6, h = h7;
+      for (i = 0; i < 64; i++) {
+        var S1 = ((e >>> 6) | (e << 26)) ^ ((e >>> 11) | (e << 21)) ^ ((e >>> 25) | (e << 7));
+        var ch = (e & f) ^ (~e & g);
+        var t1 = (h + S1 + ch + K[i] + w[i]) | 0;
+        var S0 = ((a >>> 2) | (a << 30)) ^ ((a >>> 13) | (a << 19)) ^ ((a >>> 22) | (a << 10));
+        var maj = (a & b) ^ (a & c) ^ (b & c);
+        var t2 = (S0 + maj) | 0;
+        h = g; g = f; f = e; e = (d + t1) | 0; d = c; c = b; b = a; a = (t1 + t2) | 0;
+      }
+      h0 = (h0 + a) | 0; h1 = (h1 + b) | 0; h2 = (h2 + c) | 0; h3 = (h3 + d) | 0;
+      h4 = (h4 + e) | 0; h5 = (h5 + f) | 0; h6 = (h6 + g) | 0; h7 = (h7 + h) | 0;
+    }
+    var out = new Uint8Array(32), hs = [h0, h1, h2, h3, h4, h5, h6, h7];
+    for (i = 0; i < 8; i++) {
+      out[i * 4] = (hs[i] >>> 24) & 255; out[i * 4 + 1] = (hs[i] >>> 16) & 255;
+      out[i * 4 + 2] = (hs[i] >>> 8) & 255; out[i * 4 + 3] = hs[i] & 255;
+    }
+    return out;
+  }
+  function hmac(key, msg) {
+    if (key.length > 64) key = sha256(key);
+    var k = new Uint8Array(64); k.set(key);
+    var ip = new Uint8Array(64), op = new Uint8Array(64);
+    for (var i = 0; i < 64; i++) { ip[i] = k[i] ^ 0x36; op[i] = k[i] ^ 0x5c; }
+    return sha256(concat(op, sha256(concat(ip, msg))));
+  }
+  function sameText(a, b) {
+    if (a.length !== b.length) return false;
+    var r = 0;
+    for (var i = 0; i < a.length; i++) r |= a.charCodeAt(i) ^ b.charCodeAt(i);
+    return r === 0;
+  }
+
+  /* ---------- envelopes ---------- */
+  function seal(key, obj) {
+    var p = JSON.stringify(obj);
+    return JSON.stringify({ p: p, s: hex(hmac(unb64u(key), utf8(p))) });
+  }
+  function open(key, text) {
+    try {
+      var o = JSON.parse(text);
+      if (!o || typeof o.p !== 'string' || typeof o.s !== 'string') return null;
+      if (!sameText(hex(hmac(unb64u(key), utf8(o.p))), o.s)) return null;
+      var v = JSON.parse(o.p);
+      return v && typeof v === 'object' ? v : null;
+    } catch (e) { return null; }
+  }
+
+  /* ---------- ntfy channel: live stream (SSE) with a slow poll as a safety net ---------- */
+  function Channel(opt) {
+    var base = String(opt.server || DEFAULT_SERVER).replace(/\/+$/, '') + '/' + encodeURIComponent(opt.topic);
+    var es = null, closed = false, lastId = '', seen = {}, seenList = [];
+    var retry = 0, retryT = 0, pollT = 0, watchT = 0, lastBeat = 0, state = '';
+    var DELAYS = [2, 5, 10, 20, 40, 60];
+
+    function setState(s) { if (s !== state) { state = s; if (opt.onState) try { opt.onState(s); } catch (e) {} } }
+    function since() { return lastId || opt.since || '10m'; }
+    function beat() { lastBeat = Date.now(); retry = 0; setState('online'); }
+    function remember(id) {
+      seen[id] = 1; seenList.push(id);
+      if (seenList.length > 300) delete seen[seenList.shift()];
+    }
+    function handle(obj) {
+      if (!obj || typeof obj !== 'object') return;
+      if (obj.event === 'open' || obj.event === 'keepalive') { beat(); return; }
+      if (obj.event !== 'message') return;
+      beat();
+      if (obj.id) { if (seen[obj.id]) return; remember(obj.id); lastId = obj.id; }
+      if (opt.onMessage) try { opt.onMessage(String(obj.message || ''), obj); } catch (e) {}
+    }
+    function scheduleRetry() {
+      if (closed) return;
+      clearTimeout(retryT);
+      retryT = setTimeout(connect, DELAYS[Math.min(retry, DELAYS.length - 1)] * 1000);
+      retry++;
+    }
+    function connect() {
+      if (closed) return;
+      clearTimeout(retryT);
+      if (es) { try { es.close(); } catch (e) {} es = null; }
+      if (typeof EventSource === 'undefined') { setState('connecting'); poll(); return; }
+      if (state !== 'online') setState('connecting');
+      try { es = new EventSource(base + '/sse?since=' + encodeURIComponent(since())); }
+      catch (e) { setState('offline'); scheduleRetry(); return; }
+      es.onmessage = function (ev) { try { handle(JSON.parse(ev.data)); } catch (e) {} };
+      es.addEventListener('open', function () { beat(); });
+      es.addEventListener('keepalive', function () { beat(); });
+      es.onerror = function () {
+        if (es) { try { es.close(); } catch (e) {} es = null; }
+        setState('offline'); scheduleRetry();
+      };
+    }
+    function poll() {
+      if (closed || typeof fetch === 'undefined') return;
+      fetch(base + '/json?poll=1&since=' + encodeURIComponent(since()), { cache: 'no-store' })
+        .then(function (r) { if (!r.ok) throw new Error(String(r.status)); return r.text(); })
+        .then(function (t) {
+          beat();
+          t.split('\n').forEach(function (line) { if (line.trim()) { try { handle(JSON.parse(line)); } catch (e) {} } });
+        })
+        .catch(function () { if (typeof EventSource === 'undefined') setState('offline'); });
+    }
+    function publish(text, tries) {
+      if (typeof fetch === 'undefined') return Promise.reject(new Error('no fetch'));
+      tries = tries == null ? 2 : tries;
+      return fetch(base, { method: 'POST', body: text, cache: 'no-store' })
+        .then(function (r) { if (!r.ok) throw new Error(String(r.status)); return r.json(); })
+        .then(function (m) { if (m && m.id) remember(m.id); return m; })
+        .catch(function (e) {
+          if (tries <= 1) throw e;
+          return new Promise(function (ok) { setTimeout(ok, 2500); }).then(function () { return publish(text, tries - 1); });
+        });
+    }
+
+    connect();
+    // The poll catches anything the stream missed; the watchdog restarts a stream that went quiet.
+    pollT = setInterval(function () { if (state === 'online' || typeof EventSource === 'undefined') poll(); }, typeof EventSource === 'undefined' ? 15000 : 60000);
+    watchT = setInterval(function () {
+      if (typeof EventSource !== 'undefined' && es && lastBeat && Date.now() - lastBeat > 110000) { setState('connecting'); connect(); }
+    }, 30000);
+
+    return {
+      publish: publish,
+      reconnect: function () { retry = 0; connect(); },
+      state: function () { return state; },
+      close: function () {
+        closed = true;
+        clearTimeout(retryT); clearInterval(pollT); clearInterval(watchT);
+        if (es) { try { es.close(); } catch (e) {} es = null; }
+        setState('off');
+      }
+    };
+  }
+
+  var DEFAULT_SERVER = 'https://ntfy.sh';
+  root.ManaraLink = {
+    utf8: utf8, hex: hex, b64u: b64u, unb64u: unb64u, newId: newId,
+    sha256: sha256, hmac: hmac, seal: seal, open: open,
+    Channel: Channel, DEFAULT_SERVER: DEFAULT_SERVER,
+    topic: function (ch) { return 'mnr-' + ch; }
+  };
+})(typeof window !== 'undefined' ? window : this);
+</script>
 <script>
 (function(){
 'use strict';
@@ -384,19 +2883,24 @@ var HMONTHS = ['محرم','صفر','ربيع الأول','ربيع الآخر','
 var OPEN = '﴿', CLOSE = '﴾';
 
 /* ---------- content ---------- */
-var BASE_ADHKAR = [
- {text:'أَسْتَغْفِرُ اللَّهَ [[(ثَلَاثًا)]]\nاللَّهُمَّ أَنْتَ السَّلَامُ، وَمِنْكَ السَّلَامُ، تَبَارَكْتَ يَا ذَا الْجَلَالِ وَالْإِكْرَامِ', src:'رواه مسلم'},
- {text:'لَا إِلَهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ، اللَّهُمَّ لَا مَانِعَ لِمَا أَعْطَيْتَ، وَلَا مُعْطِيَ لِمَا مَنَعْتَ، وَلَا يَنْفَعُ ذَا الْجَدِّ مِنْكَ الْجَدُّ', src:'متفق عليه'},
- {text:'لَا إِلَهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ، لَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللَّهِ، لَا إِلَهَ إِلَّا اللَّهُ، وَلَا نَعْبُدُ إِلَّا إِيَّاهُ، لَهُ النِّعْمَةُ وَلَهُ الْفَضْلُ، وَلَهُ الثَّنَاءُ الْحَسَنُ، لَا إِلَهَ إِلَّا اللَّهُ مُخْلِصِينَ لَهُ الدِّينَ وَلَوْ كَرِهَ الْكَافِرُونَ', src:'رواه مسلم'},
- {text:'سُبْحَانَ اللَّهِ، وَالْحَمْدُ لِلَّهِ، وَاللَّهُ أَكْبَرُ', count:'ثلاثًا وثلاثين مرة لكلٍّ منها', sub:'ثُمَّ يَقُولُ تَمَامَ الْمِائَةِ: لَا إِلَهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ', src:'رواه مسلم', extra:1.5},
- {title:'سورة الإخلاص', bas:true, quran:true, text:'قُلْ هُوَ اللَّهُ أَحَدٌ {{١}} اللَّهُ الصَّمَدُ {{٢}} لَمْ يَلِدْ وَلَمْ يُولَدْ {{٣}} وَلَمْ يَكُن لَّهُ كُفُوًا أَحَدٌ {{٤}}', count:muCount, src:'رواه أبو داود والترمذي والنسائي'},
- {title:'سورة الفلق', bas:true, quran:true, text:'قُلْ أَعُوذُ بِرَبِّ الْفَلَقِ {{١}} مِن شَرِّ مَا خَلَقَ {{٢}} وَمِن شَرِّ غَاسِقٍ إِذَا وَقَبَ {{٣}} وَمِن شَرِّ النَّفَّاثَاتِ فِي الْعُقَدِ {{٤}} وَمِن شَرِّ حَاسِدٍ إِذَا حَسَدَ {{٥}}', count:muCount, src:'رواه أبو داود والترمذي والنسائي'},
- {title:'سورة الناس', bas:true, quran:true, text:'قُلْ أَعُوذُ بِرَبِّ النَّاسِ {{١}} مَلِكِ النَّاسِ {{٢}} إِلَٰهِ النَّاسِ {{٣}} مِن شَرِّ الْوَسْوَاسِ الْخَنَّاسِ {{٤}} الَّذِي يُوَسْوِسُ فِي صُدُورِ النَّاسِ {{٥}} مِنَ الْجِنَّةِ وَالنَّاسِ {{٦}}', count:muCount, src:'رواه أبو داود والترمذي والنسائي'},
- {title:'آية الكرسي', quran:true, text:'اللَّهُ لَا إِلَٰهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ ۚ لَا تَأْخُذُهُ سِنَةٌ وَلَا نَوْمٌ ۚ لَّهُ مَا فِي السَّمَاوَاتِ وَمَا فِي الْأَرْضِ ۗ مَن ذَا الَّذِي يَشْفَعُ عِندَهُ إِلَّا بِإِذْنِهِ ۚ يَعْلَمُ مَا بَيْنَ أَيْدِيهِمْ وَمَا خَلْفَهُمْ ۖ وَلَا يُحِيطُونَ بِشَيْءٍ مِّنْ عِلْمِهِ إِلَّا بِمَا شَاءَ ۚ وَسِعَ كُرْسِيُّهُ السَّمَاوَاتِ وَالْأَرْضَ ۖ وَلَا يَئُودُهُ حِفْظُهُمَا ۚ وَهُوَ الْعَلِيُّ الْعَظِيمُ', count:'مرة واحدة', src:'رواه النسائي في عمل اليوم والليلة، وصححه الألباني'},
- {only:['fajr','maghrib'], text:'لَا إِلَهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ، يُحْيِي وَيُمِيتُ، وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ', count:'عشر مرات', note:'بعد صلاتي الفجر والمغرب', src:'رواه الترمذي وأحمد'},
- {only:['fajr'], text:'اللَّهُمَّ إِنِّي أَسْأَلُكَ عِلْمًا نَافِعًا، وَرِزْقًا طَيِّبًا، وَعَمَلًا مُتَقَبَّلًا', note:'بعد السلام من صلاة الفجر', src:'رواه ابن ماجه'}
+/* Adhkar after the salam of the five prayers, in the order of «تحفة الأخيار» by Shaykh Ibn Baz
+   (فصل في بيان الأذكار المشروعة بعد السلام في الصلوات الخمس). */
+var AK_DHIKR = [
+ {t:'أَسْتَغْفِرُ اللَّهَ', n:'ثلاثًا'},
+ {t:'اللَّهُمَّ أَنْتَ السَّلَامُ، وَمِنْكَ السَّلَامُ، تَبَارَكْتَ يَا ذَا الْجَلَالِ وَالْإِكْرَامِ'},
+ {t:'لَا إِلَهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ، اللَّهُمَّ لَا مَانِعَ لِمَا أَعْطَيْتَ، وَلَا مُعْطِيَ لِمَا مَنَعْتَ، وَلَا يَنْفَعُ ذَا الْجَدِّ مِنْكَ الْجَدُّ'},
+ {t:'لَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللَّهِ، لَا إِلَهَ إِلَّا اللَّهُ، وَلَا نَعْبُدُ إِلَّا إِيَّاهُ، لَهُ النِّعْمَةُ وَلَهُ الْفَضْلُ وَلَهُ الثَّنَاءُ الْحَسَنُ، لَا إِلَهَ إِلَّا اللَّهُ مُخْلِصِينَ لَهُ الدِّينَ وَلَوْ كَرِهَ الْكَافِرُونَ'},
+ {tas:[['سُبْحَانَ اللَّهِ', 33], ['الْحَمْدُ لِلَّهِ', 33], ['اللَّهُ أَكْبَرُ', 33]]},
+ {lead:'وَتَمَامَ الْمِائَةِ:', t:'لَا إِلَهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ'}
 ];
-function muCount(p){ return (p === 'fajr' || p === 'maghrib') ? 'ثلاث مرات' : 'مرة واحدة'; }
+var BASMALA = 'بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ';
+var AK_QURAN = [
+ {title:'آيَةُ الْكُرْسِيِّ', v:['اللَّهُ لَا إِلَٰهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ ۚ لَا تَأْخُذُهُ سِنَةٌ وَلَا نَوْمٌ ۚ لَّهُ مَا فِي السَّمَاوَاتِ وَمَا فِي الْأَرْضِ ۗ مَن ذَا الَّذِي يَشْفَعُ عِندَهُ إِلَّا بِإِذْنِهِ ۚ يَعْلَمُ مَا بَيْنَ أَيْدِيهِمْ وَمَا خَلْفَهُمْ ۖ وَلَا يُحِيطُونَ بِشَيْءٍ مِّنْ عِلْمِهِ إِلَّا بِمَا شَاءَ ۚ وَسِعَ كُرْسِيُّهُ السَّمَاوَاتِ وَالْأَرْضَ ۖ وَلَا يَئُودُهُ حِفْظُهُمَا ۚ وَهُوَ الْعَلِيُّ الْعَظِيمُ'], first:255},
+ {title:'سُورَةُ الْإِخْلَاصِ', bas:true, three:true, v:['قُلْ هُوَ اللَّهُ أَحَدٌ', 'اللَّهُ الصَّمَدُ', 'لَمْ يَلِدْ وَلَمْ يُولَدْ', 'وَلَمْ يَكُن لَّهُ كُفُوًا أَحَدٌ']},
+ {title:'سُورَةُ الْفَلَقِ', bas:true, three:true, v:['قُلْ أَعُوذُ بِرَبِّ الْفَلَقِ', 'مِن شَرِّ مَا خَلَقَ', 'وَمِن شَرِّ غَاسِقٍ إِذَا وَقَبَ', 'وَمِن شَرِّ النَّفَّاثَاتِ فِي الْعُقَدِ', 'وَمِن شَرِّ حَاسِدٍ إِذَا حَسَدَ']},
+ {title:'سُورَةُ النَّاسِ', bas:true, three:true, v:['قُلْ أَعُوذُ بِرَبِّ النَّاسِ', 'مَلِكِ النَّاسِ', 'إِلَٰهِ النَّاسِ', 'مِن شَرِّ الْوَسْوَاسِ الْخَنَّاسِ', 'الَّذِي يُوَسْوِسُ فِي صُدُورِ النَّاسِ', 'مِنَ الْجِنَّةِ وَالنَّاسِ']}
+];
+var AK_FM = {lead:'وَيَزِيدُ بَعْدَ الْفَجْرِ وَالْمَغْرِبِ:', t:'لَا إِلَهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ، يُحْيِي وَيُمِيتُ، وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ', n:'عشر مرات'};
 
 var REMINDERS = [
  {q:1, t:'إِنَّ الصَّلَاةَ كَانَتْ عَلَى الْمُؤْمِنِينَ كِتَابًا مَّوْقُوتًا', s:'سورة النساء، الآية ١٠٣'},
@@ -446,11 +2950,12 @@ var DEF = {
  iqAfter:{fajr:25,dhuhr:20,asr:20,maghrib:10,isha:20},
  iqFixed:{fajr:300,dhuhr:720,asr:915,maghrib:1050,isha:1140},
  prayMin:{fajr:10,dhuhr:10,asr:10,maghrib:8,isha:10},
- adhanMin:2, phoneSec:60, prayerScreen:'dim', adhkarMin:5, slideSec:14,
+ adhanMin:2, phoneSec:60, prayerScreen:'dim', adhkarMin:5,
  jumuah:true, jumuahMin:40,
  skin:'lapis', orientation:'auto', digits:'latn', clock24:false, showSeconds:true,
  nightDim:false, burnIn:true, beep:false, autoFS:true, showTicker:true,
- ann:['نرجو إغلاق الهاتف الجوال داخل المسجد','حافظوا على نظافة بيت الله','','']
+ ann:['نرجو إغلاق الهاتف الجوال داخل المسجد','حافظوا على نظافة بيت الله','',''],
+ remote:{on:false, ch:'', key:'', server:''}
 };
 var KEY = 'manara.settings.v1';
 var storageOK = true, noSave = false;
@@ -488,7 +2993,7 @@ var Q = {}, simOffset = 0;
 try { location.search.replace(/^\?/, '').split('&').forEach(function(kv){ if (!kv) return; var i = kv.indexOf('='); Q[decodeURIComponent(i < 0 ? kv : kv.slice(0, i))] = i < 0 ? '' : decodeURIComponent(kv.slice(i + 1)); }); } catch (e) {}
 if (Q.at) { var mt = Q.at.match(/(\d+)-(\d+)-(\d+)T(\d+):(\d+)(?::(\d+))?/); if (mt) simOffset = new Date(+mt[1], mt[2] - 1, +mt[3], +mt[4], +mt[5], +(mt[6] || 0)).getTime() - Date.now(); }
 ['orientation','skin','digits','prayerScreen'].forEach(function(k){ var q = k === 'orientation' ? Q.orient : Q[k]; if (q) { cfg[k] = q; noSave = true; } });
-if (Q.at || Q.preview || Q.sheet) noSave = true;
+if (Q.at || Q.preview || Q.sheet || Q.test) noSave = true;
 function nowDate(){ return new Date(Date.now() + simOffset); }
 
 /* ---------- formatting ---------- */
@@ -568,12 +3073,18 @@ function phasesFor(day){
    out.push({k:'khutbah', p:x, jm:true, s:adhanEnd, e:end, a:a});
    if (cfg.adhkarMin > 0) out.push({k:'adhkar', p:x, jm:true, s:end, e:addMin(end, cfg.adhkarMin), a:a});
   } else {
-   var I = day.iq[x];
+   // I is the published iqama time; Ia is when it actually happens after a hidden delay from the imam.
+   var I = day.iq[x], rec = delays[dkey(day.d) + '|' + x], Ia = I, w = null, extra = 0;
+   if (rec) {
+    // A delay set (or cancelled) mid-countdown keeps its smooth curve even when it ends on the published time.
+    if (rec.act && (rec.act !== I.getTime() || rec.d0 != null)) { Ia = new Date(rec.act); w = {act:rec.act, at:rec.at, d0:rec.d0}; }
+    if (rec.extra) extra = rec.extra * 60000;
+   }
    adhanEnd = minD(addMin(a, cfg.adhanMin), I);
    if (adhanEnd > a) out.push({k:'adhan', p:x, s:a, e:adhanEnd, a:a, i:I});
-   if (I > adhanEnd) out.push({k:'iqama', p:x, s:adhanEnd, e:I, a:a, i:I});
-   var pe = addMin(I, clampN(cfg.prayMin[x], 1, 60));
-   out.push({k:'prayer', p:x, s:I, e:pe, a:a, i:I});
+   if (Ia > adhanEnd) out.push({k:'iqama', p:x, s:adhanEnd, e:Ia, a:a, i:I, w:w});
+   var pe = new Date(Ia.getTime() + clampN(cfg.prayMin[x], 1, 60) * 60000 + extra);
+   out.push({k:'prayer', p:x, s:Ia, e:pe, a:a, i:I, hide:!!(w || extra)});
    if (cfg.adhkarMin > 0) out.push({k:'adhkar', p:x, s:pe, e:addMin(pe, cfg.adhkarMin), a:a, i:I});
   }
  });
@@ -593,6 +3104,65 @@ function nextAdhan(now){
  return null;
 }
 function pName(p, fri){ return (p === 'dhuhr' && fri) ? 'الجمعة' : NAMES[p]; }
+
+/* ---------- hidden iqama delays ---------- */
+// The imam can push one prayer's iqama back by 1–3 minutes from his phone. The countdown absorbs the
+// extra time by running slightly slower, its last seconds run at normal speed, and no time on screen changes.
+var DLKEY = 'manara.delays.v1';
+var delays = {};
+try { delays = JSON.parse(window.localStorage.getItem(DLKEY) || '{}') || {}; } catch (e) { delays = {}; }
+function saveDelays(){
+ var cut = Date.now() - 3 * 86400000;
+ Object.keys(delays).forEach(function(k){ if (!delays[k] || !(delays[k].at > cut - Math.abs(simOffset))) delete delays[k]; });
+ if (noSave) return;
+ try { window.localStorage.setItem(DLKEY, JSON.stringify(delays)); } catch (e) {}
+}
+function dayFromKey(k){ var m = /^(\d{4})-(\d{1,2})-(\d{1,2})$/.exec(k || ''); return m ? new Date(+m[1], +m[2] - 1, +m[3]) : null; }
+// Displayed time left on the iqama countdown (ms) and how fast it is running at real time T.
+function iqState(ph, T){
+ var w = ph.w, sched = ph.i.getTime();
+ if (!w) return {left:ph.e.getTime() - T, rate:1};
+ var s0 = ph.s.getTime(), S, D0;
+ if (w.at > s0 && w.d0 != null) { S = w.at; D0 = w.d0; } else { S = s0; D0 = sched - s0; }
+ if (T < S) return {left:sched - T, rate:1};
+ var R0 = w.act - S;
+ if (D0 <= 0 || R0 <= 0) return {left:Math.max(0, w.act - T), rate:1};
+ var L = Math.min(45000, D0 * 0.1);
+ if (T >= w.act - L) return {left:w.act - T, rate:1};
+ var r = (D0 - L) / (R0 - L);
+ return {left:D0 - (T - S) * r, rate:r};
+}
+function slowPct(D0, R0){ if (D0 <= 0 || R0 <= 0) return 0; var L = Math.min(45000, D0 * 0.1); if (R0 - L <= 0 || D0 - L <= 0) return 0; return Math.round(((R0 - L) / (D0 - L) - 1) * 100); }
+function applyDelay(dateKey, p, m){
+ var d0 = dayFromKey(dateKey);
+ if (!d0 || PR.indexOf(p) < 0 || isNaN(m)) return {ok:false, why:'bad'};
+ m = Math.round(clampN(m, 0, 3));
+ var day = computeDay(d0);
+ if (day.fri && p === 'dhuhr') return {ok:false, why:'jumuah'};
+ var I = day.iq[p];
+ if (!I) return {ok:false, why:'bad'};
+ var nowT = nowDate().getTime(), sched = I.getTime(), key = dkey(d0) + '|' + p, old = delays[key];
+ var phs = phasesFor(day).filter(function(x){ return x.p === p; });
+ var iq = phs.filter(function(x){ return x.k === 'iqama'; })[0], pr = phs.filter(function(x){ return x.k === 'prayer'; })[0];
+ var start = pr ? pr.s.getTime() : sched, s0 = iq ? iq.s.getTime() : sched, res = {ok:true, m:m, sched:sched};
+ if (pr && nowT >= pr.e.getTime()) return {ok:false, why:'past'};
+ if (nowT >= start) {
+  // The prayer has already begun on screen: only keep the prayer screen up a little longer.
+  var r = old ? clone(old) : {m:0, at:nowT};
+  r.extra = m; delays[key] = r;
+  res.late = true; res.act = start;
+ } else if (iq && nowT >= s0) {
+  var dcur = Math.round(iqState(iq, nowT).left), act = sched + m * 60000;
+  if (act - nowT < dcur * 0.6) act = nowT + dcur;   // never rush the countdown; just let it run at normal speed
+  delays[key] = {m:m, at:nowT, d0:dcur, act:act};
+  res.act = act; res.slow = slowPct(dcur, act - nowT);
+ } else {
+  delays[key] = {m:m, at:nowT, act:sched + m * 60000};
+  res.act = sched + m * 60000; res.slow = slowPct(sched - s0, res.act - s0);
+ }
+ saveDelays(); timeline = null; lastMin = -1; tick();
+ return res;
+}
 
 /* ---------- elements ---------- */
 var fit = $('fit'), box = $('box'), app = $('app'), stage = $('stage');
@@ -646,10 +3216,28 @@ function fitNiche(){
  while (s > 22 && t.offsetHeight > avail) { s -= 2; t.style.fontSize = s + 'px'; }
 }
 function fitAdhkar(){
- var c = $('akCard'), t = $('akText'), sub = $('akSub'), s = portrait ? 88 : 66, avail = innerH(c) - 12;
- var set = function(){ t.style.fontSize = s + 'px'; sub.style.fontSize = Math.round(s * 0.7) + 'px'; };
- set();
- while (s > 28 && sumH(c) > avail) { s -= 2; set(); }
+ // Largest type that keeps the whole page on screen. In landscape it also tries a few column widths,
+ // so the longer Quran column gets more room and neither column is left half empty.
+ var page = $('akPage'), cols = [$('akA'), $('akB')];
+ if (!page.clientHeight) return;
+ var fits = function(){
+  if (page.scrollHeight > page.clientHeight + 1) return false;
+  for (var j = 0; j < cols.length; j++) if (cols[j].scrollHeight > cols[j].clientHeight + 1) return false;
+  return true;
+ };
+ var search = function(){
+  var lo = 16, hi = portrait ? 60 : 64, best = lo;
+  for (var i = 0; i < 10; i++) { var mid = (lo + hi) / 2; page.style.fontSize = mid + 'px'; if (fits()) { best = mid; lo = mid; } else hi = mid; }
+  return Math.floor(best * 4) / 4;
+ };
+ var shares = portrait ? [0] : [0.40, 0.43, 0.46, 0.49, 0.52], bestSize = 0, bestShare = 0;
+ shares.forEach(function(a){
+  page.style.gridTemplateColumns = a ? 'minmax(0,' + a + 'fr) minmax(0,' + (1 - a).toFixed(2) + 'fr)' : '';
+  var size = search();
+  if (size > bestSize + 0.2) { bestSize = size; bestShare = a; }
+ });
+ page.style.gridTemplateColumns = bestShare ? 'minmax(0,' + bestShare + 'fr) minmax(0,' + (1 - bestShare).toFixed(2) + 'fr)' : '';
+ page.style.fontSize = bestSize + 'px';
 }
 function refitAll(){ if (!$('main').classList.contains('off')) { fitName(); fitNiche(); } if (curScene && curScene.k === 'adhkar') fitAdhkar(); }
 
@@ -730,48 +3318,31 @@ function frameMain(now){
 /* ---------- scenes ---------- */
 var SCENES = ['adhan','iqama','prayer','adhkar','khutbah'];
 var curScene = null, curKey = 'none', preview = null, timeline = null;
-var akList = [], akIdx = -1, akP = 'dhuhr', akW = [];
-function plainLen(s){ return String(s || '').replace(/[ً-ٰٟۖ-ۭ]/g, '').replace(/\[\[|\]\]|\{\{.*?\}\}/g, '').length; }
-function adhkarFor(p, fast){
- return BASE_ADHKAR.filter(function(x){ return !x.only || x.only.indexOf(p) >= 0; }).map(function(x){
-  var d = fast || Math.round(clampN(cfg.slideSec, 4, 60) * (1 + plainLen(x.text + (x.sub || '')) / 150) * (x.extra || 1));
-  return {x:x, d:Math.max(4, Math.min(90, d))};
+function esc(t){ return String(t).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+function arNum(n){ return String(n).replace(/[0-9]/g, function(c){ return '٠١٢٣٤٥٦٧٨٩'.charAt(+c); }); }
+function pill(t){ return '<span class="ak-n">' + esc(t) + '</span>'; }
+function renderAdhkar(p, jm){
+ var fm = !jm && (p === 'fajr' || p === 'maghrib'), a = '', b = '';
+ AK_DHIKR.forEach(function(x){
+  if (x.tas) { a += '<p class="ak-i ak-tas">' + x.tas.map(function(t){ return '<span>' + esc(t[0]) + pill(dg(t[1])) + '</span>'; }).join('') + '</p>'; return; }
+  a += '<p class="ak-i">' + (x.lead ? '<span class="ak-lead">' + esc(x.lead) + '</span> ' : '') + esc(x.t) + (x.n ? pill(x.n) : '') + '</p>';
  });
-}
-function setRich(target, text){
- target.innerHTML = '';
- var re = /\[\[([\s\S]+?)\]\]|\{\{([\s\S]+?)\}\}/g, last = 0, m;
- while ((m = re.exec(text))) {
-  if (m.index > last) target.appendChild(document.createTextNode(text.slice(last, m.index)));
-  var s = el('span', m[1] ? 'mut' : 'an'); s.textContent = m[1] ? m[1] : OPEN + m[2] + CLOSE; target.appendChild(s);
-  last = re.lastIndex;
- }
- if (last < text.length) target.appendChild(document.createTextNode(text.slice(last)));
-}
-function renderSlide(i){
- var x = akList[i].x;
- $('akTitle').textContent = x.title || ''; $('akTitle').hidden = !x.title;
- $('akBas').hidden = !x.bas;
- setRich($('akText'), x.text);
- $('akSub').textContent = x.sub || ''; $('akSub').hidden = !x.sub;
- var cnt = typeof x.count === 'function' ? x.count(akP) : (x.count || '');
- $('akCount').textContent = cnt; $('akCount').hidden = !cnt;
- $('akNote').textContent = x.note || ''; $('akNote').hidden = !x.note;
- $('akSrc').textContent = x.src || '';
+ AK_QURAN.forEach(function(x){
+  var start = x.first || 1;
+  var body = x.v.map(function(v, i){ return esc(v) + ' <span class="an">' + OPEN + arNum(start + i) + CLOSE + '</span>'; }).join(' ');
+  b += '<div class="ak-q"><div class="ak-qh">' + esc(x.title) + (fm && x.three ? pill('ثلاث مرات') : '') + '</div>' +
+       '<p class="ak-qb">' + (x.bas ? '<span class="ak-bas">' + esc(BASMALA) + '</span> ' : '') + body + '</p></div>';
+ });
+ if (fm) b += '<p class="ak-i"><span class="ak-lead">' + esc(AK_FM.lead) + '</span> ' + esc(AK_FM.t) + pill(AK_FM.n) + '</p>';
+ $('akA').innerHTML = a; $('akB').innerHTML = b;
  fitAdhkar();
- var c = $('akCard'); c.classList.remove('swap'); void c.offsetWidth; c.classList.add('swap');
 }
 function enterScene(ph){
  var nm = pName(ph.p, ph.jm);
  if (ph.k === 'adhan') $('adName').textContent = 'صلاة ' + nm;
- if (ph.k === 'iqama') { $('iqName').textContent = 'صلاة ' + nm; $('iqA').innerHTML = timeHTML(ph.a); $('iqI').innerHTML = timeHTML(ph.i); }
- if (ph.k === 'prayer') $('sc-prayer').classList.toggle('black', cfg.prayerScreen === 'black');
- if (ph.k === 'adhkar') {
-  akP = ph.jm ? 'dhuhr' : ph.p; akList = adhkarFor(akP, ph.fast); akIdx = -1; akW = [];
-  $('akHead').textContent = 'أذكار ما بعد صلاة ' + nm;
-  var pr = $('akProg'); pr.innerHTML = '';
-  akList.forEach(function(){ var i = el('i'); i.appendChild(el('b')); pr.appendChild(i); akW.push(0); });
- }
+ if (ph.k === 'iqama') { $('iqName').textContent = 'صلاة ' + nm; $('iqDate').textContent = hijriText(dayStart(nowDate())); }
+ if (ph.k === 'prayer') { $('sc-prayer').classList.toggle('black', cfg.prayerScreen === 'black'); $('prClock').hidden = !!ph.hide; }
+ if (ph.k === 'adhkar') { $('akHead').textContent = 'أذكار ما بعد صلاة ' + nm; renderAdhkar(ph.jm ? 'dhuhr' : ph.p, ph.jm); }
 }
 function setScene(ph, now){
  var key = ph ? ph.k + '|' + ph.p + '|' + ph.s.getTime() + (ph.prev ? '|p' : '') : 'none';
@@ -790,25 +3361,18 @@ var CIRC = 2 * Math.PI * 282;
 function frameScene(ph, now){
  setClocks(now);
  if (ph.k === 'iqama') {
-  var left = ph.e - now, span = Math.max(1, ph.e - ph.s);
+  var st = iqState(ph, now.getTime()), left = Math.max(0, st.left), span = Math.max(1, ph.i - ph.s);
   mono($('iqNum'), dur(left));
   $('iqCount').classList.toggle('end', left <= 10000);
-  var arc = $('iqArc'); arc.style.strokeDasharray = CIRC; arc.style.strokeDashoffset = CIRC * (1 - Math.max(0, Math.min(1, left / span)));
+  // Wake up exactly when the shown seconds change, so a slowed countdown still ticks evenly.
+  var wait = Math.max(60, Math.min(2500, ((left % 1000) || 1000) / st.rate + 15));
+  var arc = $('iqArc'); arc.style.strokeDasharray = CIRC; arc.style.transitionDuration = Math.round(wait) + 'ms';
+  arc.style.strokeDashoffset = CIRC * (1 - Math.max(0, Math.min(1, left / span)));
   var alertOn = cfg.phoneSec > 0 && left <= cfg.phoneSec * 1000;
   $('iqPhone').hidden = !alertOn; $('iqNote').hidden = alertOn;
- } else if (ph.k === 'adhkar' && akList.length) {
-  var total = 0; akList.forEach(function(s){ total += s.d; });
-  var t = ((now - ph.s) / 1000) % total, i = 0, acc = 0;
-  while (i < akList.length - 1 && t >= acc + akList[i].d) { acc += akList[i].d; i++; }
-  if (i !== akIdx) { akIdx = i; renderSlide(i); }
-  var bars = $('akProg').children;
-  for (var j = 0; j < bars.length; j++) {
-   var w = j < i ? 100 : (j === i ? Math.min(100, (t - acc + 1) / akList[i].d * 100) : 0);
-   var b = bars[j].firstChild;
-   if (w < akW[j]) { b.style.transition = 'none'; b.style.width = w + '%'; void b.offsetWidth; b.style.transition = ''; } else b.style.width = w + '%';
-   akW[j] = w;
-  }
+  return wait;
  }
+ return 0;
 }
 
 /* ---------- loop ---------- */
@@ -823,13 +3387,15 @@ function frame(now){
  var bi = Math.floor(now.getTime() / 180000);
  if (cfg.burnIn && bi !== burnIdx) { burnIdx = bi; shift = {x:(bi * 7919) % 17 - 8, y:(bi * 104729) % 13 - 6}; placeStage(); }
  else if (!cfg.burnIn && (shift.x || shift.y)) { shift = {x:0, y:0}; burnIdx = -1; placeStage(); }
- if (ph) frameScene(ph, now); else frameMain(now);
+ if (ph) return frameScene(ph, now);
+ frameMain(now);
+ return 0;
 }
 function tick(){
  clearTimeout(tickT);
- var now = nowDate();
- try { frame(now); } catch (e) { if (window.console) console.error(e); }
- tickT = setTimeout(tick, 1000 - (now.getTime() % 1000) + 10);
+ var now = nowDate(), wait = 0;
+ try { wait = frame(now); } catch (e) { if (window.console) console.error(e); }
+ tickT = setTimeout(tick, wait || (1000 - (now.getTime() % 1000) + 10));
 }
 function rebuild(){ cache = {}; timeline = null; lastMin = -1; curKey = 'none'; curScene = null; var now = nowDate(); renderDates(now); tick(); }
 
@@ -840,7 +3406,7 @@ function startPreview(kind){
  if (kind === 'adhan') ph = {k:'adhan', p:p, s:now, e:addSec(now, 20), a:now};
  else if (kind === 'iqama') ph = {k:'iqama', p:p, s:now, e:addSec(now, 75), a:addSec(now, -120), i:addSec(now, 75)};
  else if (kind === 'prayer') ph = {k:'prayer', p:p, s:now, e:addSec(now, 15)};
- else if (kind === 'adhkar') { ph = {k:'adhkar', p:'fajr', s:now, fast:5}; ph.e = addSec(now, 5 * adhkarFor('fajr').length); }
+ else if (kind === 'adhkar') ph = {k:'adhkar', p:'fajr', s:now, e:addSec(now, 30)};
  else ph = {k:'khutbah', p:'dhuhr', jm:true, s:now, e:addSec(now, 15)};
  ph.prev = true; preview = ph; tick();
 }
@@ -900,11 +3466,14 @@ function buildSchema(){
  S.push({id:'phoneSec', type:'step', label:'تنبيه إغلاق الجوال قبل الإقامة', min:0, max:300, step:15, fmt:function(v){ return v ? pSec(v) : 'إيقاف'; }});
  PR.forEach(function(k){ S.push({id:'prayMin.' + k, type:'step', label:'مدة صلاة ' + NAMES[k], min:3, max:30, fmt:pMin, hint:k === 'dhuhr' ? 'يوم الجمعة تُستعمل مدة الخطبة والصلاة' : ''}); });
  S.push({id:'prayerScreen', type:'select', label:'أثناء الصلاة', opts:opts([['dim','رسالة خافتة'],['black','شاشة سوداء']])});
- S.push({id:'adhkarMin', type:'step', label:'أذكار ما بعد الصلاة', min:0, max:15, fmt:function(v){ return v ? pMin(v) : 'إيقاف'; }});
- S.push({id:'slideSec', type:'step', label:'مدة عرض الذكر القصير', min:6, max:40, fmt:pSec, hint:'الأذكار الطويلة تأخذ وقتًا أطول تلقائيًا'});
+ S.push({id:'adhkarMin', type:'step', label:'أذكار ما بعد الصلاة', min:0, max:15, fmt:function(v){ return v ? pMin(v) : 'إيقاف'; }, hint:'تُعرض كاملة في صفحة واحدة بترتيب «تحفة الأخيار»'});
  S.push({sec:'الجمعة'});
  S.push({id:'jumuah', type:'toggle', label:'وضع صلاة الجمعة', hint:'يحل محل الظهر يوم الجمعة ويعرض شاشة الخطبة'});
  S.push({id:'jumuahMin', type:'step', label:'مدة الخطبة والصلاة', min:15, max:90, step:5, fmt:pMin, show:function(){ return cfg.jumuah; }});
+ S.push({sec:'التحكم من الجوال', hint:'يؤخّر الإمام إقامة صلاة واحدة من دقيقة إلى ٣ دقائق من جواله، فيتباطأ العد على الشاشة دون أن يتغير أي وقت أمام المصلين. يحتاج اتصال الشاشة بالإنترنت.'});
+ S.push({id:'remote.on', type:'toggle', label:'تفعيل التحكم من الجوال', on:function(v){ if (v) remoteEnsureKeys(); }});
+ S.push({type:'qr', show:function(){ return remoteReady(); }});
+ S.push({type:'button', label:'إنشاء رمز ربط جديد', danger:true, show:function(){ return remoteReady(); }, act:rotateAsk, hint:'الجوالات المربوطة سابقًا تتوقف'});
  S.push({sec:'المظهر'});
  S.push({id:'skin', type:'select', label:'الألوان', opts:opts([['lapis','لازوردي'],['emerald','زمردي'],['marble','رخامي فاتح'],['onyx','أسود']])});
  S.push({id:'orientation', type:'select', label:'اتجاه الشاشة', opts:opts([['auto','تلقائي'],['landscape','أفقي'],['portrait','عمودي'],['rot90','عمودي بتدوير يمينًا'],['rot270','عمودي بتدوير يسارًا']]), hint:'اختر التدوير إذا عُلّقت الشاشة عموديًا والجهاز لا يدوّر الصورة'});
@@ -936,6 +3505,12 @@ function buildSchema(){
  return S;
 }
 var resetT = 0;
+function rotateAsk(f){
+ var b = f.btn;
+ if (b.__armed) { clearTimeout(resetT); b.__armed = false; cfg.remote.ch = ''; cfg.remote.key = ''; remoteEnsureKeys(); b.textContent = f.label; commit(); flashFoot('أُنشئ رمز ربط جديد. امسحه من جوال الإمام مرة أخرى.'); return; }
+ b.__armed = true; b.textContent = 'اضغط مرة أخرى: ستتوقف الجوالات المربوطة';
+ resetT = setTimeout(function(){ b.__armed = false; b.textContent = f.label; }, 5000);
+}
 function resetAsk(f){
  var b = f.btn;
  if (b.__armed) { clearTimeout(resetT); b.__armed = false; cfg = clone(DEF); saveCfg(); commit(true); b.textContent = f.label; flashFoot('أُعيدت الإعدادات الافتراضية.'); return; }
@@ -947,6 +3522,12 @@ function flashFoot(m){ footMsg = m; clearTimeout(footT); footT = setTimeout(func
 function buildSheet(){
  var body = $('shBody'); body.innerHTML = ''; FIELDS = [];
  buildSchema().forEach(function(f){
+  if (f.type === 'qr') {
+   var qr = el('div', 'qr-row');
+   qr.innerHTML = '<div class="qr-box"></div><div class="qr-side"><b>امسح الرمز بكاميرا جوال الإمام</b><span class="muted">ستفتح صفحة التحكم. احفظها على الشاشة الرئيسية للجوال ليصل إليها بلمسة.</span><span class="rstat"></span><span class="muted ractive"></span></div>';
+   f.row = qr; f.box = qr.querySelector('.qr-box'); f.stat = qr.querySelector('.rstat'); f.act = qr.querySelector('.ractive');
+   FIELDS.push(f); body.appendChild(qr); return;
+  }
   if (f.sec) { var h = el('div', 'sec'); h.textContent = f.sec; body.appendChild(h); if (f.hint) { var sh = el('div', 'sec-hint'); sh.textContent = f.hint; body.appendChild(sh); } return; }
   var row;
   if (f.type === 'button') {
@@ -1001,8 +3582,10 @@ function valueText(f, v){
 function refreshSheet(){
  if (!sheetOpen) return;
  FIELDS.forEach(function(f){
+  var vis = !f.show || f.show(); if (f.row) f.row.hidden = !vis;
+  if (!vis) return;
+  if (f.type === 'qr') { renderQR(f); return; }
   if (!f.id) return;
-  var vis = !f.show || f.show(); f.row.hidden = !vis; if (!vis) return;
   var v = f.get ? f.get() : getP(f.id);
   if (f.val) f.val.textContent = valueText(f, v);
   if (f.sw) f.sw.setAttribute('aria-checked', v ? 'true' : 'false');
@@ -1024,7 +3607,7 @@ function adjust(f, dir, rep){
  setP(f.id, v); if (f.on) f.on(v); commit();
 }
 function commit(){
- saveCfg(); applyLook(); layout(); rebuild(); refreshSheet();
+ saveCfg(); applyLook(); layout(); rebuild(); remoteSync(); refreshSheet();
 }
 function navList(){ return Array.prototype.filter.call($('sheet').querySelectorAll('[data-nav]'), function(e){ return e.offsetParent !== null; }); }
 function moveFocus(dir){
@@ -1050,6 +3633,73 @@ function closeSheet(fromPop){
 window.addEventListener('popstate', function(){ if (sheetOpen) closeSheet(true); else if (preview) stopPreview(); });
 $('shClose').addEventListener('click', function(){ closeSheet(); });
 $('scrim').addEventListener('click', function(){ closeSheet(); });
+
+/* ---------- control from the imam's phone ---------- */
+var REMOTE_URL = 'https://m3athrazaq.github.io/manara/remote.html';
+var LINK = window.ManaraLink || null;
+var rc = null, rSig = '', rState = 'off', rSeen = {}, rLastCmd = 0;
+function remoteReady(){ return !!(LINK && cfg.remote.on && cfg.remote.ch && cfg.remote.key); }
+function remoteEnsureKeys(){ if (LINK && (!cfg.remote.ch || !cfg.remote.key)) { cfg.remote.ch = LINK.newId(16); cfg.remote.key = LINK.newId(16); } }
+function remoteServer(){ return cfg.remote.server || (LINK ? LINK.DEFAULT_SERVER : ''); }
+function remoteLink(){ return REMOTE_URL + '#c=' + cfg.remote.ch + '&k=' + cfg.remote.key + (cfg.remote.server ? '&s=' + encodeURIComponent(cfg.remote.server) : ''); }
+function remoteSync(){
+ var sig = remoteReady() ? [cfg.remote.ch, cfg.remote.key, remoteServer()].join('|') : '';
+ if (sig === rSig) return;
+ rSig = sig;
+ if (rc) { rc.close(); rc = null; }
+ rState = 'off';
+ if (!sig) return;
+ rc = LINK.Channel({server:remoteServer(), topic:LINK.topic(cfg.remote.ch), since:'10m', onMessage:remoteMessage, onState:function(s){ rState = s; refreshRemote(); }});
+}
+function remoteSend(obj){
+ if (!rc) return;
+ obj.v = 1; obj.from = 'tv'; obj.ts = Date.now(); obj.n = LINK.newId(9);
+ rc.publish(LINK.seal(cfg.remote.key, obj)).then(function(){}, function(){});
+}
+function remoteMessage(text){
+ var m = LINK.open(cfg.remote.key, text);
+ if (!m || m.from !== 'ph' || typeof m.n !== 'string' || rSeen[m.n]) return;
+ if (Math.abs(Date.now() - (+m.ts || 0)) > 15 * 60000) return;   // stale or replayed
+ var t = Date.now(); rSeen[m.n] = t;
+ Object.keys(rSeen).forEach(function(k){ if (t - rSeen[k] > 3600000) delete rSeen[k]; });
+ if (m.k === 'hello') remoteSend(statusMsg(m.n));
+ else if (m.k === 'delay') {
+  var res = applyDelay(String(m.date || ''), String(m.p || ''), +m.m);
+  res.k = 'ack'; res.re = m.n; res.date = m.date; res.p = m.p;
+  rLastCmd = t; remoteSend(res); refreshRemote();
+ }
+}
+function statusMsg(re){
+ var now = nowDate(), d0 = dayStart(now), days = [];
+ [0, 1].forEach(function(n){
+  var d = addDays(d0, n), day = computeDay(d), k = dkey(d);
+  days.push({date:k, fri:day.fri, list:PR.map(function(p){
+   var rec = delays[k + '|' + p];
+   return {p:p, a:day.t[p] ? day.t[p].getTime() : 0, i:day.iq[p] ? day.iq[p].getTime() : 0, act:(rec && rec.act) || 0, m:rec ? rec.m || 0 : 0, x:rec ? rec.extra || 0 : 0};
+  })});
+ });
+ return {k:'status', re:re, name:(cfg.mosqueName || '').trim() || 'مَنارة', now:now.getTime(), days:days};
+}
+function qrSVG(text){
+ if (typeof qrcode !== 'function') return '';
+ var q = qrcode(0, 'M'); q.addData(text); q.make();
+ var n = q.getModuleCount(), m = 4, size = n + m * 2, d = '';
+ for (var r = 0; r < n; r++) for (var c = 0; c < n; c++) if (q.isDark(r, c)) d += 'M' + (c + m) + ' ' + (r + m) + 'h1v1h-1z';
+ return '<svg viewBox="0 0 ' + size + ' ' + size + '" shape-rendering="crispEdges" role="img" aria-label="رمز ربط الجوال"><rect width="' + size + '" height="' + size + '" fill="#fff"/><path d="' + d + '" fill="#000"/></svg>';
+}
+function renderQR(f){
+ var link = remoteLink();
+ if (f.box.__link !== link) { f.box.__link = link; f.box.innerHTML = qrSVG(link); }
+ var txt = '', cls = 'rstat';
+ if (rState === 'online') { txt = 'متصل بالإنترنت ✓ جاهز لأوامر الجوال'; cls += ' on'; }
+ else if (rState === 'offline') { txt = inFrame ? 'لا يعمل داخل هذه المعاينة؛ يعمل في تطبيق التلفزيون أو الملف' : 'غير متصل؛ تأكد من اتصال الشاشة بالإنترنت'; cls += ' bad'; }
+ else txt = 'جارٍ الاتصال…';
+ f.stat.textContent = txt; f.stat.className = cls;
+ var now = nowDate(), k = dkey(dayStart(now)), act = [];
+ PR.forEach(function(p){ var r = delays[k + '|' + p]; if (r && (r.m > 0 || r.extra > 0)) act.push(NAMES[p] + ' +' + dg(r.m || r.extra) + ' د' + (r.act ? ' (الإقامة الفعلية ' + timeText(new Date(r.act)) + ')' : '')); });
+ f.act.textContent = act.length ? 'تأخير اليوم: ' + act.join('، ') : '';
+}
+function refreshRemote(){ if (!sheetOpen) return; FIELDS.forEach(function(f){ if (f.type === 'qr' && !f.row.hidden) renderQR(f); }); }
 
 /* ---------- input ---------- */
 function keyName(e){
@@ -1111,7 +3761,9 @@ renderDates(nowDate());
 tick();
 wake();
 setTimeout(function(){ $('tip').classList.add('gone'); }, 9000);
-if (document.fonts && document.fonts.ready) document.fonts.ready.then(function(){ refitAll(); if (curScene && curScene.k === 'adhkar' && akIdx >= 0) fitAdhkar(); });
+if (document.fonts && document.fonts.ready) document.fonts.ready.then(function(){ refitAll(); });
+remoteSync();
+if (Q.test) window.__manara = {applyDelay:applyDelay, iqState:iqState, timeline:function(){ return timeline || buildTimeline(nowDate()); }, delays:function(){ return delays; }, now:nowDate, phasesFor:function(k){ return phasesFor(computeDay(dayFromKey(k))); }, remoteLink:remoteLink, rState:function(){ return rState; }};
 if (Q.preview) startPreview(Q.preview);
 if (Q.sheet) openSheet();
 })();
