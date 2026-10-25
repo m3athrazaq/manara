@@ -121,6 +121,7 @@ body{height:100%;margin:0;background:var(--bg);color:var(--ink);font-family:var(
 .next.soon{border-color:var(--brass)}
 
 .niche{grid-area:niche;position:relative;min-width:0}
+.niche.empty .arch,.niche.empty .finial{visibility:hidden}
 .arch{position:absolute;top:0;left:0;width:100%;height:100%;overflow:visible}
 .arch .o{fill:var(--surface);fill-opacity:.6;stroke:var(--brass);stroke-width:2.5}
 .arch .i{fill:none;stroke:var(--line);stroke-width:1.5}
@@ -2965,7 +2966,7 @@ var AK_QURAN = [
 var AK_FM = {lead:'وَيَزِيدُ بَعْدَ الْفَجْرِ وَالْمَغْرِبِ:', t:'لَا إِلَهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ، يُحْيِي وَيُمِيتُ، وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ', n:'عشر مرات'};
 
 // Quran verses in the Uthmani script of the Tanzil project (tanzil.net, CC BY 3.0), copied by word range, not retyped.
-var REMINDERS = [
+var VERSES = [
  {"q": 1, "t": "إِنَّ ٱلصَّلَوٰةَ كَانَتْ عَلَى ٱلْمُؤْمِنِينَ كِتَٰبًا مَّوْقُوتًا", "s": "سورة النساء، الآية ١٠٣"},
  {"q": 1, "t": "حَٰفِظُوا۟ عَلَى ٱلصَّلَوَٰتِ وَٱلصَّلَوٰةِ ٱلْوُسْطَىٰ وَقُومُوا۟ لِلَّهِ قَٰنِتِينَ", "s": "سورة البقرة، الآية ٢٣٨"},
  {"q": 1, "t": "إِنَّ ٱلصَّلَوٰةَ تَنْهَىٰ عَنِ ٱلْفَحْشَآءِ وَٱلْمُنكَرِ وَلَذِكْرُ ٱللَّهِ أَكْبَرُ", "s": "سورة العنكبوت، الآية ٤٥"},
@@ -2978,7 +2979,18 @@ var REMINDERS = [
  {"q": 1, "t": "وَأَقِيمُوا۟ ٱلصَّلَوٰةَ وَءَاتُوا۟ ٱلزَّكَوٰةَ وَٱرْكَعُوا۟ مَعَ ٱلرَّٰكِعِينَ", "s": "سورة البقرة، الآية ٤٣"},
  {"q": 1, "t": "إِنَّ ٱللَّهَ وَمَلَٰٓئِكَتَهُۥ يُصَلُّونَ عَلَى ٱلنَّبِىِّ يَٰٓأَيُّهَا ٱلَّذِينَ ءَامَنُوا۟ صَلُّوا۟ عَلَيْهِ وَسَلِّمُوا۟ تَسْلِيمًا", "s": "سورة الأحزاب، الآية ٥٦"}
 ];
-var FRIDAY_REMINDER = {"q": 1, "t": "يَٰٓأَيُّهَا ٱلَّذِينَ ءَامَنُوٓا۟ إِذَا نُودِىَ لِلصَّلَوٰةِ مِن يَوْمِ ٱلْجُمُعَةِ فَٱسْعَوْا۟ إِلَىٰ ذِكْرِ ٱللَّهِ وَذَرُوا۟ ٱلْبَيْعَ", "s": "سورة الجمعة، الآية ٩"};
+var FRIDAY_VERSE = {"q": 1, "t": "يَٰٓأَيُّهَا ٱلَّذِينَ ءَامَنُوٓا۟ إِذَا نُودِىَ لِلصَّلَوٰةِ مِن يَوْمِ ٱلْجُمُعَةِ فَٱسْعَوْا۟ إِلَىٰ ذِكْرِ ٱللَّهِ وَذَرُوا۟ ٱلْبَيْعَ", "s": "سورة الجمعة، الآية ٩"};
+var HADITHS = [
+ {t:'صَلَاةُ الْجَمَاعَةِ أَفْضَلُ مِنْ صَلَاةِ الْفَذِّ بِسَبْعٍ وَعِشْرِينَ دَرَجَةً', s:'متفق عليه'},
+ {t:'إِذَا دَخَلَ أَحَدُكُمُ الْمَسْجِدَ فَلْيَرْكَعْ رَكْعَتَيْنِ قَبْلَ أَنْ يَجْلِسَ', s:'متفق عليه'},
+ {t:'مَنْ صَلَّى الْعِشَاءَ فِي جَمَاعَةٍ فَكَأَنَّمَا قَامَ نِصْفَ اللَّيْلِ، وَمَنْ صَلَّى الصُّبْحَ فِي جَمَاعَةٍ فَكَأَنَّمَا صَلَّى اللَّيْلَ كُلَّهُ', s:'رواه مسلم'},
+ {t:'كَلِمَتَانِ خَفِيفَتَانِ عَلَى اللِّسَانِ، ثَقِيلَتَانِ فِي الْمِيزَانِ، حَبِيبَتَانِ إِلَى الرَّحْمَنِ: سُبْحَانَ اللَّهِ وَبِحَمْدِهِ، سُبْحَانَ اللَّهِ الْعَظِيمِ', s:'متفق عليه'},
+ {t:'أَقْرَبُ مَا يَكُونُ الْعَبْدُ مِنْ رَبِّهِ وَهُوَ سَاجِدٌ، فَأَكْثِرُوا الدُّعَاءَ', s:'رواه مسلم'},
+ {t:'مَنْ غَدَا إِلَى الْمَسْجِدِ أَوْ رَاحَ، أَعَدَّ اللَّهُ لَهُ فِي الْجَنَّةِ نُزُلًا كُلَّمَا غَدَا أَوْ رَاحَ', s:'رواه مسلم'},
+ {t:'مَنْ صَلَّى عَلَيَّ وَاحِدَةً صَلَّى اللَّهُ عَلَيْهِ عَشْرًا', s:'رواه مسلم'},
+ {t:'مَا مِنْ عَبْدٍ مُسْلِمٍ يُصَلِّي لِلَّهِ كُلَّ يَوْمٍ ثِنْتَيْ عَشْرَةَ رَكْعَةً تَطَوُّعًا غَيْرَ فَرِيضَةٍ، إِلَّا بَنَى اللَّهُ لَهُ بَيْتًا فِي الْجَنَّةِ', s:'رواه مسلم'}
+];
+var FRIDAY_HADITH = {t:'مَنْ قَرَأَ سُورَةَ الْكَهْفِ فِي يَوْمِ الْجُمُعَةِ أَضَاءَ لَهُ مِنَ النُّورِ مَا بَيْنَ الْجُمُعَتَيْنِ', s:'رواه الحاكم والبيهقي، وصححه الألباني'};
 
 var METHODS = [
  ['ajairi','الكويت — تقويم العجيري','مطابق لمواقيت وزارة الأوقاف الكويتية (الفجر ١٨° والعشاء ١٧٫٥°)','Kuwait'],
@@ -3019,7 +3031,7 @@ var DEF = {
  skin:'lapis', orientation:'auto', digits:'latn', clock24:false, showSeconds:true, edge:'0',
  fontUI:'cairo', fontText:'amiri', fontScale:'m', adhkarMode:'one',
  dimAfter:{on:false, fajr:30, dhuhr:30, asr:30, maghrib:30, isha:30}, dimLevel:'50',
- appQR:true, cfgVer:2,
+ appQR:true, niche:'none', cfgVer:2,
  nightDim:false, burnIn:true, beep:false, autoFS:true, showTicker:true,
  ann:['نرجو إغلاق الهاتف الجوال داخل المسجد','حافظوا على نظافة بيت الله','',''],
  remote:{on:false, ch:'', key:'', server:''}
@@ -3070,7 +3082,7 @@ function setP(path, v){ var p = path.split('.'), o = cfg; for (var i = 0; i < p.
 var Q = {}, simOffset = 0;
 try { location.search.replace(/^\?/, '').split('&').forEach(function(kv){ if (!kv) return; var i = kv.indexOf('='); Q[decodeURIComponent(i < 0 ? kv : kv.slice(0, i))] = i < 0 ? '' : decodeURIComponent(kv.slice(i + 1)); }); } catch (e) {}
 if (Q.at) { var mt = Q.at.match(/(\d+)-(\d+)-(\d+)T(\d+):(\d+)(?::(\d+))?/); if (mt) simOffset = new Date(+mt[1], mt[2] - 1, +mt[3], +mt[4], +mt[5], +(mt[6] || 0)).getTime() - Date.now(); }
-['orientation','skin','digits','prayerScreen','fontUI','fontText','fontScale','adhkarMode','edge','method','iqamaView'].forEach(function(k){ var q = k === 'orientation' ? Q.orient : Q[k]; if (q) { cfg[k] = q; noSave = true; } });
+['orientation','skin','digits','prayerScreen','fontUI','fontText','fontScale','adhkarMode','edge','method','iqamaView','niche'].forEach(function(k){ var q = k === 'orientation' ? Q.orient : Q[k]; if (q) { cfg[k] = q; noSave = true; } });
 if (Q.at || Q.preview || Q.sheet || Q.test) noSave = true;
 function nowDate(){ return new Date(Date.now() + simOffset); }
 
@@ -3467,7 +3479,15 @@ function renderNext(now){
  mono($('nIn'), dur(nx.a - now));
  $('next').classList.toggle('soon', nx.a - now <= 10 * 60000);
 }
-function reminderList(now){ var l = REMINDERS.slice(); if (now.getDay() === 5) l.unshift(FRIDAY_REMINDER); return l; }
+// What the arched space shows outside the iqama countdown: nothing (default), verses, hadiths, or both in turn.
+function reminderList(now){
+ var fri = now.getDay() === 5, v = VERSES.slice(), h = HADITHS.slice(), l = [];
+ if (fri) { v.unshift(FRIDAY_VERSE); h.unshift(FRIDAY_HADITH); }
+ if (cfg.niche === 'quran') return v;
+ if (cfg.niche === 'hadith') return h;
+ for (var i = 0; i < Math.max(v.length, h.length); i++) { if (v[i]) l.push(v[i]); if (h[i]) l.push(h[i]); }
+ return l;
+}
 function renderNiche(now, force){
  var list = reminderList(now), i = Math.floor(now.getTime() / 40000) % list.length;
  if (i === nIdx && !force) return; nIdx = i;
@@ -3521,6 +3541,7 @@ var nicheMode = 'verse';
 function setNicheMode(m){
  if (nicheMode === m) return false;
  nicheMode = m; $('nicheIn').hidden = m !== 'verse'; $('nicheIq').hidden = m !== 'iq';
+ $('niche').classList.toggle('empty', m === 'none');   // nothing chosen: no arch either, the space stays blank
  return true;
 }
 function fitNicheIq(){
@@ -3563,7 +3584,8 @@ function frameMain(now, iq){
   wait = Math.min(wait, 1000 - (now.getTime() % 1000) + 10);   // the clock and the next-adhan countdown still tick every second
  } else {
   curIq = null;
-  if (setNicheMode('verse')) renderNiche(now, true); else renderNiche(now);
+  if (cfg.niche === 'none') setNicheMode('none');
+  else if (setNicheMode('verse')) renderNiche(now, true); else renderNiche(now);
  }
  renderTicker(now);
  var day = computeDay(dayStart(now));
@@ -3635,7 +3657,7 @@ function setScene(ph, now){
  SCENES.forEach(function(k){ $('sc-' + k).classList.toggle('on', !!ph && ph.k === k); });
  fit.classList.toggle('dark', !!ph && (ph.k === 'prayer' || ph.k === 'khutbah'));
  if (ph) { stage.classList.remove('dim'); enterScene(ph); }
- else { lastMin = -1; drawArch(); fitName(); renderNiche(now, true); renderTicker(now, true); }
+ else { lastMin = -1; drawArch(); fitName(); if (nicheMode === 'verse') renderNiche(now, true); renderTicker(now, true); }
 }
 function setClocks(now){ var h = timeHTML(now); Array.prototype.forEach.call(document.querySelectorAll('.scene.on [data-clock]'), function(e){ if (e.__h !== h) { e.__h = h; e.innerHTML = h; } }); }
 var CIRC = 2 * Math.PI * 282;
@@ -3695,7 +3717,7 @@ function tick(){
  try { wait = frame(now); } catch (e) { if (window.console) console.error(e); }
  tickT = setTimeout(tick, wait || (1000 - (now.getTime() % 1000) + 10));
 }
-function rebuild(){ cache = {}; timeline = null; lastMin = -1; curKey = 'none'; curScene = null; var now = nowDate(); renderDates(now); tick(); }
+function rebuild(){ cache = {}; timeline = null; lastMin = -1; nIdx = -1; curKey = 'none'; curScene = null; var now = nowDate(); renderDates(now); tick(); }
 
 /* ---------- preview ---------- */
 function startPreview(kind){
@@ -3751,6 +3773,7 @@ function buildSchema(){
  var S = [];
  S.push({sec:'المسجد'});
  S.push({id:'mosqueName', type:'text', label:'اسم المسجد', hint:'يظهر أعلى الشاشة'});
+ S.push({id:'niche', type:'select', label:'آيات أو أحاديث في الشاشة الرئيسية', opts:opts([['none','لا شيء'],['quran','آيات'],['hadith','أحاديث'],['both','آيات وأحاديث بالتناوب']]), hint:function(){ return cfg.niche === 'none' ? 'المساحة بجانب الساعة (أو أسفل المواقيت عموديًا) تبقى فارغة، ويظهر فيها العد للإقامة بعد الأذان' : 'تتبدل كل ٤٠ ثانية، ويوم الجمعة تبدأ بما يخص الجمعة'; }});
  S.push({id:'appQR', type:'toggle', label:'رمز تحميل التطبيق', hint:'رمز QR أسفل الشاشة يفتح صفحة لتحميل التطبيق أو تشغيله في المتصفح'});
  S.push({sec:'الموقع وطريقة الحساب'});
  S.push({id:'city', type:'select', label:'المدينة', opts:function(){ return CITIES.map(function(c){ return [c.id, c.n]; }); }, on:function(v){ var c = findBy(CITIES, v); if (c && c.lat != null) { cfg.lat = c.lat; cfg.lng = c.lng; cfg.method = c.m; } }});
@@ -3769,7 +3792,7 @@ function buildSchema(){
  });
  S.push({sec:'شاشات الصلاة'});
  S.push({id:'adhanMin', type:'step', label:'شاشة الأذان', min:0, max:5, fmt:function(v){ return v ? pMin(v) : 'إيقاف'; }});
- S.push({id:'iqamaView', type:'select', label:'العد التنازلي للإقامة', opts:opts([['niche','في الشاشة الرئيسية'],['full','شاشة كاملة']]), hint:function(){ return cfg.iqamaView === 'full' ? 'بعد شاشة الأذان يملأ العد الشاشة حتى الإقامة' : 'من بعد الأذان حتى الإقامة، مكان الآية في الشاشة الرئيسية'; }});
+ S.push({id:'iqamaView', type:'select', label:'العد التنازلي للإقامة', opts:opts([['niche','في الشاشة الرئيسية'],['full','شاشة كاملة']]), hint:function(){ return cfg.iqamaView === 'full' ? 'بعد شاشة الأذان يملأ العد الشاشة حتى الإقامة' : 'من بعد الأذان حتى الإقامة، في الشاشة الرئيسية بجانب الساعة (أو أسفل المواقيت عموديًا)'; }});
  S.push({id:'phoneSec', type:'step', label:'تنبيه إغلاق الجوال قبل الإقامة', min:0, max:300, step:15, fmt:function(v){ return v ? pSec(v) : 'إيقاف'; }});
  PR.forEach(function(k){ S.push({id:'prayMin.' + k, type:'step', label:'مدة صلاة ' + NAMES[k], min:3, max:30, fmt:pMin, hint:k === 'dhuhr' ? 'يوم الجمعة تُستعمل مدة الخطبة والصلاة' : ''}); });
  S.push({id:'prayerScreen', type:'select', label:'أثناء الصلاة', opts:opts([['dim','رسالة خافتة'],['black','شاشة سوداء']])});
