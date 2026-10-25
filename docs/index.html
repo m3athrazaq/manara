@@ -104,6 +104,7 @@ body{height:100%;margin:0;background:var(--bg);color:var(--ink);font-family:var(
 #mName{font-family:var(--font-display);font-weight:700;font-size:66px;line-height:1.6;color:var(--brass);margin:0;white-space:nowrap;overflow:hidden;min-width:0}
 .dates{text-align:left;line-height:1.3;white-space:nowrap}
 .hijri{font-size:calc(46px * var(--fs));font-weight:700}
+.hijri .wd{color:var(--brass)}
 .greg{font-size:calc(34px * var(--fs));color:var(--muted);font-weight:600}
 
 .clockwrap{grid-area:clock;display:grid;align-content:center;justify-items:start;grid-gap:26px;min-width:0}
@@ -129,6 +130,17 @@ body{height:100%;margin:0;background:var(--bg);color:var(--ink);font-family:var(
 .ntext{font-family:var(--font-text);font-weight:700;font-size:44px;line-height:1.7;text-wrap:balance;align-self:center;width:100%;transition:opacity .6s}
 .nsrc{font-size:calc(28px * var(--fs));color:var(--muted);font-weight:600;line-height:1.4}
 .niche-in.fade .ntext,.niche-in.fade .nsrc,.niche-in.fade .eyebrow{opacity:0}
+/* Between the adhan and the iqama the niche holds the countdown instead of the verse. */
+.niche-iq{position:absolute;top:0;left:0;right:0;bottom:0;padding:110px 48px 30px;display:grid;grid-template-rows:auto auto auto;align-content:center;justify-items:center;text-align:center;grid-gap:10px;overflow:hidden;animation:fadeIn .8s ease both}
+.niq-top{display:grid;align-items:center;justify-items:center;min-height:calc(44px * 1.35 * var(--fs))}
+.niq-label{font-family:var(--font-display);font-size:calc(44px * var(--fs));line-height:1.35;white-space:nowrap}
+.niq-label b{color:var(--brass);font-weight:700}
+.niq-num{direction:ltr;font-weight:800;font-size:160px;line-height:1;white-space:nowrap}
+.niq-num.end{color:var(--alert)}
+.niq-bar{width:72%;height:12px;border-radius:6px;background:var(--line);overflow:hidden;margin-top:6px}
+.niq-bar i{display:block;width:100%;height:100%;background:var(--turq);border-radius:6px;transform-origin:right center;transition:transform 1s linear}
+.niq-phone{display:grid;grid-template-columns:auto auto;align-items:center;grid-gap:14px;font-size:calc(30px * var(--fs));font-weight:800;color:var(--alert);padding:2px 24px;border:3px solid var(--alert);border-radius:999px;line-height:1.45;white-space:nowrap;animation:pulse 1.6s ease-in-out infinite}
+.niq-phone svg{width:1.1em;height:1.1em}
 .niche-in .eyebrow,.niche-in .nsrc{transition:opacity .6s}
 
 .prayers{grid-area:prayers;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));grid-gap:22px;min-width:0}
@@ -151,10 +163,12 @@ body{height:100%;margin:0;background:var(--bg);color:var(--ink);font-family:var(
 .mega{width:calc(38px * var(--fs));height:calc(38px * var(--fs));color:var(--brass);transform:scaleX(-1)}
 .ttext{font-size:calc(36px * var(--fs));font-weight:600;line-height:1.6;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;transition:opacity .6s;min-width:0}
 .ttext.fade{opacity:0}
-.contact{display:flex;align-items:center;gap:.4em;font-size:calc(36px * var(--fs));font-weight:700;white-space:nowrap;line-height:1.3}
-.contact svg{width:1em;height:1em;color:var(--brass);flex:none}
-.c-lbl{color:var(--muted);font-weight:600}
-.c-num{direction:ltr;unicode-bidi:isolate;letter-spacing:.03em}
+/* App QR code in the bottom-left corner: it hangs below the footer line into the stage margin, so the rows above keep their height. */
+.appqr{position:relative;align-self:stretch;display:flex;align-items:center;padding-left:calc(var(--qrs) + 20px);min-width:0;--qrs:112px;--qrb:-28px}
+.appqr-lbl{font-size:26px;color:var(--muted);font-weight:600;line-height:1.4;white-space:nowrap;text-align:left}
+.appqr-lbl b{display:block;color:var(--ink);font-weight:700}
+.appqr-code{position:absolute;left:0;bottom:var(--qrb);width:var(--qrs);height:var(--qrs);padding:4px;background:#fff;border-radius:10px;z-index:1}
+.appqr-code svg{display:block;width:100%;height:100%}
 
 /* portrait main */
 #stage.portrait #main{padding:56px 48px 40px;grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(178px,auto) 420px minmax(0,1fr) 340px minmax(62px,auto);grid-template-areas:"head" "clock" "prayers" "niche" "ticker";grid-gap:24px}
@@ -175,6 +189,7 @@ body{height:100%;margin:0;background:var(--bg);color:var(--ink);font-family:var(
 #stage.portrait .pfoot .it{font-size:calc(56px * var(--fs))}
 #stage.portrait .pfoot .it.txt{font-size:calc(34px * var(--fs))}
 #stage.portrait .pcard.is-next::before{content:none}
+#stage.portrait .appqr{--qrs:116px;--qrb:-32px}
 #stage.portrait .pcard.is-next .pname::after{content:"القادمة";display:inline-block;vertical-align:middle;margin-right:.5em;font-family:var(--font-ui);font-size:.45em;font-weight:800;line-height:1.6;padding:0 .7em;border-radius:999px;background:var(--brass);color:var(--bg)}
 
 /* ---------- scenes ---------- */
@@ -238,7 +253,7 @@ body{height:100%;margin:0;background:var(--bg);color:var(--ink);font-family:var(
 .ak-col{display:grid;align-content:space-between;grid-gap:.36em;min-height:0;min-width:0}
 .ak-a{padding-left:1.1em}
 .ak-b{border-right:1px solid var(--line);padding-right:1.1em}
-.ak-i,.ak-qb{margin:0;font-weight:700}
+.ak-i,.ak-qb{margin:0;font-weight:700;text-align:justify;text-align-last:start}
 .ak-i + .ak-i,.ak-q + .ak-q,.ak-q + .ak-i{border-top:1px solid var(--line);padding-top:.36em}
 .ak-n{display:inline-block;font-family:var(--font-ui);font-size:.5em;font-weight:700;color:var(--turq);border:2px solid currentColor;border-radius:999px;padding:0 .75em;margin-right:.55em;line-height:1.5;vertical-align:.25em;white-space:nowrap}
 .ak-lead{color:var(--muted);font-weight:400}
@@ -263,10 +278,14 @@ body{height:100%;margin:0;background:var(--bg);color:var(--ink);font-family:var(
 #stage.portrait .drift{max-width:900px}
 
 .pv{position:absolute;top:18px;font-family:var(--font-ui);left:50%;transform:translateX(-50%);z-index:3;background:var(--brass);color:var(--bg);font-size:28px;font-weight:800;padding:6px 28px;border-radius:999px;white-space:nowrap}
+#pvClose{position:absolute;top:4px;left:4px;z-index:7;width:40px;height:40px;border-radius:50%;border:2px solid var(--brass);background:var(--surface);color:var(--ink);display:grid;align-items:center;justify-items:center;cursor:pointer;padding:0;box-shadow:0 4px 18px rgba(0,0,0,.35)}
+#pvClose svg{width:20px;height:20px}
+#pvClose:hover{background:var(--surface-2)}
+#pvClose:focus{outline:3px solid var(--brass);outline-offset:3px}
 .err{position:absolute;top:0;left:0;width:100%;height:100%;z-index:4;display:grid;align-items:center;justify-items:center;text-align:center;padding:120px;font-size:44px;font-weight:700;background:var(--bg);color:var(--ink);line-height:1.6}
 
 /* ---------- controls outside the stage ---------- */
-#gear{position:absolute;bottom:10px;left:10px;width:52px;height:52px;border-radius:50%;border:1px solid var(--line);background:var(--surface);color:var(--brass);display:grid;align-items:center;justify-items:center;opacity:0;pointer-events:none;transition:opacity .3s;cursor:pointer;z-index:6;padding:0}
+#gear{position:absolute;top:50%;left:4px;margin-top:-24px;width:48px;height:48px;border-radius:50%;border:1px solid var(--line);background:var(--surface);color:var(--brass);display:grid;align-items:center;justify-items:center;opacity:0;pointer-events:none;transition:opacity .3s;cursor:pointer;z-index:6;padding:0}
 #gear.show{opacity:.95;pointer-events:auto}
 #gear:focus-visible{outline:3px solid var(--brass);outline-offset:2px}
 #gear svg{width:26px;height:26px}
@@ -290,6 +309,18 @@ body{height:100%;margin:0;background:var(--bg);color:var(--ink);font-family:var(
 .sb{width:2.2em;height:2.2em;border-radius:50%;border:1px solid var(--line);background:transparent;color:var(--ink);font:inherit;font-weight:800;cursor:pointer;line-height:1;padding:0}
 .sb:hover{background:var(--brass-soft)}
 .sb svg{width:1.05em;height:1.05em;display:block;margin:auto}
+.dd{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;grid-gap:.6em;width:13.5em;max-width:100%;padding:.45em .8em;border-radius:12px;border:1px solid var(--line);background:var(--bg);font-weight:800;line-height:1.35;cursor:pointer}
+.dd .ddv{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.dd svg{width:1.05em;height:1.05em;color:var(--brass);transition:transform .2s}
+.row.open .dd svg{transform:rotate(180deg)}
+.row.dd-row{cursor:pointer}
+.ddl{grid-column:1 / -1;display:grid;grid-gap:4px;margin-top:.15em;padding:6px;border-radius:12px;border:1px solid var(--line);background:var(--bg);max-height:19em;overflow-y:auto;overscroll-behavior:contain}
+.ddo{font:inherit;font-weight:700;text-align:right;padding:.5em .8em;border-radius:9px;border:2px solid transparent;background:transparent;color:var(--ink);cursor:pointer;display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;grid-gap:.6em;line-height:1.4}
+.ddo:hover{background:var(--brass-soft)}
+.ddo:focus{outline:none;border-color:var(--brass);background:var(--brass-soft)}
+.ddo .sub{display:block;font-size:.8em;color:var(--muted);font-weight:500}
+.ddo.sel{color:var(--brass)}
+.ddo.sel::after{content:"✓";font-weight:800}
 .sw{position:relative;width:3.3em;height:1.85em;border-radius:1em;background:var(--line);border:0;cursor:pointer;padding:0}
 .sw::after{content:"";position:absolute;top:.2em;right:.2em;width:1.45em;height:1.45em;border-radius:50%;background:var(--ink);transition:right .2s}
 .sw[aria-checked="true"]{background:var(--turq)}
@@ -311,7 +342,7 @@ body{height:100%;margin:0;background:var(--bg);color:var(--ink);font-family:var(
 .rstat{font-weight:700;font-size:.92em}
 .rstat.on{color:var(--turq)}
 .rstat.bad{color:var(--alert)}
-@media (max-width:560px){.row{grid-template-columns:minmax(0,1fr)}.ctl,.sw{justify-self:start}.inp{width:100%}.qr-row{grid-template-columns:minmax(0,1fr)}.qr-box{justify-self:center}}
+@media (max-width:560px){.row{grid-template-columns:minmax(0,1fr)}.ctl,.sw,.dd{justify-self:start}.inp,.dd{width:100%}.qr-row{grid-template-columns:minmax(0,1fr)}.qr-box{justify-self:center}}
 @media (prefers-reduced-motion:reduce){.rings{display:none}.drift,.iq-phone,.scene.on{animation:none}}
 </style>
 
@@ -335,12 +366,13 @@ body{height:100%;margin:0;background:var(--bg);color:var(--ink);font-family:var(
       <svg class="arch" id="arch" aria-hidden="true"><path class="o" id="archO"/><path class="i" id="archI"/></svg>
       <svg class="finial" viewBox="0 0 64 64" aria-hidden="true"><g fill="currentColor"><rect x="18" y="18" width="28" height="28"/><rect x="18" y="18" width="28" height="28" transform="rotate(45 32 32)"/></g></svg>
       <div class="niche-in" id="nicheIn"><div id="nKind" class="eyebrow"></div><div id="nText" class="ntext"></div><div id="nSrc" class="nsrc"></div></div>
+      <div class="niche-iq" id="nicheIq" hidden><div class="niq-top" id="niqTop"><div class="niq-label" id="niqLabel">إقامة <b id="niqName"></b> بعد</div><div class="niq-phone" id="niqPhone" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="7" y="2.5" width="10" height="19" rx="2"/><path d="M11 18.5h2"/><path d="M3 3l18 18"/></svg><span>نرجو إغلاق الهاتف الجوال</span></div></div><div class="niq-num" id="niqNum"></div><div class="niq-bar" id="niqBarWrap"><i id="niqBar"></i></div></div>
      </section>
      <section class="prayers" id="prayers" aria-label="مواقيت اليوم"><div class="phead"><span></span><span>الأذان</span><span>الإقامة</span></div></section>
      <footer class="ticker" id="ticker">
       <svg class="mega" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true"><path d="M3 10v4h3l7 4V6L6 10H3z"/><path d="M16 9a4 4 0 0 1 0 6M18.5 6.5a7.5 7.5 0 0 1 0 11"/></svg>
       <div id="tText" class="ttext"></div>
-      <div class="contact" id="contact"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg><span class="c-lbl">للتواصل</span><span class="c-num" id="cNum"></span></div>
+      <div class="appqr" id="appQR"><div class="appqr-lbl"><b>حمّل التطبيق</b>امسح الرمز بالجوال</div><div class="appqr-code" id="appQRCode"></div></div>
      </footer>
     </div>
 
@@ -377,11 +409,12 @@ body{height:100%;margin:0;background:var(--bg);color:var(--ink);font-family:var(
      <div class="drift"><div class="pr-title">خطبة الجمعة</div><div class="kh-text">«إِذَا قُلْتَ لِصَاحِبِكَ يَوْمَ الْجُمُعَةِ: أَنْصِتْ، وَالْإِمَامُ يَخْطُبُ، فَقَدْ لَغَوْتَ»</div><div class="pr-sub">متفق عليه</div><div class="pr-clock" data-clock></div></div>
     </section>
 
-    <div id="pvBadge" class="pv" hidden>معاينة — اضغط أي زر للإنهاء</div>
+    <div id="pvBadge" class="pv" hidden>معاينة</div>
     <div id="err" class="err" hidden></div>
    </div>
 
    <button id="gear" type="button" aria-label="الإعدادات"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></svg></button>
+   <button id="pvClose" type="button" aria-label="إغلاق المعاينة" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
    <div id="tip">لفتح الإعدادات: اضغط زر OK في الريموت، أو المس الشاشة</div>
    <div id="scrim" hidden></div>
    <aside id="sheet" hidden role="dialog" aria-label="إعدادات الشاشة">
@@ -2931,23 +2964,25 @@ var AK_QURAN = [
 ];
 var AK_FM = {lead:'وَيَزِيدُ بَعْدَ الْفَجْرِ وَالْمَغْرِبِ:', t:'لَا إِلَهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ، يُحْيِي وَيُمِيتُ، وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ', n:'عشر مرات'};
 
+// Quran verses in the Uthmani script of the Tanzil project (tanzil.net, CC BY 3.0), copied by word range, not retyped.
 var REMINDERS = [
- {q:1, t:'إِنَّ الصَّلَاةَ كَانَتْ عَلَى الْمُؤْمِنِينَ كِتَابًا مَّوْقُوتًا', s:'سورة النساء، الآية ١٠٣'},
- {t:'صَلَاةُ الْجَمَاعَةِ أَفْضَلُ مِنْ صَلَاةِ الْفَذِّ بِسَبْعٍ وَعِشْرِينَ دَرَجَةً', s:'متفق عليه'},
- {t:'إِذَا دَخَلَ أَحَدُكُمُ الْمَسْجِدَ فَلْيَرْكَعْ رَكْعَتَيْنِ قَبْلَ أَنْ يَجْلِسَ', s:'متفق عليه'},
- {q:1, t:'حَافِظُوا عَلَى الصَّلَوَاتِ وَالصَّلَاةِ الْوُسْطَىٰ وَقُومُوا لِلَّهِ قَانِتِينَ', s:'سورة البقرة، الآية ٢٣٨'},
- {t:'مَنْ صَلَّى الْعِشَاءَ فِي جَمَاعَةٍ فَكَأَنَّمَا قَامَ نِصْفَ اللَّيْلِ، وَمَنْ صَلَّى الصُّبْحَ فِي جَمَاعَةٍ فَكَأَنَّمَا صَلَّى اللَّيْلَ كُلَّهُ', s:'رواه مسلم'},
- {t:'كَلِمَتَانِ خَفِيفَتَانِ عَلَى اللِّسَانِ، ثَقِيلَتَانِ فِي الْمِيزَانِ، حَبِيبَتَانِ إِلَى الرَّحْمَنِ: سُبْحَانَ اللَّهِ وَبِحَمْدِهِ، سُبْحَانَ اللَّهِ الْعَظِيمِ', s:'متفق عليه'},
- {q:1, t:'وَأَقِمِ الصَّلَاةَ لِذِكْرِي', s:'سورة طه، الآية ١٤'},
- {t:'أَقْرَبُ مَا يَكُونُ الْعَبْدُ مِنْ رَبِّهِ وَهُوَ سَاجِدٌ، فَأَكْثِرُوا الدُّعَاءَ', s:'رواه مسلم'},
- {t:'مَنْ غَدَا إِلَى الْمَسْجِدِ أَوْ رَاحَ، أَعَدَّ اللَّهُ لَهُ فِي الْجَنَّةِ نُزُلًا كُلَّمَا غَدَا أَوْ رَاحَ', s:'رواه مسلم'},
- {t:'مَنْ صَلَّى عَلَيَّ وَاحِدَةً صَلَّى اللَّهُ عَلَيْهِ عَشْرًا', s:'رواه مسلم'},
- {t:'مَا مِنْ عَبْدٍ مُسْلِمٍ يُصَلِّي لِلَّهِ كُلَّ يَوْمٍ ثِنْتَيْ عَشْرَةَ رَكْعَةً تَطَوُّعًا غَيْرَ فَرِيضَةٍ، إِلَّا بَنَى اللَّهُ لَهُ بَيْتًا فِي الْجَنَّةِ', s:'رواه مسلم'}
+ {"q": 1, "t": "إِنَّ ٱلصَّلَوٰةَ كَانَتْ عَلَى ٱلْمُؤْمِنِينَ كِتَٰبًا مَّوْقُوتًا", "s": "سورة النساء، الآية ١٠٣"},
+ {"q": 1, "t": "حَٰفِظُوا۟ عَلَى ٱلصَّلَوَٰتِ وَٱلصَّلَوٰةِ ٱلْوُسْطَىٰ وَقُومُوا۟ لِلَّهِ قَٰنِتِينَ", "s": "سورة البقرة، الآية ٢٣٨"},
+ {"q": 1, "t": "إِنَّ ٱلصَّلَوٰةَ تَنْهَىٰ عَنِ ٱلْفَحْشَآءِ وَٱلْمُنكَرِ وَلَذِكْرُ ٱللَّهِ أَكْبَرُ", "s": "سورة العنكبوت، الآية ٤٥"},
+ {"q": 1, "t": "وَأَنَّ ٱلْمَسَٰجِدَ لِلَّهِ فَلَا تَدْعُوا۟ مَعَ ٱللَّهِ أَحَدًا", "s": "سورة الجن، الآية ١٨"},
+ {"q": 1, "t": "وَٱسْتَعِينُوا۟ بِٱلصَّبْرِ وَٱلصَّلَوٰةِ وَإِنَّهَا لَكَبِيرَةٌ إِلَّا عَلَى ٱلْخَٰشِعِينَ", "s": "سورة البقرة، الآية ٤٥"},
+ {"q": 1, "t": "وَأَقِمِ ٱلصَّلَوٰةَ لِذِكْرِىٓ", "s": "سورة طه، الآية ١٤"},
+ {"q": 1, "t": "فَٱذْكُرُونِىٓ أَذْكُرْكُمْ وَٱشْكُرُوا۟ لِى وَلَا تَكْفُرُونِ", "s": "سورة البقرة، الآية ١٥٢"},
+ {"q": 1, "t": "يَٰبَنِىٓ ءَادَمَ خُذُوا۟ زِينَتَكُمْ عِندَ كُلِّ مَسْجِدٍ", "s": "سورة الأعراف، الآية ٣١"},
+ {"q": 1, "t": "أَلَا بِذِكْرِ ٱللَّهِ تَطْمَئِنُّ ٱلْقُلُوبُ", "s": "سورة الرعد، الآية ٢٨"},
+ {"q": 1, "t": "وَأَقِيمُوا۟ ٱلصَّلَوٰةَ وَءَاتُوا۟ ٱلزَّكَوٰةَ وَٱرْكَعُوا۟ مَعَ ٱلرَّٰكِعِينَ", "s": "سورة البقرة، الآية ٤٣"},
+ {"q": 1, "t": "إِنَّ ٱللَّهَ وَمَلَٰٓئِكَتَهُۥ يُصَلُّونَ عَلَى ٱلنَّبِىِّ يَٰٓأَيُّهَا ٱلَّذِينَ ءَامَنُوا۟ صَلُّوا۟ عَلَيْهِ وَسَلِّمُوا۟ تَسْلِيمًا", "s": "سورة الأحزاب، الآية ٥٦"}
 ];
-var FRIDAY_REMINDER = {t:'مَنْ قَرَأَ سُورَةَ الْكَهْفِ فِي يَوْمِ الْجُمُعَةِ أَضَاءَ لَهُ مِنَ النُّورِ مَا بَيْنَ الْجُمُعَتَيْنِ', s:'رواه الحاكم والبيهقي، وصححه الألباني'};
+var FRIDAY_REMINDER = {"q": 1, "t": "يَٰٓأَيُّهَا ٱلَّذِينَ ءَامَنُوٓا۟ إِذَا نُودِىَ لِلصَّلَوٰةِ مِن يَوْمِ ٱلْجُمُعَةِ فَٱسْعَوْا۟ إِلَىٰ ذِكْرِ ٱللَّهِ وَذَرُوا۟ ٱلْبَيْعَ", "s": "سورة الجمعة، الآية ٩"};
 
 var METHODS = [
- ['kuwait','الكويت — وزارة الأوقاف','الفجر ١٨° والعشاء ١٧٫٥°','Kuwait'],
+ ['ajairi','الكويت — تقويم العجيري','مطابق لمواقيت وزارة الأوقاف الكويتية (الفجر ١٨° والعشاء ١٧٫٥°)','Kuwait'],
+ ['kuwait','الكويت — حساب فلكي','الفجر ١٨° والعشاء ١٧٫٥° دون تصحيحات العجيري','Kuwait'],
  ['ummalqura','أم القرى','الفجر ١٨٫٥° والعشاء بعد المغرب بـ٩٠ دقيقة، و١٢٠ في رمضان','UmmAlQura'],
  ['qatar','قطر','الفجر ١٨° والعشاء بعد المغرب بـ٩٠ دقيقة','Qatar'],
  ['dubai','الإمارات','الفجر ١٨٫٢° والعشاء ١٨٫٢°','Dubai'],
@@ -2957,7 +2992,7 @@ var METHODS = [
  ['isna','أمريكا الشمالية','الفجر ١٥° والعشاء ١٥°','NorthAmerica']
 ];
 var CITIES = [
- {id:'kuwait', n:'الكويت', lat:29.3759, lng:47.9774, m:'kuwait'},
+ {id:'kuwait', n:'الكويت', lat:29.3759, lng:47.9774, m:'ajairi'},
  {id:'riyadh', n:'الرياض', lat:24.7136, lng:46.6753, m:'ummalqura'},
  {id:'makkah', n:'مكة المكرمة', lat:21.4225, lng:39.8262, m:'ummalqura'},
  {id:'madinah', n:'المدينة المنورة', lat:24.4672, lng:39.6111, m:'ummalqura'},
@@ -2973,18 +3008,18 @@ function findBy(list, id){ for (var i = 0; i < list.length; i++) if ((list[i].id
 /* ---------- settings ---------- */
 var DEF = {
  mosqueName:'مسجد الحي',
- city:'kuwait', lat:29.3759, lng:47.9774, method:'kuwait', asr:'shafi', hijriAdj:0,
+ city:'kuwait', lat:29.3759, lng:47.9774, method:'ajairi', asr:'shafi', hijriAdj:0,
  adj:{fajr:0,sunrise:0,dhuhr:0,asr:0,maghrib:0,isha:0},
  iqMode:{fajr:'after',dhuhr:'after',asr:'after',maghrib:'after',isha:'after'},
  iqAfter:{fajr:25,dhuhr:20,asr:20,maghrib:10,isha:20},
  iqFixed:{fajr:300,dhuhr:720,asr:915,maghrib:1050,isha:1140},
  prayMin:{fajr:10,dhuhr:10,asr:10,maghrib:8,isha:10},
- adhanMin:2, phoneSec:60, prayerScreen:'dim', adhkarMin:5,
+ adhanMin:2, phoneSec:60, prayerScreen:'dim', adhkarMin:5, iqamaView:'niche',
  jumuah:true, jumuahMin:40,
  skin:'lapis', orientation:'auto', digits:'latn', clock24:false, showSeconds:true, edge:'0',
  fontUI:'cairo', fontText:'amiri', fontScale:'m', adhkarMode:'one',
  dimAfter:{on:false, fajr:30, dhuhr:30, asr:30, maghrib:30, isha:30}, dimLevel:'50',
- contact:'99901925',
+ appQR:true, cfgVer:2,
  nightDim:false, burnIn:true, beep:false, autoFS:true, showTicker:true,
  ann:['نرجو إغلاق الهاتف الجوال داخل المسجد','حافظوا على نظافة بيت الله','',''],
  remote:{on:false, ch:'', key:'', server:''}
@@ -3013,7 +3048,13 @@ function loadCfg(){
  var raw = null;
  try { raw = window.localStorage.getItem(KEY); } catch (e) { storageOK = false; }
  if (!raw && AND) raw = andCall(function(){ return AND.getSettings(); }, null) || null;
- try { return merge(DEF, raw ? JSON.parse(raw) : null); } catch (e) { return clone(DEF); }
+ try {
+  var o = raw ? JSON.parse(raw) : null;
+  // Settings saved before version 2 used "الكويت — وزارة الأوقاف", whose official times are the Ajairi calendar.
+  if (o && typeof o === 'object' && !o.cfgVer && o.method === 'kuwait') o.method = 'ajairi';
+  if (o && typeof o === 'object') o.cfgVer = 2;
+  return merge(DEF, o);
+ } catch (e) { return clone(DEF); }
 }
 function saveCfg(){
  if (noSave) return;
@@ -3029,7 +3070,7 @@ function setP(path, v){ var p = path.split('.'), o = cfg; for (var i = 0; i < p.
 var Q = {}, simOffset = 0;
 try { location.search.replace(/^\?/, '').split('&').forEach(function(kv){ if (!kv) return; var i = kv.indexOf('='); Q[decodeURIComponent(i < 0 ? kv : kv.slice(0, i))] = i < 0 ? '' : decodeURIComponent(kv.slice(i + 1)); }); } catch (e) {}
 if (Q.at) { var mt = Q.at.match(/(\d+)-(\d+)-(\d+)T(\d+):(\d+)(?::(\d+))?/); if (mt) simOffset = new Date(+mt[1], mt[2] - 1, +mt[3], +mt[4], +mt[5], +(mt[6] || 0)).getTime() - Date.now(); }
-['orientation','skin','digits','prayerScreen','fontUI','fontText','fontScale','adhkarMode','edge'].forEach(function(k){ var q = k === 'orientation' ? Q.orient : Q[k]; if (q) { cfg[k] = q; noSave = true; } });
+['orientation','skin','digits','prayerScreen','fontUI','fontText','fontScale','adhkarMode','edge','method','iqamaView'].forEach(function(k){ var q = k === 'orientation' ? Q.orient : Q[k]; if (q) { cfg[k] = q; noSave = true; } });
 if (Q.at || Q.preview || Q.sheet || Q.test) noSave = true;
 function nowDate(){ return new Date(Date.now() + simOffset); }
 
@@ -3067,12 +3108,42 @@ function hijri(d0){
  return tabular(x.getFullYear(), x.getMonth() + 1, x.getDate());
 }
 function hijriText(d0){ var h = hijri(d0); return dg(h.d) + ' ' + HMONTHS[h.m - 1] + ' ' + dg(h.y) + ' هـ'; }
-function gregText(d){ return DAYS[d.getDay()] + '، ' + dg(d.getDate()) + ' ' + MONTHS[d.getMonth()] + ' ' + dg(d.getFullYear()) + ' م'; }
+function gregText(d){ return dg(d.getDate()) + ' ' + MONTHS[d.getMonth()] + ' ' + dg(d.getFullYear()) + ' م'; }
+function dayHijriText(d){ return DAYS[d.getDay()] + '، ' + hijriText(dayStart(d)); }
 
 /* ---------- prayer-time engine ---------- */
 function dayStart(d){ return new Date(d.getFullYear(), d.getMonth(), d.getDate()); }
 function addDays(d, n){ return new Date(d.getFullYear(), d.getMonth(), d.getDate() + n); }
 function dkey(d){ return d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate(); }
+/* Al-Ajairi calendar, the official prayer times of Kuwait's Ministry of Awqaf. It uses the Kuwait angles; the small
+   corrections below were fitted to the published Ajairi times (Ramadan 1447 and October 2026, every time matched to the
+   minute): a few seconds per prayer, and for Asr the sun's declination taken about 0.65 day earlier. */
+var AJ = {fajr:0.175, sunrise:0.15, dhuhr:0.14, maghrib:0.155, isha:0.025, asr:-0.16, lag:0.65};
+var RAD = Math.PI / 180;
+function sunDecl(ms){
+ var T = (ms / 864e5 + 2440587.5 - 2451545) / 36525;
+ var L0 = (280.46646 + T * (36000.76983 + 0.0003032 * T)) % 360, M = 357.52911 + T * (35999.05029 - 0.0001537 * T);
+ var C = (1.914602 - T * (0.004817 + 0.000014 * T)) * Math.sin(M * RAD) + (0.019993 - 0.000101 * T) * Math.sin(2 * M * RAD) + 0.000289 * Math.sin(3 * M * RAD);
+ var om = 125.04 - 1934.136 * T, lam = L0 + C - 0.00569 - 0.00478 * Math.sin(om * RAD);
+ var eps = 23 + (26 + (21.448 - T * (46.815 + T * (0.00059 - T * 0.001813))) / 60) / 60 + 0.00256 * Math.cos(om * RAD);
+ return Math.asin(Math.sin(eps * RAD) * Math.sin(lam * RAD)) / RAD;
+}
+function ajairiTimes(pt, lat, shadow){
+ var out = {}, roundMin = function(ms){ return new Date(Math.round(ms / 60000) * 60000); };
+ ['fajr','sunrise','dhuhr','maghrib','isha'].forEach(function(k){ out[k] = valid(pt[k]) ? roundMin(pt[k].getTime() + AJ[k] * 60000) : null; });
+ if (valid(pt.dhuhr) && valid(pt.asr)) {
+  var noon = pt.dhuhr.getTime(), t = pt.asr.getTime(), lag = AJ.lag * 864e5;
+  for (var i = 0; i < 4; i++) {
+   var dn = sunDecl(noon - lag), dt = sunDecl(t - lag);
+   var alt = Math.atan(1 / (shadow + Math.tan(Math.abs(lat - dn) * RAD))) / RAD;
+   var cosH = (Math.sin(alt * RAD) - Math.sin(lat * RAD) * Math.sin(dt * RAD)) / (Math.cos(lat * RAD) * Math.cos(dt * RAD));
+   if (cosH < -1 || cosH > 1) break;
+   t = noon + Math.acos(cosH) / RAD / 15 * 3600e3;
+  }
+  out.asr = roundMin(t + AJ.asr * 60000);
+ } else out.asr = valid(pt.asr) ? pt.asr : null;
+ return out;
+}
 var cache = {};
 function computeDay(d0){
  var k = dkey(d0); if (cache[k]) return cache[k];
@@ -3082,9 +3153,15 @@ function computeDay(d0){
   var params = A.CalculationMethod[mdef[3]]();
   params.madhab = cfg.asr === 'hanafi' ? A.Madhab.Hanafi : A.Madhab.Shafi;
   if (mdef[0] === 'ummalqura' && hj.m === 9) params.ishaInterval = 120;
-  params.adjustments = {fajr:+cfg.adj.fajr || 0, sunrise:+cfg.adj.sunrise || 0, dhuhr:+cfg.adj.dhuhr || 0, asr:+cfg.adj.asr || 0, maghrib:+cfg.adj.maghrib || 0, isha:+cfg.adj.isha || 0};
-  var pt = new A.PrayerTimes(new A.Coordinates(+cfg.lat, +cfg.lng), d0, params);
-  ALL.forEach(function(x){ t[x] = valid(pt[x]) ? pt[x] : null; });
+  if (mdef[0] === 'ajairi') {
+   params.rounding = A.Rounding.None;
+   var raw = new A.PrayerTimes(new A.Coordinates(+cfg.lat, +cfg.lng), d0, params), aj = ajairiTimes(raw, +cfg.lat, cfg.asr === 'hanafi' ? 2 : 1);
+   ALL.forEach(function(x){ t[x] = valid(aj[x]) ? addMin(aj[x], +cfg.adj[x] || 0) : null; });
+  } else {
+   params.adjustments = {fajr:+cfg.adj.fajr || 0, sunrise:+cfg.adj.sunrise || 0, dhuhr:+cfg.adj.dhuhr || 0, asr:+cfg.adj.asr || 0, maghrib:+cfg.adj.maghrib || 0, isha:+cfg.adj.isha || 0};
+   var pt = new A.PrayerTimes(new A.Coordinates(+cfg.lat, +cfg.lng), d0, params);
+   ALL.forEach(function(x){ t[x] = valid(pt[x]) ? pt[x] : null; });
+  }
  } catch (e) { ALL.forEach(function(x){ t[x] = null; }); }
  PR.forEach(function(x){
   var a = t[x]; if (!a) { iq[x] = null; return; }
@@ -3239,7 +3316,7 @@ function drawArch(){
  $('arch').setAttribute('viewBox', '0 0 ' + w + ' ' + h);
  $('archO').setAttribute('d', archPath(w, h, 2, rise));
  $('archI').setAttribute('d', archPath(w, h, 16, rise - 8));
- $('nicheIn').style.paddingTop = Math.round(rise * 0.55 + 14) + 'px';
+ $('nicheIn').style.paddingTop = $('nicheIq').style.paddingTop = Math.round(rise * 0.55 + 14) + 'px';
 }
 function fitText(target, boxEl, max, min, sub, subRatio){
  var s = max, guard = 0;
@@ -3329,7 +3406,7 @@ function measureDigits(){
 }
 function refitAll(){
  measureDigits();
- if (!$('main').classList.contains('off')) { fitName(); fitNiche(); fitCards(); fitTicker(); }
+ if (!$('main').classList.contains('off')) { fitName(); fitNiche(); fitCards(); fitTicker(); if (nicheMode === 'iq') fitNicheIq(); }
  if (curScene && curScene.k === 'adhkar') enterAdhkar(curScene);
  if (curScene && curScene.k === 'iqama') fitIqCount();
 }
@@ -3348,19 +3425,21 @@ function applyLook(){
  $('mName').textContent = name;
  document.querySelector('.mosque .emblem').style.visibility = name ? '' : 'hidden';   // no lone emblem without a name
  Array.prototype.forEach.call(document.querySelectorAll('[data-mosque]'), function(e){ e.textContent = name; });
- var c = String(cfg.contact || '').trim();
- $('cNum').textContent = dg(c); $('contact').hidden = !c;
+ $('appQR').hidden = !cfg.appQR;
+ if (cfg.appQR && !$('appQRCode').firstChild) $('appQRCode').innerHTML = qrSVG(APP_URL, 1, 'رمز تحميل التطبيق');
  measureDigits();
 }
 
 /* ---------- main screen ---------- */
 var lastMin = -1, nIdx = -1, tIdx = -1, curDayKey = '';
-function renderDates(now){ $('hijri').textContent = hijriText(dayStart(now)); $('greg').textContent = gregText(now); }
-function renderClock(now){
+function renderDates(now){ $('hijri').innerHTML = '<span class="wd">' + DAYS[now.getDay()] + '</span>، ' + esc(hijriText(dayStart(now))); $('greg').textContent = gregText(now); }
+function renderClock(now, iq){
  // Hours and minutes change once a minute, so they keep the font's own spacing; the seconds and the countdowns
  // tick every second and use equal digit cells (mono) so they never jitter.
  var x = hm(now), ht = $('hmT'); if (ht.__s !== x.t) { ht.__s = x.t; ht.textContent = x.t; }
- $('hmS').hidden = !cfg.showSeconds; if (cfg.showSeconds) mono($('hmS'), dg(':' + pad2(now.getSeconds())));
+ // During the iqama countdown the seconds stay hidden, so a countdown slowed by the imam never ticks beside them.
+ var secs = cfg.showSeconds && !iq;
+ $('hmS').hidden = !secs; if (secs) mono($('hmS'), dg(':' + pad2(now.getSeconds())));
  $('cap').textContent = x.ap; $('cap').hidden = !x.ap;
 }
 function renderCards(now){
@@ -3437,19 +3516,65 @@ function postPrayerDim(now){
  }
  return false;
 }
-function frameMain(now){
- renderClock(now); renderNext(now);
+// From the end of the adhan screen until the iqama, the niche shows the countdown (unless the full-screen countdown is chosen).
+var nicheMode = 'verse';
+function setNicheMode(m){
+ if (nicheMode === m) return false;
+ nicheMode = m; $('nicheIn').hidden = m !== 'verse'; $('nicheIq').hidden = m !== 'iq';
+ return true;
+}
+function fitNicheIq(){
+ var box = $('nicheIq'), n = $('niqNum'); if (!box.clientWidth) return;
+ var cs = window.getComputedStyle(box), padX = parseFloat(cs.paddingLeft) + parseFloat(cs.paddingRight);
+ var maxS = Math.round((portrait ? 170 : 160) * fsNow()), s = maxS;
+ n.style.fontSize = maxS + 'px';
+ var w = n.offsetWidth, room = (box.clientWidth - padX) * 0.96;
+ if (w > room) s = Math.floor(maxS * room / w);
+ var hRoom = innerH(box) - $('niqTop').offsetHeight - $('niqBarWrap').offsetHeight - 6 - 2 * 10 - 6;
+ s = Math.max(56, Math.min(s, Math.floor(hRoom)));
+ n.style.fontSize = s + 'px';
+}
+function enterNicheIq(iq){
+ $('niqName').textContent = 'صلاة ' + pName(iq.p, iq.jm);
+ $('niqNum').__len = -1; $('niqNum').__s = '';
+ $('niqBar').style.transitionDuration = '0ms';
+}
+function frameNicheIq(iq, now){
+ var st = iqState(iq, now.getTime()), left = Math.max(0, st.left), span = Math.max(1, iq.i - iq.s), n = $('niqNum');
+ var str = dur(left); mono(n, str);
+ if (n.__len !== str.length) { n.__len = str.length; fitNicheIq(); }
+ n.classList.toggle('end', left <= 10000);
+ var wait = Math.max(60, Math.min(2500, ((left % 1000) || 1000) / st.rate + 15));
+ var bar = $('niqBar'); bar.style.transitionDuration = Math.round(wait) + 'ms';
+ bar.style.transform = 'scaleX(' + Math.max(0, Math.min(1, left / span)).toFixed(4) + ')';
+ // In the last minute the label gives way to the reminder to switch phones off (same slot, so nothing moves).
+ var alertOn = cfg.phoneSec > 0 && left <= cfg.phoneSec * 1000;
+ $('niqPhone').hidden = !alertOn; $('niqLabel').hidden = alertOn;
+ return wait;
+}
+function frameMain(now, iq){
+ renderClock(now, iq); renderNext(now);
  var m = Math.floor(now.getTime() / 60000);
  if (m !== lastMin) { lastMin = m; renderCards(now); }
- renderNiche(now); renderTicker(now);
+ var wait = 0;
+ if (iq) {
+  if (setNicheMode('iq') || curIq !== iq) { curIq = iq; enterNicheIq(iq); }
+  wait = frameNicheIq(iq, now);
+  wait = Math.min(wait, 1000 - (now.getTime() % 1000) + 10);   // the clock and the next-adhan countdown still tick every second
+ } else {
+  curIq = null;
+  if (setNicheMode('verse')) renderNiche(now, true); else renderNiche(now);
+ }
+ renderTicker(now);
  var day = computeDay(dayStart(now));
  var night = cfg.nightDim && day.t.isha && day.t.fajr && (now > addMin(day.t.isha, 90) || now < addMin(day.t.fajr, -30));
- stage.classList.toggle('dim', !!night || postPrayerDim(now) || Date.now() < dimPreviewUntil);
+ stage.classList.toggle('dim', !iq && (!!night || postPrayerDim(now)) || Date.now() < dimPreviewUntil);
+ return wait;
 }
 
 /* ---------- scenes ---------- */
 var SCENES = ['adhan','iqama','prayer','adhkar','khutbah'];
-var curScene = null, curKey = 'none', preview = null, timeline = null;
+var curScene = null, curKey = 'none', preview = null, timeline = null, lastPh = null, curIq = null;
 function esc(t){ return String(t).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
 function arNum(n){ return String(n).replace(/[0-9]/g, function(c){ return '٠١٢٣٤٥٦٧٨٩'.charAt(+c); }); }
 function pill(t){ return '<span class="ak-n">' + esc(t) + '</span>'; }
@@ -3498,19 +3623,17 @@ function enterAdhkar(ph){
 function enterScene(ph){
  var nm = pName(ph.p, ph.jm);
  if (ph.k === 'adhan') $('adName').textContent = 'صلاة ' + nm;
- if (ph.k === 'iqama') { $('iqName').textContent = 'صلاة ' + nm; $('iqDate').textContent = hijriText(dayStart(nowDate())); }
+ if (ph.k === 'iqama') { $('iqName').textContent = 'صلاة ' + nm; $('iqDate').textContent = dayHijriText(nowDate()); }
  if (ph.k === 'prayer') { $('sc-prayer').classList.toggle('black', cfg.prayerScreen === 'black'); $('prClock').hidden = !!ph.hide; }
  if (ph.k === 'adhkar') { $('akHead').textContent = 'أذكار ما بعد صلاة ' + nm; akIdx = -1; enterAdhkar(ph); }
 }
 function setScene(ph, now){
  var key = ph ? ph.k + '|' + ph.p + '|' + ph.s.getTime() + (ph.prev ? '|p' : '') : 'none';
  if (key === curKey) return;
- var prev = curScene; curKey = key; curScene = ph;
- if (prev && prev.k === 'iqama' && ph && ph.k === 'prayer' && !ph.prev) beep();
+ curKey = key; curScene = ph;
  $('main').classList.toggle('off', !!ph);
  SCENES.forEach(function(k){ $('sc-' + k).classList.toggle('on', !!ph && ph.k === k); });
  fit.classList.toggle('dark', !!ph && (ph.k === 'prayer' || ph.k === 'khutbah'));
- $('pvBadge').hidden = !(ph && ph.prev);
  if (ph) { stage.classList.remove('dim'); enterScene(ph); }
  else { lastMin = -1; drawArch(); fitName(); renderNiche(now, true); renderTicker(now, true); }
 }
@@ -3555,13 +3678,16 @@ function frame(now){
  if (!timeline) timeline = buildTimeline(now);
  if (preview && now >= preview.e) preview = null;
  var ph = preview || findPhase(now);
- setScene(ph, now);
+ if (lastPh && lastPh.k === 'iqama' && !lastPh.prev && ph && ph.k === 'prayer' && !ph.prev) beep();
+ lastPh = ph;
+ var iq = ph && ph.k === 'iqama' && cfg.iqamaView !== 'full' ? ph : null;
+ setScene(iq ? null : ph, now);
+ syncPreviewUI();
  var bi = Math.floor(now.getTime() / 180000);
  if (cfg.burnIn && bi !== burnIdx) { burnIdx = bi; shift = {x:(bi * 7919) % 17 - 8, y:(bi * 104729) % 13 - 6}; placeStage(); }
  else if (!cfg.burnIn && (shift.x || shift.y)) { shift = {x:0, y:0}; burnIdx = -1; placeStage(); }
- if (ph) return frameScene(ph, now);
- frameMain(now);
- return 0;
+ if (ph && !iq) return frameScene(ph, now);
+ return frameMain(now, iq);
 }
 function tick(){
  clearTimeout(tickT);
@@ -3574,16 +3700,22 @@ function rebuild(){ cache = {}; timeline = null; lastMin = -1; curKey = 'none'; 
 /* ---------- preview ---------- */
 function startPreview(kind){
  closeSheet();
- if (kind === 'dim') { preview = null; dimPreviewUntil = Date.now() + 15000; tick(); return; }
+ if (kind === 'dim') { preview = null; dimPreviewUntil = Date.now() + 15000; tick(); setTimeout(tick, 15050); return; }
  var now = nowDate(), nx = nextAdhan(now), p = nx ? nx.p : 'asr', ph;
  if (kind === 'adhan') ph = {k:'adhan', p:p, s:now, e:addSec(now, 20), a:now};
- else if (kind === 'iqama') ph = {k:'iqama', p:p, s:now, e:addSec(now, 75), a:addSec(now, -120), i:addSec(now, 75)};
+ else if (kind === 'iqama') ph = {k:'iqama', p:p, s:now, e:addSec(now, 75), a:addSec(now, -120), i:addSec(now, 75)};   // shown in the niche or full screen, as set
  else if (kind === 'prayer') ph = {k:'prayer', p:p, s:now, e:addSec(now, 15)};
  else if (kind === 'adhkar') ph = {k:'adhkar', p:'fajr', s:now, e:addSec(now, 30)};
  else ph = {k:'khutbah', p:'dhuhr', jm:true, s:now, e:addSec(now, 15)};
  ph.prev = true; preview = ph; tick();
 }
-function stopPreview(){ preview = null; dimPreviewUntil = 0; tick(); }
+function stopPreview(){ preview = null; dimPreviewUntil = 0; if (document.activeElement === $('pvClose')) $('pvClose').blur(); tick(); }
+function previewOn(){ return !!preview || Date.now() < dimPreviewUntil; }
+function syncPreviewUI(){
+ var on = previewOn(), x = $('pvClose');
+ $('pvBadge').hidden = !on; x.hidden = !on;
+ if (on && !sheetOpen && document.activeElement !== x) { try { x.focus({preventScroll:true}); } catch (e) { x.focus(); } }
+}
 
 /* ---------- sound, wake, fullscreen ---------- */
 var actx = null, gestured = false;
@@ -3610,8 +3742,8 @@ function gesture(){
 }
 
 /* ---------- settings sheet ---------- */
-var ICON = (function(){ var w = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'; return {prev:w + '<path d="M15 5l-7 7 7 7"/></svg>', next:w + '<path d="M9 5l7 7-7 7"/></svg>', minus:w + '<path d="M5 12h14"/></svg>', plus:w + '<path d="M5 12h14M12 5v14"/></svg>'}; })();
-var FIELDS = [], sheetOpen = false, pushed = false, inFrame = false;
+var ICON = (function(){ var w = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'; return {prev:w + '<path d="M15 5l-7 7 7 7"/></svg>', next:w + '<path d="M9 5l7 7-7 7"/></svg>', minus:w + '<path d="M5 12h14"/></svg>', plus:w + '<path d="M5 12h14M12 5v14"/></svg>', down:w + '<path d="M6 9l6 6 6-6"/></svg>'}; })();
+var FIELDS = [], sheetOpen = false, pushed = false, ignorePop = false, inFrame = false, openF = null;
 try { inFrame = window.top !== window.self; } catch (e) { inFrame = true; }
 function opts(list){ return function(){ return list; }; }
 function todayOf(k){ return computeDay(dayStart(nowDate())).t[k]; }
@@ -3619,12 +3751,12 @@ function buildSchema(){
  var S = [];
  S.push({sec:'المسجد'});
  S.push({id:'mosqueName', type:'text', label:'اسم المسجد', hint:'يظهر أعلى الشاشة'});
- S.push({id:'contact', type:'text', tel:true, label:'رقم التواصل', hint:'يظهر أسفل الشاشة الرئيسية. اتركه فارغًا لإخفائه'});
+ S.push({id:'appQR', type:'toggle', label:'رمز تحميل التطبيق', hint:'رمز QR أسفل الشاشة يفتح صفحة لتحميل التطبيق أو تشغيله في المتصفح'});
  S.push({sec:'الموقع وطريقة الحساب'});
  S.push({id:'city', type:'select', label:'المدينة', opts:function(){ return CITIES.map(function(c){ return [c.id, c.n]; }); }, on:function(v){ var c = findBy(CITIES, v); if (c && c.lat != null) { cfg.lat = c.lat; cfg.lng = c.lng; cfg.method = c.m; } }});
  S.push({id:'lat', type:'num', label:'خط العرض', hint:'مثال: 29.3759', show:function(){ return cfg.city === 'custom'; }});
  S.push({id:'lng', type:'num', label:'خط الطول', hint:'مثال: 47.9774', show:function(){ return cfg.city === 'custom'; }});
- S.push({id:'method', type:'select', label:'طريقة الحساب', opts:function(){ return METHODS.map(function(m){ return [m[0], m[1]]; }); }, hint:function(){ var m = findBy(METHODS, cfg.method); return m ? m[2] : ''; }});
+ S.push({id:'method', type:'select', label:'طريقة الحساب', opts:function(){ return METHODS.map(function(m){ return [m[0], m[1]]; }); }, optHint:function(v){ var m = findBy(METHODS, v); return m ? m[2] : ''; }, hint:function(){ var m = findBy(METHODS, cfg.method); return m ? m[2] : ''; }});
  S.push({id:'asr', type:'select', label:'حساب العصر', opts:opts([['shafi','الجمهور'],['hanafi','الحنفي']]), hint:function(){ return cfg.asr === 'hanafi' ? 'حين يصير ظل الشيء مثليه' : 'حين يصير ظل الشيء مثله'; }});
  S.push({id:'hijriAdj', type:'step', label:'تعديل التاريخ الهجري', min:-2, max:2, fmt:function(v){ return v === 0 ? 'بدون تعديل' : (v > 0 ? '+' : '−') + plural(v, 'يوم', 'يومان', 'أيام', 'يومًا'); }, hint:function(){ return 'اليوم: ' + hijriText(dayStart(nowDate())); }});
  S.push({sec:'تعديل أوقات الأذان', hint:'بالدقائق، إذا أردت مطابقة تقويم مطبوع يختلف بدقيقة أو اثنتين'});
@@ -3637,6 +3769,7 @@ function buildSchema(){
  });
  S.push({sec:'شاشات الصلاة'});
  S.push({id:'adhanMin', type:'step', label:'شاشة الأذان', min:0, max:5, fmt:function(v){ return v ? pMin(v) : 'إيقاف'; }});
+ S.push({id:'iqamaView', type:'select', label:'العد التنازلي للإقامة', opts:opts([['niche','في الشاشة الرئيسية'],['full','شاشة كاملة']]), hint:function(){ return cfg.iqamaView === 'full' ? 'بعد شاشة الأذان يملأ العد الشاشة حتى الإقامة' : 'من بعد الأذان حتى الإقامة، مكان الآية في الشاشة الرئيسية'; }});
  S.push({id:'phoneSec', type:'step', label:'تنبيه إغلاق الجوال قبل الإقامة', min:0, max:300, step:15, fmt:function(v){ return v ? pSec(v) : 'إيقاف'; }});
  PR.forEach(function(k){ S.push({id:'prayMin.' + k, type:'step', label:'مدة صلاة ' + NAMES[k], min:3, max:30, fmt:pMin, hint:k === 'dhuhr' ? 'يوم الجمعة تُستعمل مدة الخطبة والصلاة' : ''}); });
  S.push({id:'prayerScreen', type:'select', label:'أثناء الصلاة', opts:opts([['dim','رسالة خافتة'],['black','شاشة سوداء']])});
@@ -3685,7 +3818,7 @@ function buildSchema(){
  }
  S.push({sec:'معاينة الشاشات', hint:'تعمل المعاينة ثوانيَ ثم تعود الشاشة الرئيسية'});
  [['adhan','معاينة شاشة الأذان'],['iqama','معاينة العد التنازلي للإقامة'],['prayer','معاينة شاشة الصلاة'],['adhkar','معاينة أذكار ما بعد الصلاة'],['khutbah','معاينة شاشة خطبة الجمعة']].forEach(function(p){ S.push({type:'button', label:p[1], act:function(){ startPreview(p[0]); }}); });
- S.push({sec:'أخرى'});
+ S.push({sec:'أخرى', hint:'نص الآيات من مصحف مشروع تنزيل (tanzil.net) بالرسم العثماني، وأذكار ما بعد الصلاة من «تحفة الأخيار» للشيخ ابن باز.'});
  S.push({type:'button', label:'استعادة الإعدادات الافتراضية', danger:true, act:resetAsk});
  return S;
 }
@@ -3705,7 +3838,7 @@ function resetAsk(f){
 var footMsg = '', footT = 0;
 function flashFoot(m){ footMsg = m; clearTimeout(footT); footT = setTimeout(function(){ footMsg = ''; refreshSheet(); }, 4000); refreshSheet(); }
 function buildSheet(){
- var body = $('shBody'); body.innerHTML = ''; FIELDS = [];
+ var body = $('shBody'); body.innerHTML = ''; FIELDS = []; openF = null;
  buildSchema().forEach(function(f){
   if (f.type === 'qr') {
    var qr = el('div', 'qr-row');
@@ -3743,6 +3876,13 @@ function buildSheet(){
      var sw = el('button', 'sw'); sw.type = 'button'; sw.tabIndex = -1; sw.setAttribute('role', 'switch'); sw.setAttribute('aria-label', f.label);
      sw.addEventListener('click', function(e){ e.preventDefault(); adjust(f, 1); row.focus(); }); row.appendChild(sw); f.sw = sw;
      lab.addEventListener('click', function(e){ e.preventDefault(); adjust(f, 1); row.focus(); });
+    } else if (f.type === 'select') {
+     // A choice opens a list under the field (remote: OK opens it, up/down moves, OK picks, Back closes).
+     row.classList.add('dd-row'); row.setAttribute('aria-haspopup', 'listbox');
+     var dd = el('div', 'dd'), ddv = el('span', 'ddv'); dd.appendChild(ddv); dd.insertAdjacentHTML('beforeend', ICON.down);
+     var list = el('div', 'ddl'); list.hidden = true; list.setAttribute('role', 'listbox');
+     row.appendChild(dd); row.appendChild(list); f.val = ddv; f.list = list;
+     row.addEventListener('click', function(e){ if (e.target.closest && e.target.closest('.ddo')) return; e.preventDefault(); toggleDD(f); });
     } else {
      var c = el('div', 'ctl'), minus = el('button', 'sb'), val = el('div', 'val'), plus = el('button', 'sb');
      minus.type = plus.type = 'button'; minus.tabIndex = plus.tabIndex = -1;
@@ -3758,6 +3898,35 @@ function buildSheet(){
   f.row = row; row.__f = f; FIELDS.push(f); body.appendChild(row);
  });
  refreshSheet();
+}
+function toggleDD(f){ if (openF === f) closeDD(true); else openDD(f); }
+function openDD(f){
+ closeDD(false);
+ var list = f.list, v = f.get ? f.get() : getP(f.id), sel = null; list.innerHTML = '';
+ f.opts().forEach(function(o){
+  var b = el('button', 'ddo' + (o[0] === v ? ' sel' : '')); b.type = 'button'; b.setAttribute('data-nav', ''); b.setAttribute('role', 'option');
+  var t = el('span'); t.textContent = o[1];
+  var h = f.optHint ? f.optHint(o[0]) : ''; if (h) { var sub = el('span', 'sub'); sub.textContent = h; t.appendChild(sub); }
+  if (f.fontOf) t.style.fontFamily = f.fontOf(o[0]) + ',var(--font-ui)';
+  b.appendChild(t);
+  b.addEventListener('click', function(e){ e.stopPropagation(); pickDD(f, o[0]); });
+  list.appendChild(b); if (o[0] === v) sel = b;
+ });
+ list.hidden = false; f.row.classList.add('open'); f.row.setAttribute('aria-expanded', 'true'); openF = f;
+ var target = sel || list.firstChild;
+ if (target) { target.focus(); try { target.scrollIntoView({block:'nearest'}); } catch (e) {} }
+}
+function closeDD(focusRow){
+ if (!openF) return;
+ var f = openF; openF = null;
+ f.list.hidden = true; f.list.innerHTML = ''; f.row.classList.remove('open'); f.row.setAttribute('aria-expanded', 'false');
+ if (focusRow) f.row.focus();
+}
+function pickDD(f, v){
+ closeDD(true);
+ if (f.set) { f.set(v); refreshSheet(); return; }
+ if (getP(f.id) === v) return;
+ setP(f.id, v); if (f.on) f.on(v); commit();
 }
 function valueText(f, v){
  if (f.type === 'select') { var o = f.opts().filter(function(x){ return x[0] === v; })[0]; return o ? o[1] : String(v); }
@@ -3800,8 +3969,10 @@ function moveFocus(dir){
  var l = navList(); if (!l.length) return;
  var i = l.indexOf(document.activeElement); if (i < 0) { var r = document.activeElement && document.activeElement.closest ? document.activeElement.closest('[data-nav]') : null; i = l.indexOf(r); }
  i = i < 0 ? 0 : Math.max(0, Math.min(l.length - 1, i + dir));
- l[i].focus();
- try { l[i].scrollIntoView({block:'center', behavior:'smooth'}); } catch (e) { l[i].scrollIntoView(false); }
+ var target = l[i], inList = openF && openF.list.contains(target);
+ if (openF && !inList) closeDD(false);
+ target.focus();
+ try { target.scrollIntoView({block:inList ? 'nearest' : 'center', behavior:'smooth'}); } catch (e) { target.scrollIntoView(false); }
 }
 function openSheet(){
  if (sheetOpen) return;
@@ -3812,16 +3983,19 @@ function openSheet(){
 }
 function closeSheet(fromPop){
  if (!sheetOpen) return;
+ closeDD(false);
  sheetOpen = false; $('scrim').hidden = true; $('sheet').hidden = true;
  if (document.activeElement && document.activeElement.blur) document.activeElement.blur();
- if (pushed && !fromPop) { pushed = false; try { history.back(); } catch (e) {} } else if (fromPop) pushed = false;
+ // Our own history.back() fires a popstate later; it must not end a preview that the sheet just started.
+ if (pushed && !fromPop) { pushed = false; ignorePop = true; try { history.back(); } catch (e) { ignorePop = false; } } else if (fromPop) pushed = false;
 }
-window.addEventListener('popstate', function(){ if (sheetOpen) closeSheet(true); else if (preview) stopPreview(); });
+window.addEventListener('popstate', function(){ if (ignorePop) { ignorePop = false; return; } if (sheetOpen) closeSheet(true); else if (previewOn()) stopPreview(); });
 $('shClose').addEventListener('click', function(){ closeSheet(); });
 $('scrim').addEventListener('click', function(){ closeSheet(); });
 
 /* ---------- control from the imam's phone ---------- */
 var REMOTE_URL = 'https://m3athrazaq.github.io/manara/remote.html';
+var APP_URL = 'https://m3athrazaq.github.io/manara/app/';   // page to download the app or open the screen in a browser (the QR code on the main screen)
 var LINK = window.ManaraLink || null;
 var rc = null, rSig = '', rState = 'off', rSeen = {}, rLastCmd = 0;
 function remoteReady(){ return !!(LINK && cfg.remote.on && cfg.remote.ch && cfg.remote.key); }
@@ -3866,12 +4040,12 @@ function statusMsg(re){
  });
  return {k:'status', re:re, name:(cfg.mosqueName || '').trim() || 'مَنارة', now:now.getTime(), days:days};
 }
-function qrSVG(text){
+function qrSVG(text, margin, label){
  if (typeof qrcode !== 'function') return '';
  var q = qrcode(0, 'M'); q.addData(text); q.make();
- var n = q.getModuleCount(), m = 4, size = n + m * 2, d = '';
+ var n = q.getModuleCount(), m = margin == null ? 4 : margin, size = n + m * 2, d = '';
  for (var r = 0; r < n; r++) for (var c = 0; c < n; c++) if (q.isDark(r, c)) d += 'M' + (c + m) + ' ' + (r + m) + 'h1v1h-1z';
- return '<svg viewBox="0 0 ' + size + ' ' + size + '" shape-rendering="crispEdges" role="img" aria-label="رمز ربط الجوال"><rect width="' + size + '" height="' + size + '" fill="#fff"/><path d="' + d + '" fill="#000"/></svg>';
+ return '<svg viewBox="0 0 ' + size + ' ' + size + '" shape-rendering="crispEdges" role="img" aria-label="' + (label || 'رمز ربط الجوال') + '"><rect width="' + size + '" height="' + size + '" fill="#fff"/><path d="' + d + '" fill="#0A1530"/></svg>';
 }
 function renderQR(f){
  var link = remoteLink();
@@ -3903,7 +4077,7 @@ document.addEventListener('keydown', function(e){
  gesture();
  var k = keyName(e), a = document.activeElement, isInput = a && a.tagName === 'INPUT';
  if (sheetOpen) {
-  if (k === 'back' || (k === 'backspace' && !isInput)) { e.preventDefault(); closeSheet(); return; }
+  if (k === 'back' || (k === 'backspace' && !isInput)) { e.preventDefault(); if (openF) closeDD(true); else closeSheet(); return; }
   if (k === 'down' || k === 'up') { e.preventDefault(); moveFocus(k === 'down' ? 1 : -1); return; }
   if (k === 'enter' && isInput) {
    e.preventDefault();
@@ -3911,13 +4085,24 @@ document.addEventListener('keydown', function(e){
    else { a.readOnly = true; moveFocus(1); }
    return;
   }
+  if (k === 'enter' && a && a.classList && a.classList.contains('ddo')) { e.preventDefault(); a.click(); return; }
   if ((k === 'left' || k === 'right' || k === 'enter') && !isInput) {
    var row = a && a.closest ? a.closest('[data-kind]') : null;
-   if (row && row.__f) { e.preventDefault(); if (k === 'enter') { if (row.__f.type === 'toggle') adjust(row.__f, 1); return; } adjust(row.__f, k === 'right' ? 1 : -1, e.repeat); }
+   if (row && row.__f) {
+    e.preventDefault();
+    if (row.__f.type === 'select') { if (k === 'enter') toggleDD(row.__f); return; }
+    if (k === 'enter') { if (row.__f.type === 'toggle') adjust(row.__f, 1); return; }
+    adjust(row.__f, k === 'right' ? 1 : -1, e.repeat);
+   }
   }
   return;
  }
- if (preview || Date.now() < dimPreviewUntil) { e.preventDefault(); stopPreview(); return; }
+ if (previewOn()) {
+  // Only the close button (focused, so OK presses it) or Back ends a preview.
+  if (k === 'back' || k === 'enter') { e.preventDefault(); stopPreview(); }
+  else if (k === 'up' || k === 'down' || k === 'left' || k === 'right') { e.preventDefault(); $('pvClose').focus(); }
+  return;
+ }
  if (k === 'enter') { if (!e.repeat) { e.preventDefault(); openSheet(); } return; }
  if (k === 's' || k === 'S' || k === 'س') { openSheet(); return; }
  if (k === 'f' || k === 'F') { toggleFS(); return; }
@@ -3925,16 +4110,17 @@ document.addEventListener('keydown', function(e){
 });
 var gearT = 0;
 function showGear(){ $('gear').classList.add('show'); clearTimeout(gearT); gearT = setTimeout(function(){ $('gear').classList.remove('show'); }, 5000); }
-function onPointer(e){ gesture(); if (!sheetOpen) { if (preview) { stopPreview(); return; } showGear(); } }
+function onPointer(e){ gesture(); if (!sheetOpen && !previewOn()) showGear(); }
 if (window.PointerEvent) document.addEventListener('pointerdown', onPointer); else { document.addEventListener('mousedown', onPointer); document.addEventListener('touchstart', onPointer); }
-document.addEventListener('mousemove', function(){ if (!sheetOpen) showGear(); });
+document.addEventListener('mousemove', function(){ if (!sheetOpen && !previewOn()) showGear(); });
+$('pvClose').addEventListener('click', function(e){ e.stopPropagation(); stopPreview(); });
 $('gear').addEventListener('click', function(e){ e.stopPropagation(); openSheet(); });
 document.addEventListener('visibilitychange', function(){ if (document.visibilityState === 'visible') { wake(); tick(); } });
 var rzT = 0;
 window.addEventListener('resize', function(){ clearTimeout(rzT); rzT = setTimeout(layout, 120); });
 
 /* ---------- start ---------- */
-window.manaraBack = function(){ if (sheetOpen) { closeSheet(); return true; } if (preview) { stopPreview(); return true; } return false; };
+window.manaraBack = function(){ if (sheetOpen) { if (openF) { closeDD(true); return true; } closeSheet(); return true; } if (previewOn()) { stopPreview(); return true; } return false; };
 window.manaraMenu = function(){ if (sheetOpen) closeSheet(); else openSheet(); return true; };
 if (AND) { $('tip').textContent = 'لفتح الإعدادات: اضغط زر OK أو زر القائمة في الريموت'; unlockAudio(); }
 applyLook();

@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>مَنارة — شاشة مواقيت الصلاة</title>
+<meta name="description" content="تطبيق شاشة المسجد: الأذان والإقامة والساعة وأذكار ما بعد الصلاة، يعمل دون إنترنت.">
+<meta name="theme-color" content="#0A1530">
+<style>
+/*@FONTS@*/
+:root{
+  --bg:#0A1530;--bg-2:#14295C;--surface:#11234B;--ink:#F4EFE1;--muted:#9DADCC;--brass:#D6B26E;--line:rgba(214,178,110,.28);
+  color-scheme:dark;
+}
+*,*::before,*::after{box-sizing:border-box}
+[hidden]{display:none!important}
+html{background:var(--bg)}
+body{margin:0;min-height:100vh;background:var(--bg);background-image:radial-gradient(ellipse at 70% 0%,var(--bg-2) 0%,rgba(0,0,0,0) 65%);color:var(--ink);font-family:"Cairo","Segoe UI",Tahoma,"Noto Sans Arabic",sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased}
+main{max-width:520px;margin:0 auto;padding:40px 20px 32px;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
+.brand{display:grid;justify-items:center;text-align:center;gap:6px;margin-bottom:26px}
+.brand svg{width:64px;height:64px;color:var(--brass)}
+h1{margin:4px 0 0;font-size:2.3rem;line-height:1.25;color:var(--brass);font-weight:800}
+.tag{margin:0;font-size:1.1rem;font-weight:700}
+.lead{margin:6px 0 0;color:var(--muted);font-size:1rem}
+.actions{display:grid;gap:14px;margin:26px 0 22px}
+.btn{display:grid;grid-template-columns:auto minmax(0,1fr);align-items:center;gap:14px;padding:16px 18px;border-radius:18px;text-decoration:none;color:var(--ink);background:var(--surface);border:1px solid var(--line);font-weight:800;font-size:1.15rem;line-height:1.35}
+.btn small{display:block;font-size:.82rem;font-weight:600;color:var(--muted)}
+.btn svg{width:30px;height:30px;color:var(--brass)}
+.btn.primary{background:var(--brass);color:var(--bg);border-color:var(--brass)}
+.btn.primary small{color:rgba(10,21,48,.75)}
+.btn.primary svg{color:var(--bg)}
+.btn:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
+.note{padding:14px 16px;border-radius:14px;border:1px solid var(--line);background:rgba(17,35,75,.6);font-size:.95rem;color:var(--muted)}
+.note b{color:var(--ink)}
+code{direction:ltr;unicode-bidi:isolate;font-family:inherit;color:var(--brass);font-weight:700}
+h2{font-size:1.05rem;margin:26px 0 8px;color:var(--brass)}
+ol{margin:0;padding-right:1.3em;color:var(--muted)}
+ol li{margin:4px 0}
+footer{margin-top:30px;text-align:center;font-size:.85rem;color:var(--muted)}
+footer a{color:var(--muted)}
+</style>
+</head>
+<body>
+<main>
+ <div class="brand">
+  <svg viewBox="0 0 64 64" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="2.6"><rect x="15" y="15" width="34" height="34"/><rect x="15" y="15" width="34" height="34" transform="rotate(45 32 32)"/><circle cx="32" cy="32" r="7.5"/></g></svg>
+  <h1>مَنارة</h1>
+  <p class="tag">شاشة مواقيت الصلاة للمساجد</p>
+  <p class="lead">الأذان والإقامة والساعة وأذكار ما بعد الصلاة على شاشة المسجد، وتعمل دون إنترنت.</p>
+ </div>
+
+ <div class="actions">
+  <a class="btn primary" id="get" href="@APK_URL@">
+   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg>
+   <span>تحميل التطبيق<small>لأجهزة أندرويد وأندرويد TV</small></span>
+  </a>
+  <a class="btn" href="@WEB_URL@">
+   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>
+   <span>فتح في المتصفح<small>بلا تثبيت، على أي جهاز</small></span>
+  </a>
+ </div>
+
+ <p class="note" id="ios" hidden><b>على آيفون:</b> التطبيق لأجهزة أندرويد. افتح الشاشة في المتصفح، ثم اختر «مشاركة» ← «إضافة إلى الشاشة الرئيسية».</p>
+
+ <h2>التثبيت على تلفزيون المسجد</h2>
+ <ol>
+  <li>ثبّت تطبيق «Downloader» من متجر Google Play على التلفزيون.</li>
+  <li>اكتب فيه العنوان <code>m3athrazaq.github.io/manara/app</code> ثم اختر «تحميل التطبيق».</li>
+  <li>اسمح بالتثبيت عند السؤال، ثم افتح مَنارة واضغط OK في الريموت لضبط الإعدادات.</li>
+ </ol>
+
+ <footer><a href="https://github.com/m3athrazaq/manara">المصدر على GitHub</a></footer>
+</main>
+<script>
+(function(){
+ var ua = navigator.userAgent || '', ios = /iPad|iPhone|iPod/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+ if (ios) { document.getElementById('get').hidden = true; document.getElementById('ios').hidden = false; }
+})();
+</script>
+</body>
+</html>

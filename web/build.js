@@ -3,6 +3,7 @@
 //   dist/manara-tv.html  – standalone offline file for the TV (everything inlined),
 //                          also written to ../docs/index.html (GitHub Pages and the Android app use it)
 //   dist/remote.html     – phone control page, also written to ../docs/remote.html
+//   dist/app.html        – page behind the screen's QR code (download the APK or open the screen), also ../docs/app/index.html
 // (Replacements use functions so '$' sequences inside the inlined libraries stay literal.)
 // REMOTE_URL (env) is where docs/remote.html is served; the screen's pairing QR code points there.
 const fs = require('fs');
@@ -11,6 +12,10 @@ const root = __dirname;
 const nm = (...p) => path.join(root, 'node_modules', ...p);
 const ADHAN_VERSION = '4.4.6';
 const REMOTE_URL = process.env.REMOTE_URL || 'https://m3athrazaq.github.io/manara/remote.html';
+// The QR code on the main screen; kept short so the code stays coarse enough to scan from a few steps away.
+const APP_URL = process.env.APP_URL || 'https://m3athrazaq.github.io/manara/app/';
+const WEB_URL = process.env.WEB_URL || 'https://m3athrazaq.github.io/manara/';
+const APK_URL = process.env.APK_URL || 'https://github.com/m3athrazaq/manara/releases/latest/download/manara.apk';
 
 function faces(cssFile, family, subsets) {
   const css = fs.readFileSync(cssFile, 'utf8');
@@ -47,6 +52,9 @@ const screenFonts = [
   ...faces(nm('@fontsource', 'scheherazade-new', '400.css'), 'Scheherazade New', ['arabic', 'latin']),
   ...faces(nm('@fontsource', 'scheherazade-new', '700.css'), 'Scheherazade New', ['arabic', 'latin']),
 ].join('\n');
+const pageFonts = [
+  ...faces(nm('@fontsource-variable', 'cairo', 'wght.css'), 'Cairo', ['arabic', 'latin']),
+].join('\n');
 const phoneFonts = [
   ...faces(nm('@fontsource-variable', 'cairo', 'wght.css'), 'Cairo', ['arabic', 'latin']),
   ...faces(nm('@fontsource', 'el-messiri', '700.css'), 'El Messiri', ['arabic']),
@@ -66,7 +74,8 @@ let body = fs.readFileSync(path.join(root, 'src', 'body.html'), 'utf8')
   .replace('/*@FONTS@*/', () => screenFonts)
   .replace('<!--@QR@-->', () => inline(qrLib))
   .replace('<!--@LINK@-->', () => inline(link))
-  .split('@REMOTE_URL@').join(REMOTE_URL);
+  .split('@REMOTE_URL@').join(REMOTE_URL)
+  .split('@APP_URL@').join(APP_URL);
 
 const head = '<title>مَنارة</title>\n<meta name="claude:viewport-fit-sides" content="cover">\n';
 const artifact = head + body.replace('<!--@ADHAN@-->', () => `<script src="https://cdn.jsdelivr.net/npm/adhan@${ADHAN_VERSION}/lib/bundles/adhan.umd.min.js"></script>`);
@@ -76,7 +85,12 @@ const remote = fs.readFileSync(path.join(root, 'src', 'remote.html'), 'utf8')
   .replace('/*@FONTS@*/', () => phoneFonts)
   .replace('<!--@LINK@-->', () => inline(link));
 
-for (const [name, text] of [['@FONTS@', tv], ['@QR@', tv], ['@LINK@', tv], ['@REMOTE_URL@', tv], ['@FONTS@', remote], ['@LINK@', remote]]) {
+const appPage = fs.readFileSync(path.join(root, 'src', 'app.html'), 'utf8')
+  .replace('/*@FONTS@*/', () => pageFonts)
+  .split('@APK_URL@').join(APK_URL)
+  .split('@WEB_URL@').join(WEB_URL);
+
+for (const [name, text] of [['@FONTS@', tv], ['@QR@', tv], ['@LINK@', tv], ['@REMOTE_URL@', tv], ['@APP_URL@', tv], ['@FONTS@', remote], ['@LINK@', remote], ['@FONTS@', appPage], ['@APK_URL@', appPage], ['@WEB_URL@', appPage]]) {
   if (text.includes(name)) throw new Error('placeholder left in output: ' + name);
 }
 
@@ -84,11 +98,14 @@ fs.mkdirSync(path.join(root, 'dist'), { recursive: true });
 fs.writeFileSync(path.join(root, 'dist', 'manara.html'), artifact);
 fs.writeFileSync(path.join(root, 'dist', 'manara-tv.html'), tv);
 fs.writeFileSync(path.join(root, 'dist', 'remote.html'), remote);
+fs.writeFileSync(path.join(root, 'dist', 'app.html'), appPage);
 const docs = path.join(root, '..', 'docs');
 if (fs.existsSync(docs)) {
   fs.writeFileSync(path.join(docs, 'index.html'), tv);
   fs.writeFileSync(path.join(docs, 'remote.html'), remote);
+  fs.mkdirSync(path.join(docs, 'app'), { recursive: true });
+  fs.writeFileSync(path.join(docs, 'app', 'index.html'), appPage);
   fs.writeFileSync(path.join(docs, '.nojekyll'), '');
 }
 const kb = (s) => (Buffer.byteLength(s) / 1024).toFixed(0) + 'KB';
-console.log('artifact', kb(artifact), '| tv', kb(tv), '| remote', kb(remote), '| pairing page', REMOTE_URL);
+console.log('artifact', kb(artifact), '| tv', kb(tv), '| remote', kb(remote), '| app page', kb(appPage), '| QR', APP_URL);
