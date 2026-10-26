@@ -498,7 +498,7 @@ var DEF = {
  prayMin:{fajr:10,dhuhr:10,asr:10,maghrib:8,isha:10},
  adhanMin:2, phoneSec:60, prayerScreen:'dim', adhkarMin:5, iqamaView:'niche',
  jumuah:true, jumuahMin:40,
- skin:'lapis', orientation:'auto', digits:'latn', clock24:false, showSeconds:true, edge:'0',
+ skin:'lapis', orientation:'auto', ratio:'auto', digits:'latn', clock24:false, showSeconds:true, edge:'0',
  fontUI:'cairo', fontText:'amiri', fontScale:'m', adhkarMode:'one',
  dimAfter:{on:false, fajr:30, dhuhr:30, asr:30, maghrib:30, isha:30}, dimLevel:'50',
  appQR:true, niche:'none', cfgVer:2,
@@ -552,7 +552,7 @@ function setP(path, v){ var p = path.split('.'), o = cfg; for (var i = 0; i < p.
 var Q = {}, simOffset = 0;
 try { location.search.replace(/^\?/, '').split('&').forEach(function(kv){ if (!kv) return; var i = kv.indexOf('='); Q[decodeURIComponent(i < 0 ? kv : kv.slice(0, i))] = i < 0 ? '' : decodeURIComponent(kv.slice(i + 1)); }); } catch (e) {}
 if (Q.at) { var mt = Q.at.match(/(\d+)-(\d+)-(\d+)T(\d+):(\d+)(?::(\d+))?/); if (mt) simOffset = new Date(+mt[1], mt[2] - 1, +mt[3], +mt[4], +mt[5], +(mt[6] || 0)).getTime() - Date.now(); }
-['orientation','skin','digits','prayerScreen','fontUI','fontText','fontScale','adhkarMode','edge','method','iqamaView','niche'].forEach(function(k){ var q = k === 'orientation' ? Q.orient : Q[k]; if (q) { cfg[k] = q; noSave = true; } });
+['orientation','ratio','skin','digits','prayerScreen','fontUI','fontText','fontScale','adhkarMode','edge','method','iqamaView','niche'].forEach(function(k){ var q = k === 'orientation' ? Q.orient : Q[k]; if (q) { cfg[k] = q; noSave = true; } });
 if (Q.at || Q.preview || Q.sheet || Q.test) noSave = true;
 function nowDate(){ return new Date(Date.now() + simOffset); }
 
@@ -772,16 +772,22 @@ ALL.forEach(function(k){
 
 /* ---------- layout ---------- */
 var scale = 1, shift = {x:0, y:0}, burnIdx = -1, portrait = false;
+// Display ratios (width ÷ height) selectable in settings; 'auto' fills the whole screen.
+var RATIOS = {'16:9':16/9, '9:16':9/16, '4:3':4/3, '3:4':3/4, '16:10':16/10, '10:16':10/16, '21:9':21/9, '9:21':9/21, '1:1':1};
 function layout(){
  var W = box.clientWidth, H = box.clientHeight; if (!W || !H) return;
  var o = cfg.orientation, rot = o === 'rot90' ? 90 : (o === 'rot270' ? -90 : 0);
  var aw = rot ? H : W, ah = rot ? W : H;
  app.style.width = aw + 'px'; app.style.height = ah + 'px';
  app.style.transform = 'translate(-50%,-50%)' + (rot ? ' rotate(' + rot + 'deg)' : '');
- portrait = rot ? true : (o === 'portrait' ? true : (o === 'landscape' ? false : ah > aw * 1.05));
+ var rv = RATIOS[cfg.ratio] || 0;
+ portrait = rot ? true : (o === 'portrait' ? true : (o === 'landscape' ? false : (rv ? rv < 1 : ah > aw * 1.05)));
  stage.classList.toggle('portrait', portrait);
+ // The chosen ratio frames the picture: the largest box of that ratio that fits the screen, centred.
+ var bw = aw, bh = ah;
+ if (rv) { if (aw / ah > rv) bw = ah * rv; else bh = aw / rv; }
  // Optional safe margin for TVs that crop the picture edges (overscan).
- scale = Math.min(aw / (portrait ? 1080 : 1920), ah / (portrait ? 1920 : 1080)) * (1 - clampN(+cfg.edge || 0, 0, 10) / 50);
+ scale = Math.min(bw / (portrait ? 1080 : 1920), bh / (portrait ? 1920 : 1080)) * (1 - clampN(+cfg.edge || 0, 0, 10) / 50);
  placeStage();
  fit.style.setProperty('--tile', Math.max(40, Math.round(150 * scale)) + 'px');
  drawArch(); refitAll();
@@ -1288,6 +1294,7 @@ function buildSchema(){
  S.push({sec:'المظهر'});
  S.push({id:'skin', type:'select', label:'الألوان', opts:opts([['lapis','لازوردي'],['emerald','زمردي'],['marble','رخامي فاتح'],['onyx','أسود']])});
  S.push({id:'orientation', type:'select', label:'اتجاه الشاشة', opts:opts([['auto','تلقائي'],['landscape','أفقي'],['portrait','عمودي'],['rot90','عمودي بتدوير يمينًا'],['rot270','عمودي بتدوير يسارًا']]), hint:'اختر التدوير إذا عُلّقت الشاشة عموديًا والجهاز لا يدوّر الصورة'});
+ S.push({id:'ratio', type:'select', label:'حجم الشاشة (النسبة)', opts:opts([['auto','ملء الشاشة'],['16:9','16:9 أفقي'],['9:16','9:16 عمودي'],['4:3','4:3'],['3:4','3:4 عمودي'],['16:10','16:10'],['10:16','10:16 عمودي'],['21:9','21:9 عريضة'],['9:21','9:21 عمودي'],['1:1','1:1 مربعة']]), hint:'يحدد شكل المساحة المعروضة. التصميم يحافظ على نسبته الأصلية (أفقي 16:9 أو عمودي 9:16) داخلها، فتظهر فراغات إن اختلفت النسبة'});
  S.push({id:'digits', type:'select', label:'الأرقام', opts:opts([['latn','123'],['arab','١٢٣']])});
  S.push({id:'clock24', type:'toggle', label:'نظام ٢٤ ساعة'});
  S.push({id:'showSeconds', type:'toggle', label:'إظهار الثواني'});
@@ -1301,7 +1308,7 @@ function buildSchema(){
  if (AND) {
   var ready = andCall(function(){ return AND.autoStartReady(); }, true);
   S.push({sec:'التطبيق'});
-  S.push({id:'app-autostart', type:'toggle', label:'فتح مَنارة تلقائيًا عند تشغيل الجهاز', get:function(){ return andCall(function(){ return AND.getAutoStart(); }, true); }, set:function(v){ andCall(function(){ AND.setAutoStart(!!v); }); }, hint:function(){ return ready ? 'الإذن متاح، وسيفتح التطبيق بعد كل تشغيل' : 'يحتاج إذن «الظهور فوق التطبيقات» في أندرويد ١٠ وما بعده'; }});
+  S.push({id:'app-autostart', type:'toggle', label:'فتح التطبيق تلقائيًا عند تشغيل الجهاز', get:function(){ return andCall(function(){ return AND.getAutoStart(); }, true); }, set:function(v){ andCall(function(){ AND.setAutoStart(!!v); }); }, hint:function(){ return ready ? 'الإذن متاح، وسيفتح التطبيق بعد كل تشغيل' : 'يحتاج إذن «الظهور فوق التطبيقات» في أندرويد ١٠ وما بعده'; }});
   if (!ready) S.push({type:'button', label:'منح إذن الفتح التلقائي', act:function(){ andCall(function(){ AND.openAutoStartSettings(); }); }});
   S.push({type:'button', label:'الخروج من التطبيق', act:function(){ andCall(function(){ AND.exitApp(); }); }});
  } else {
@@ -1443,7 +1450,7 @@ function refreshSheet(){
  var day = computeDay(dayStart(nowDate()));
  $('shToday').innerHTML = 'مواقيت اليوم: ' + ALL.map(function(k){ return pName(k, day.fri) + ' <b>' + timeText(day.t[k]) + '</b>'; }).join(' · ');
  var ver = AND ? andCall(function(){ return AND.appVersion(); }, '') : '';
- $('shFoot').textContent = (footMsg || (storageOK ? (noSave ? 'وضع التجربة: لا تُحفظ التغييرات.' : 'تُحفظ التغييرات تلقائيًا على هذا الجهاز.') : 'تنبيه: هذا المتصفح لا يحفظ الإعدادات، وستعود القيم الافتراضية بعد إعادة التشغيل.')) + (ver ? ' · مَنارة ' + ver : '');
+ $('shFoot').textContent = (footMsg || (storageOK ? (noSave ? 'وضع التجربة: لا تُحفظ التغييرات.' : 'تُحفظ التغييرات تلقائيًا على هذا الجهاز.') : 'تنبيه: هذا المتصفح لا يحفظ الإعدادات، وستعود القيم الافتراضية بعد إعادة التشغيل.')) + (ver ? ' · ' + ver : '');
 }
 function adjust(f, dir, rep){
  var v = f.get ? f.get() : getP(f.id);
@@ -1531,7 +1538,7 @@ function statusMsg(re){
    return {p:p, a:day.t[p] ? day.t[p].getTime() : 0, i:day.iq[p] ? day.iq[p].getTime() : 0, act:(rec && rec.act) || 0, m:rec ? rec.m || 0 : 0, x:rec ? rec.extra || 0 : 0};
   })});
  });
- return {k:'status', re:re, name:(cfg.mosqueName || '').trim() || 'مَنارة', now:now.getTime(), days:days};
+ return {k:'status', re:re, name:(cfg.mosqueName || '').trim() || 'المسجد', now:now.getTime(), days:days};
 }
 function qrSVG(text, margin, label){
  if (typeof qrcode !== 'function') return '';

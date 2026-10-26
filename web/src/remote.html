@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#0A1530">
 <meta name="robots" content="noindex, nofollow">
 <meta name="referrer" content="no-referrer">
-<title>تحكم مَنارة</title>
+<title>تحكم شاشة المسجد</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230A1530'/%3E%3Cg fill='%23D6B26E'%3E%3Crect x='19' y='19' width='26' height='26'/%3E%3Crect x='19' y='19' width='26' height='26' transform='rotate(45 32 32)'/%3E%3C/g%3E%3Ccircle cx='32' cy='32' r='7' fill='%230A1530'/%3E%3C/svg%3E">
 <style>
 /*@FONTS@*/
@@ -81,7 +81,7 @@ body{margin:0;min-height:100vh;background:var(--bg);background-image:radial-grad
 <main class="wrap">
  <header class="top">
   <svg class="star" viewBox="0 0 64 64" aria-hidden="true"><g fill="currentColor"><rect x="17" y="17" width="30" height="30"/><rect x="17" y="17" width="30" height="30" transform="rotate(45 32 32)"/></g><circle cx="32" cy="32" r="8" fill="#0A1530"/><circle cx="32" cy="32" r="3.6" fill="currentColor"/></svg>
-  <div class="ttl"><h1 id="mosque">مَنارة</h1><p>التحكم من الجوال</p></div>
+  <div class="ttl"><h1 id="mosque">شاشة المسجد</h1><p>التحكم من الجوال</p></div>
   <span id="conn" class="conn">جارٍ الاتصال</span>
  </header>
 
@@ -165,7 +165,7 @@ function onMessage(text){
   if (status && m.ts < status.ts) return;
   status = m; offset = m.now - Date.now(); lastStatusAt = Date.now();
   if (m.re) delete pending[m.re];
-  $('mosque').textContent = m.name || 'مَنارة';
+  $('mosque').textContent = m.name || 'شاشة المسجد';
   paint(); paintConn();
  } else if (m.k === 'ack' && pending[m.re]) {
   delete pending[m.re];

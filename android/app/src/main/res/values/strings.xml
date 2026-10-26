@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">مَنارة</string>
+    <string name="app_name">شاشة المسجد</string>
     <string name="press_back_again">اضغط رجوع مرة أخرى للخروج</string>
-    <string name="no_overlay_settings">لم أجد إعداد «الظهور فوق التطبيقات» في هذا الجهاز. ابحث عنه في إعدادات التطبيقات، أو افتح مَنارة يدويًا بعد تشغيل الجهاز.</string>
+    <string name="no_overlay_settings">لم أجد إعداد «الظهور فوق التطبيقات» في هذا الجهاز. ابحث عنه في إعدادات التطبيقات، أو افتح شاشة المسجد يدويًا بعد تشغيل الجهاز.</string>
 </resources>

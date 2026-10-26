@@ -77,7 +77,7 @@ let body = fs.readFileSync(path.join(root, 'src', 'body.html'), 'utf8')
   .split('@REMOTE_URL@').join(REMOTE_URL)
   .split('@APP_URL@').join(APP_URL);
 
-const head = '<title>مَنارة</title>\n<meta name="claude:viewport-fit-sides" content="cover">\n';
+const head = '<title>شاشة المسجد</title>\n<meta name="claude:viewport-fit-sides" content="cover">\n';
 const artifact = head + body.replace('<!--@ADHAN@-->', () => `<script src="https://cdn.jsdelivr.net/npm/adhan@${ADHAN_VERSION}/lib/bundles/adhan.umd.min.js"></script>`);
 const tv = '<!doctype html>\n<html lang="ar" dir="rtl">\n<head>\n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">\n' + head + '</head>\n<body>\n' +
   body.replace('<!--@ADHAN@-->', () => inline(adhanLicense + '\n' + adhanSrc)) + '\n</body>\n</html>\n';
