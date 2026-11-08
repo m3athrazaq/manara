@@ -6,6 +6,7 @@
 <title>شاشة مواقيت الصلاة</title>
 <meta name="description" content="تطبيق شاشة المسجد: الأذان والإقامة والساعة وأذكار ما بعد الصلاة، يعمل دون إنترنت.">
 <meta name="theme-color" content="#0A1530">
+<link rel="icon" href="@FAVICON@">
 <style>
 /*@FONTS@*/
 :root{
@@ -18,7 +19,7 @@ html{background:var(--bg)}
 body{margin:0;min-height:100vh;background:var(--bg);background-image:radial-gradient(ellipse at 70% 0%,var(--bg-2) 0%,rgba(0,0,0,0) 65%);color:var(--ink);font-family:"Cairo","Segoe UI",Tahoma,"Noto Sans Arabic",sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased}
 main{max-width:520px;margin:0 auto;padding:40px 20px 32px;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
 .brand{display:grid;justify-items:center;text-align:center;gap:6px;margin-bottom:26px}
-.brand svg{width:64px;height:64px;color:var(--brass)}
+.brand .logo{width:39px;height:104px;color:var(--brass)}
 h1{margin:4px 0 0;font-size:2.3rem;line-height:1.25;color:var(--brass);font-weight:800}
 .tag{margin:0;font-size:1.1rem;font-weight:700}
 .lead{margin:6px 0 0;color:var(--muted);font-size:1rem}
@@ -43,7 +44,7 @@ footer a{color:var(--muted)}
 <body>
 <main>
  <div class="brand">
-  <svg viewBox="0 0 64 64" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="2.6"><rect x="15" y="15" width="34" height="34"/><rect x="15" y="15" width="34" height="34" transform="rotate(45 32 32)"/><circle cx="32" cy="32" r="7.5"/></g></svg>
+  <svg class="logo" viewBox="20 0 24 64" aria-hidden="true"><!--@LOGO@--></svg>
   <h1>شاشة المسجد</h1>
   <p class="tag">شاشة مواقيت الصلاة للمساجد</p>
   <p class="lead">الأذان والإقامة والساعة وأذكار ما بعد الصلاة على شاشة المسجد، وتعمل دون إنترنت.</p>

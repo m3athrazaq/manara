@@ -63,6 +63,7 @@
 
 - `web/src/`: مصدر صفحة الشاشة (`body.html`) وصفحة الإمام (`remote.html`) وصفحة التحميل (`app.html`) ووحدة التوقيع والمراسلة (`link.js`). `npm ci && node build.js` داخل `web/` يبنيها إلى `docs/`.
 - `android/`: تطبيق أندرويد يعرض الصفحة بملء الشاشة، ويبقيها مضاءة، ويفتحها بعد تشغيل الجهاز.
+- `web/src/logo.svg`: الشعار، وهو منارة مسجد. تأخذه الصفحات عند البناء، و`tools/make-icons.py` يرسم منه أيقونات أندرويد وصورة التطبيق في قائمة التلفزيون.
 - المكتبات: [adhan-js](https://github.com/batoulapps/adhan-js) لحساب المواقيت و[qrcode-generator](https://github.com/kazuhikoarase/qrcode-generator) لرمز الربط (كلتاهما برخصة MIT).
 - الخطوط: Cairo وEl Messiri وReadex Pro وNoto Kufi Arabic وAlmarai وAmiri وNoto Naskh Arabic وScheherazade New، كلها برخصة SIL Open Font License، ومضمّنة في الصفحة لتعمل دون إنترنت.
 - نص الآيات من [مشروع تنزيل](https://tanzil.net) (برخصة Creative Commons Attribution 3.0)، منقول كما هو دون إعادة كتابة.

@@ -70,7 +70,16 @@ const adhanLicense = '/* adhan-js ' + ADHAN_VERSION + ' — MIT License, Copyrig
 
 const inline = (js) => '<script>' + js.replace(/<\/script/gi, '<\\/script') + '</script>';
 
-let body = fs.readFileSync(path.join(root, 'src', 'body.html'), 'utf8')
+// The minaret logo (src/logo.svg): its group is inlined wherever a page has <!--@LOGO@--> inside an <svg>
+// (so it takes that page's text colour), and it draws the favicon on the brand's navy.
+const logoG = fs.readFileSync(path.join(root, 'src', 'logo.svg'), 'utf8')
+  .replace(/<!--[\s\S]*?-->/g, '').match(/<g[\s\S]*<\/g>/)[0].replace(/>\s+</g, '><');
+const favicon = 'data:image/svg+xml,' + encodeURIComponent(
+  '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="#0A1530"/>' +
+  '<g color="#D6B26E" transform="translate(32 32) scale(.88) translate(-32 -32.3)">' + logoG + '</g></svg>');
+const withLogo = (html) => html.split('<!--@LOGO@-->').join(logoG).split('@FAVICON@').join(favicon);
+
+let body = withLogo(fs.readFileSync(path.join(root, 'src', 'body.html'), 'utf8'))
   .replace('/*@FONTS@*/', () => screenFonts)
   .replace('<!--@QR@-->', () => inline(qrLib))
   .replace('<!--@LINK@-->', () => inline(link))
@@ -79,18 +88,19 @@ let body = fs.readFileSync(path.join(root, 'src', 'body.html'), 'utf8')
 
 const head = '<title>شاشة المسجد</title>\n<meta name="claude:viewport-fit-sides" content="cover">\n';
 const artifact = head + body.replace('<!--@ADHAN@-->', () => `<script src="https://cdn.jsdelivr.net/npm/adhan@${ADHAN_VERSION}/lib/bundles/adhan.umd.min.js"></script>`);
-const tv = '<!doctype html>\n<html lang="ar" dir="rtl">\n<head>\n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">\n' + head + '</head>\n<body>\n' +
+const tv = '<!doctype html>\n<html lang="ar" dir="rtl">\n<head>\n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">\n' + head + '<link rel="icon" href="' + favicon + '">\n</head>\n<body>\n' +
   body.replace('<!--@ADHAN@-->', () => inline(adhanLicense + '\n' + adhanSrc)) + '\n</body>\n</html>\n';
-const remote = fs.readFileSync(path.join(root, 'src', 'remote.html'), 'utf8')
+const remote = withLogo(fs.readFileSync(path.join(root, 'src', 'remote.html'), 'utf8'))
   .replace('/*@FONTS@*/', () => phoneFonts)
   .replace('<!--@LINK@-->', () => inline(link));
 
-const appPage = fs.readFileSync(path.join(root, 'src', 'app.html'), 'utf8')
+const appPage = withLogo(fs.readFileSync(path.join(root, 'src', 'app.html'), 'utf8'))
   .replace('/*@FONTS@*/', () => pageFonts)
   .split('@APK_URL@').join(APK_URL)
   .split('@WEB_URL@').join(WEB_URL);
 
-for (const [name, text] of [['@FONTS@', tv], ['@QR@', tv], ['@LINK@', tv], ['@REMOTE_URL@', tv], ['@APP_URL@', tv], ['@FONTS@', remote], ['@LINK@', remote], ['@FONTS@', appPage], ['@APK_URL@', appPage], ['@WEB_URL@', appPage]]) {
+for (const [name, text] of [['@FONTS@', tv], ['@QR@', tv], ['@LINK@', tv], ['@REMOTE_URL@', tv], ['@APP_URL@', tv], ['@FONTS@', remote], ['@LINK@', remote], ['@FONTS@', appPage], ['@APK_URL@', appPage], ['@WEB_URL@', appPage],
+  ['@LOGO@', artifact], ['@LOGO@', tv], ['@LOGO@', remote], ['@LOGO@', appPage], ['@FAVICON@', tv], ['@FAVICON@', remote], ['@FAVICON@', appPage]]) {
   if (text.includes(name)) throw new Error('placeholder left in output: ' + name);
 }
 
