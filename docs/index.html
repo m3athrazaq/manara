@@ -297,11 +297,18 @@ body{height:100%;margin:0;background:var(--bg);color:var(--ink);font-family:var(
 #sheet{position:absolute;top:0;bottom:0;right:0;width:800px;max-width:100%;z-index:9;background:var(--sheet);color:var(--ink);border-left:1px solid var(--line);overflow-y:auto;overscroll-behavior:contain;font-size:16px;font-size:clamp(15px,.7vw + 9px,24px);box-shadow:0 0 60px rgba(0,0,0,.45);border-radius:0}
 .sh-head{position:sticky;top:0;z-index:2;display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;grid-gap:12px;padding:14px 18px;background:var(--sheet);border-bottom:1px solid var(--line)}
 .sh-head h2{margin:0;font-family:var(--font-display);font-size:1.45em;color:var(--brass);line-height:1.3}
+.sh-tabs{grid-column:1 / -1;display:flex;flex-wrap:wrap;gap:.4em}
+.tab{font:inherit;font-size:.9em;font-weight:800;line-height:1.35;padding:.4em .95em;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--muted);cursor:pointer;white-space:nowrap}
+.tab:hover{color:var(--ink);background:var(--brass-soft)}
+.tab.on{background:var(--brass);border-color:var(--brass);color:var(--sheet)}
+.tab:focus{outline:none;box-shadow:0 0 0 2px var(--sheet),0 0 0 4px var(--ink)}
 .sh-today{padding:10px 20px 2px;font-size:.85em;color:var(--muted);line-height:1.7}
 .sh-today b{color:var(--ink);font-weight:700}
 .sh-body{padding:4px 10px 10px}
 .sec{font-family:var(--font-display);font-size:1.2em;color:var(--brass);margin:1.1em 10px .15em;line-height:1.4}
 .sec-hint{font-size:.82em;color:var(--muted);margin:0 10px .35em;line-height:1.5}
+.pane > .sec:first-child{margin-top:.55em}
+.pane > .sec-hint:first-child{margin-top:.7em}
 .row{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;grid-gap:14px;padding:.55em .8em;border-radius:14px;outline:none;border:2px solid transparent}
 .row:focus,.row:focus-within{border-color:var(--brass);background:var(--brass-soft)}
 .lab{font-weight:700;line-height:1.35;min-width:0}
@@ -420,7 +427,7 @@ body{height:100%;margin:0;background:var(--bg);color:var(--ink);font-family:var(
    <div id="tip">لفتح الإعدادات: اضغط زر OK في الريموت، أو المس الشاشة</div>
    <div id="scrim" hidden></div>
    <aside id="sheet" hidden role="dialog" aria-label="إعدادات الشاشة">
-    <div class="sh-head"><h2>إعدادات الشاشة</h2><button id="shClose" class="btn primary" type="button" data-nav>تم</button></div>
+    <div class="sh-head"><h2>إعدادات الشاشة</h2><button id="shClose" class="btn primary" type="button" data-nav>تم</button><div id="shTabs" class="sh-tabs" role="tablist" aria-label="أقسام الإعدادات"></div></div>
     <div id="shToday" class="sh-today"></div>
     <div id="shBody" class="sh-body"></div>
     <div id="shFoot" class="sh-foot"></div>
@@ -3778,10 +3785,16 @@ function opts(list){ return function(){ return list; }; }
 function todayOf(k){ return computeDay(dayStart(nowDate())).t[k]; }
 function buildSchema(){
  var S = [];
+ // Tabs: each {tab} starts a tab; the fields after it belong to it. A first section named like its tab shows only its hint.
+ S.push({tab:'mosque', label:'المسجد'});
  S.push({sec:'المسجد'});
  S.push({id:'mosqueName', type:'text', label:'اسم المسجد', hint:'يظهر أعلى الشاشة'});
  S.push({id:'niche', type:'select', label:'آيات أو أحاديث في الشاشة الرئيسية', opts:opts([['none','لا شيء'],['quran','آيات'],['hadith','أحاديث'],['both','آيات وأحاديث بالتناوب']]), hint:function(){ return cfg.niche === 'none' ? 'المساحة بجانب الساعة (أو أسفل المواقيت عموديًا) تبقى فارغة، ويظهر فيها العد للإقامة بعد الأذان' : 'تتبدل كل ٤٠ ثانية، ويوم الجمعة تبدأ بما يخص الجمعة'; }});
  S.push({id:'appQR', type:'toggle', label:'رمز تحميل التطبيق', hint:'رمز QR أسفل الشاشة يفتح صفحة لتحميل التطبيق أو تشغيله في المتصفح'});
+ S.push({sec:'الإعلانات', hint:'تتناوب في الشريط السفلي كل ٩ ثوانٍ'});
+ S.push({id:'showTicker', type:'toggle', label:'إظهار شريط الإعلانات'});
+ [0, 1, 2, 3].forEach(function(i){ S.push({id:'ann.' + i, type:'text', label:'الإعلان ' + ['الأول','الثاني','الثالث','الرابع'][i]}); });
+ S.push({tab:'times', label:'المواقيت'});
  S.push({sec:'الموقع وطريقة الحساب'});
  S.push({id:'city', type:'select', label:'المدينة', opts:function(){ return CITIES.map(function(c){ return [c.id, c.n]; }); }, on:function(v){ var c = findBy(CITIES, v); if (c && c.lat != null) { cfg.lat = c.lat; cfg.lng = c.lng; cfg.method = c.m; } }});
  S.push({id:'lat', type:'num', label:'خط العرض', hint:'مثال: 29.3759', show:function(){ return cfg.city === 'custom'; }});
@@ -3791,12 +3804,16 @@ function buildSchema(){
  S.push({id:'hijriAdj', type:'step', label:'تعديل التاريخ الهجري', min:-2, max:2, fmt:function(v){ return v === 0 ? 'بدون تعديل' : (v > 0 ? '+' : '−') + plural(v, 'يوم', 'يومان', 'أيام', 'يومًا'); }, hint:function(){ return 'اليوم: ' + hijriText(dayStart(nowDate())); }});
  S.push({sec:'تعديل أوقات الأذان', hint:'بالدقائق، إذا أردت مطابقة تقويم مطبوع يختلف بدقيقة أو اثنتين'});
  ALL.forEach(function(k){ S.push({id:'adj.' + k, type:'step', label:NAMES[k], min:-30, max:30, fmt:signedMin, hint:function(){ return 'اليوم: ' + timeText(todayOf(k)); }}); });
+ S.push({tab:'iqama', label:'الإقامة'});
  S.push({sec:'الإقامة', hint:'لكل صلاة: مدة بعد الأذان، أو وقت ثابت'});
  PR.forEach(function(k){
   S.push({id:'iqMode.' + k, type:'select', label:'إقامة ' + NAMES[k], opts:opts([['after','بعد الأذان بمدة'],['fixed','وقت ثابت']]), on:function(v){ if (v === 'fixed') { var d = computeDay(dayStart(nowDate())).iq[k]; if (d) cfg.iqFixed[k] = Math.round((d.getHours() * 60 + d.getMinutes()) / 5) * 5 % 1440; } }});
   S.push({id:'iqAfter.' + k, type:'step', label:'بعد أذان ' + NAMES[k] + ' بـ', min:1, max:90, fmt:pMin, show:function(){ return cfg.iqMode[k] !== 'fixed'; }, hint:function(){ return 'الإقامة اليوم ' + timeText(computeDay(dayStart(nowDate())).iq[k]); }});
   S.push({id:'iqFixed.' + k, type:'time', label:'وقت إقامة ' + NAMES[k], show:function(){ return cfg.iqMode[k] === 'fixed'; }, hint:'اضغط مطولًا على السهم للقفز ٥ دقائق'});
  });
+ S.push({sec:'الصوت'});
+ S.push({id:'beep', type:'toggle', label:'تنبيه صوتي عند الإقامة'});
+ S.push({tab:'prayer', label:'الصلاة'});
  S.push({sec:'شاشات الصلاة'});
  S.push({id:'adhanMin', type:'step', label:'شاشة الأذان', min:0, max:5, fmt:function(v){ return v ? pMin(v) : 'إيقاف'; }});
  S.push({id:'iqamaView', type:'select', label:'العد التنازلي للإقامة', opts:opts([['niche','في الشاشة الرئيسية'],['full','شاشة كاملة']]), hint:function(){ return cfg.iqamaView === 'full' ? 'بعد شاشة الأذان يملأ العد الشاشة حتى الإقامة' : 'من بعد الأذان حتى الإقامة، في الشاشة الرئيسية بجانب الساعة (أو أسفل المواقيت عموديًا)'; }});
@@ -3807,21 +3824,16 @@ function buildSchema(){
  S.push({sec:'الجمعة'});
  S.push({id:'jumuah', type:'toggle', label:'وضع صلاة الجمعة', hint:'يحل محل الظهر يوم الجمعة ويعرض شاشة الخطبة'});
  S.push({id:'jumuahMin', type:'step', label:'مدة الخطبة والصلاة', min:15, max:90, step:5, fmt:pMin, show:function(){ return cfg.jumuah; }});
+ S.push({sec:'معاينة الشاشات', hint:'تعمل المعاينة ثوانيَ ثم تعود الشاشة الرئيسية'});
+ [['adhan','معاينة شاشة الأذان'],['iqama','معاينة العد التنازلي للإقامة'],['prayer','معاينة شاشة الصلاة'],['adhkar','معاينة أذكار ما بعد الصلاة'],['khutbah','معاينة شاشة خطبة الجمعة']].forEach(function(p){ S.push({type:'button', label:p[1], act:function(){ startPreview(p[0]); }}); });
+ S.push({tab:'dim', label:'التعتيم'});
  S.push({sec:'التعتيم', hint:'يخفّف سطوع الشاشة بعد انتهاء أذكار الصلاة، ويعود السطوع قبل الأذان التالي بعشر دقائق'});
  S.push({id:'dimAfter.on', type:'toggle', label:'تعتيم الشاشة بعد الصلاة'});
  PR.forEach(function(k){ S.push({id:'dimAfter.' + k, type:'step', label:'التعتيم بعد ' + NAMES[k], min:0, max:240, step:5, fmt:function(v){ return v ? pMin(v) : 'بدون'; }, show:function(){ return cfg.dimAfter.on; }, hint:k === 'dhuhr' ? 'ويشمل الجمعة' : ''}); });
  S.push({id:'nightDim', type:'toggle', label:'تعتيم ليلي', hint:'بعد العشاء بساعة ونصف حتى قبل الفجر بنصف ساعة'});
  S.push({id:'dimLevel', type:'select', label:'درجة التعتيم', opts:opts([['70','خفيف'],['50','متوسط'],['30','قوي']])});
  S.push({type:'button', label:'معاينة التعتيم ١٥ ثانية', act:function(){ startPreview('dim'); }});
- S.push({sec:'التحكم من الجوال', hint:'يؤخّر الإمام إقامة صلاة واحدة من دقيقة إلى ٣ دقائق من جواله، فيتباطأ العد على الشاشة دون أن يتغير أي وقت أمام المصلين. يحتاج اتصال الشاشة بالإنترنت.'});
- S.push({id:'remote.on', type:'toggle', label:'تفعيل التحكم من الجوال', on:function(v){ if (v) remoteEnsureKeys(); }});
- S.push({type:'qr', show:function(){ return remoteReady(); }});
- S.push({type:'button', label:'إنشاء رمز ربط جديد', danger:true, show:function(){ return remoteReady(); }, act:rotateAsk, hint:'الجوالات المربوطة سابقًا تتوقف'});
- S.push({sec:'الخط وحجم النص', hint:'الأحجام مضبوطة للقراءة من بعيد على التلفزيون'});
- S.push({id:'fontUI', type:'select', label:'خط الأوقات والعناوين', opts:function(){ return UI_FONTS.map(function(f){ return [f[0], f[1]]; }); }, fontOf:function(v){ var f = findBy(UI_FONTS, v); return f ? f[2] : ''; }});
- S.push({id:'fontText', type:'select', label:'خط الأذكار والآيات', opts:function(){ return TX_FONTS.map(function(f){ return [f[0], f[1]]; }); }, fontOf:function(v){ var f = findBy(TX_FONTS, v); return f ? f[2] : ''; }});
- S.push({id:'fontScale', type:'select', label:'حجم النص', opts:opts([['m','عادي'],['l','كبير'],['xl','كبير جدًا']]), hint:'يكبّر الأوقات والنصوص في كل الشاشات، والساعة الكبيرة تبقى كما هي'});
- S.push({id:'adhkarMode', type:'select', label:'عرض الأذكار', opts:opts([['one','صفحة واحدة'],['two','صفحتان بخط أكبر']]), hint:function(){ return cfg.adhkarMode === 'two' ? 'الأذكار ثم الآيات، تتبادلان كل ٤٥ ثانية بخط أكبر' : 'كل الأذكار معًا بأكبر خط يتسع في الشاشة'; }});
+ S.push({tab:'look', label:'المظهر'});
  S.push({sec:'المظهر'});
  S.push({id:'skin', type:'select', label:'الألوان', opts:opts([['lapis','لازوردي'],['emerald','زمردي'],['marble','رخامي فاتح'],['onyx','أسود']])});
  S.push({id:'orientation', type:'select', label:'اتجاه الشاشة', opts:opts([['auto','تلقائي'],['landscape','أفقي'],['portrait','عمودي'],['rot90','عمودي بتدوير يمينًا'],['rot270','عمودي بتدوير يسارًا']]), hint:'اختر التدوير إذا عُلّقت الشاشة عموديًا والجهاز لا يدوّر الصورة'});
@@ -3831,11 +3843,17 @@ function buildSchema(){
  S.push({id:'showSeconds', type:'toggle', label:'إظهار الثواني'});
  S.push({id:'edge', type:'select', label:'هامش أمان للحواف', opts:opts([['0','بدون'],['3','٣٪'],['6','٦٪']]), hint:'إذا ظهرت أطراف الصورة مقصوصة على التلفزيون'});
  S.push({id:'burnIn', type:'toggle', label:'حماية الشاشة من الاحتراق', hint:'تحريك المحتوى قليلًا كل ٣ دقائق'});
- S.push({sec:'الإعلانات', hint:'تتناوب في الشريط السفلي كل ٩ ثوانٍ'});
- S.push({id:'showTicker', type:'toggle', label:'إظهار شريط الإعلانات'});
- [0, 1, 2, 3].forEach(function(i){ S.push({id:'ann.' + i, type:'text', label:'الإعلان ' + ['الأول','الثاني','الثالث','الرابع'][i]}); });
- S.push({sec:'الصوت'});
- S.push({id:'beep', type:'toggle', label:'تنبيه صوتي عند الإقامة'});
+ S.push({sec:'الخط وحجم النص', hint:'الأحجام مضبوطة للقراءة من بعيد على التلفزيون'});
+ S.push({id:'fontUI', type:'select', label:'خط الأوقات والعناوين', opts:function(){ return UI_FONTS.map(function(f){ return [f[0], f[1]]; }); }, fontOf:function(v){ var f = findBy(UI_FONTS, v); return f ? f[2] : ''; }});
+ S.push({id:'fontText', type:'select', label:'خط الأذكار والآيات', opts:function(){ return TX_FONTS.map(function(f){ return [f[0], f[1]]; }); }, fontOf:function(v){ var f = findBy(TX_FONTS, v); return f ? f[2] : ''; }});
+ S.push({id:'fontScale', type:'select', label:'حجم النص', opts:opts([['m','عادي'],['l','كبير'],['xl','كبير جدًا']]), hint:'يكبّر الأوقات والنصوص في كل الشاشات، والساعة الكبيرة تبقى كما هي'});
+ S.push({id:'adhkarMode', type:'select', label:'عرض الأذكار', opts:opts([['one','صفحة واحدة'],['two','صفحتان بخط أكبر']]), hint:function(){ return cfg.adhkarMode === 'two' ? 'الأذكار ثم الآيات، تتبادلان كل ٤٥ ثانية بخط أكبر' : 'كل الأذكار معًا بأكبر خط يتسع في الشاشة'; }});
+ S.push({tab:'remote', label:'جوال الإمام'});
+ S.push({sec:'جوال الإمام', hint:'يؤخّر الإمام إقامة صلاة واحدة من دقيقة إلى ٣ دقائق من جواله، فيتباطأ العد على الشاشة دون أن يتغير أي وقت أمام المصلين. يحتاج اتصال الشاشة بالإنترنت.'});
+ S.push({id:'remote.on', type:'toggle', label:'تفعيل التحكم من الجوال', on:function(v){ if (v) remoteEnsureKeys(); }});
+ S.push({type:'qr', show:function(){ return remoteReady(); }});
+ S.push({type:'button', label:'إنشاء رمز ربط جديد', danger:true, show:function(){ return remoteReady(); }, act:rotateAsk, hint:'الجوالات المربوطة سابقًا تتوقف'});
+ S.push({tab:'more', label:'أخرى'});
  if (AND) {
   var ready = andCall(function(){ return AND.autoStartReady(); }, true);
   S.push({sec:'التطبيق'});
@@ -3847,10 +3865,9 @@ function buildSchema(){
   S.push({id:'autoFS', type:'toggle', label:'ملء الشاشة عند أول ضغطة', hint:'على التلفزيون والكمبيوتر'});
   S.push({type:'button', label:'ملء الشاشة الآن', act:function(){ toggleFS(); }});
  }
- S.push({sec:'معاينة الشاشات', hint:'تعمل المعاينة ثوانيَ ثم تعود الشاشة الرئيسية'});
- [['adhan','معاينة شاشة الأذان'],['iqama','معاينة العد التنازلي للإقامة'],['prayer','معاينة شاشة الصلاة'],['adhkar','معاينة أذكار ما بعد الصلاة'],['khutbah','معاينة شاشة خطبة الجمعة']].forEach(function(p){ S.push({type:'button', label:p[1], act:function(){ startPreview(p[0]); }}); });
- S.push({sec:'أخرى', hint:'نص الآيات من مصحف مشروع تنزيل (tanzil.net) بالرسم العثماني، وأذكار ما بعد الصلاة من «تحفة الأخيار» للشيخ ابن باز.'});
+ S.push({sec:'إعادة الضبط'});
  S.push({type:'button', label:'استعادة الإعدادات الافتراضية', danger:true, act:resetAsk});
+ S.push({sec:'المصادر', hint:'نص الآيات من مصحف مشروع تنزيل (tanzil.net) بالرسم العثماني، وأذكار ما بعد الصلاة من «تحفة الأخيار» للشيخ ابن باز.'});
  return S;
 }
 var resetT = 0;
@@ -3868,16 +3885,32 @@ function resetAsk(f){
 }
 var footMsg = '', footT = 0;
 function flashFoot(m){ footMsg = m; clearTimeout(footT); footT = setTimeout(function(){ footMsg = ''; refreshSheet(); }, 4000); refreshSheet(); }
+var TABS = [], curTab = 'mosque';   // the open tab is kept while the screen runs, so the sheet reopens where it was left
 function buildSheet(){
- var body = $('shBody'); body.innerHTML = ''; FIELDS = []; openF = null;
+ var body = $('shBody'), strip = $('shTabs'), host = body, tab = null;
+ body.innerHTML = ''; strip.innerHTML = ''; FIELDS = []; TABS = []; openF = null;
  buildSchema().forEach(function(f){
+  if (f.tab) {
+   var t = {id:f.tab, label:f.label}, b = el('button', 'tab'), pane = el('div', 'pane');
+   b.type = 'button'; b.id = 'tab-' + f.tab; b.textContent = f.label; b.tabIndex = -1;
+   b.setAttribute('role', 'tab'); b.setAttribute('aria-controls', 'pane-' + f.tab); b.setAttribute('aria-selected', 'false');
+   b.addEventListener('click', function(){ showTab(t.id, true); });
+   pane.id = 'pane-' + f.tab; pane.hidden = true; pane.setAttribute('role', 'tabpanel'); pane.setAttribute('aria-labelledby', b.id);
+   t.btn = b; t.pane = pane; TABS.push(t); strip.appendChild(b); body.appendChild(pane); host = pane; tab = t;
+   return;
+  }
   if (f.type === 'qr') {
    var qr = el('div', 'qr-row');
    qr.innerHTML = '<div class="qr-box"></div><div class="qr-side"><b>امسح الرمز بكاميرا جوال الإمام</b><span class="muted">ستفتح صفحة التحكم. احفظها على الشاشة الرئيسية للجوال ليصل إليها بلمسة.</span><span class="rstat"></span><span class="muted ractive"></span></div>';
    f.row = qr; f.box = qr.querySelector('.qr-box'); f.stat = qr.querySelector('.rstat'); f.act = qr.querySelector('.ractive');
-   FIELDS.push(f); body.appendChild(qr); return;
+   FIELDS.push(f); host.appendChild(qr); return;
   }
-  if (f.sec) { var h = el('div', 'sec'); h.textContent = f.sec; body.appendChild(h); if (f.hint) { var sh = el('div', 'sec-hint'); sh.textContent = f.hint; body.appendChild(sh); } return; }
+  if (f.sec) {
+   // A tab's opening section named like the tab needs no heading: the tab already says it.
+   if (!(tab && f.sec === tab.label && !host.firstChild)) { var h = el('div', 'sec'); h.textContent = f.sec; host.appendChild(h); }
+   if (f.hint) { var sh = el('div', 'sec-hint'); sh.textContent = f.hint; host.appendChild(sh); }
+   return;
+  }
   var row;
   if (f.type === 'button') {
    row = el('div', 'brow'); var b = el('button', 'btn' + (f.danger ? ' danger' : '')); b.type = 'button'; b.textContent = f.label; b.setAttribute('data-nav', '');
@@ -3926,9 +3959,31 @@ function buildSheet(){
     f.rowKey = true;
    }
   }
-  f.row = row; row.__f = f; FIELDS.push(f); body.appendChild(row);
+  f.row = row; row.__f = f; FIELDS.push(f); host.appendChild(row);
  });
  refreshSheet();
+}
+function tabOf(id){ for (var i = 0; i < TABS.length; i++) if (TABS[i].id === id) return TABS[i]; return null; }
+function focusEl(e){ try { e.focus({preventScroll:true}); } catch (er) { e.focus(); } }
+function showTab(id, focus){
+ var t = tabOf(id) || TABS[0]; if (!t) return;
+ closeDD(false); curTab = t.id;
+ TABS.forEach(function(x){
+  var on = x === t; x.pane.hidden = !on; x.btn.classList.toggle('on', on); x.btn.setAttribute('aria-selected', on ? 'true' : 'false'); x.btn.tabIndex = on ? 0 : -1;
+  // Only the open tab is a stop for up/down, so Up from a tab's first field lands on it.
+  if (on) x.btn.setAttribute('data-nav', ''); else x.btn.removeAttribute('data-nav');
+ });
+ $('shToday').hidden = !(t.id === 'times' || t.id === 'iqama');
+ $('sheet').scrollTop = 0;
+ if (focus) focusEl(t.btn);
+}
+function stepTab(d){ var i = TABS.indexOf(tabOf(curTab)), j = Math.max(0, Math.min(TABS.length - 1, i + d)); if (j !== i) showTab(TABS[j].id, true); }
+function sheetBack(){
+ // Back closes an open list first, then leaves the fields for the tabs, then closes the sheet.
+ if (openF) { closeDD(true); return; }
+ var t = tabOf(curTab), a = document.activeElement;
+ if (t && a && a !== t.btn && $('shBody').contains(a)) { focusEl(t.btn); return; }
+ closeSheet();
 }
 function toggleDD(f){ if (openF === f) closeDD(true); else openDD(f); }
 function openDD(f){
@@ -4002,14 +4057,15 @@ function moveFocus(dir){
  i = i < 0 ? 0 : Math.max(0, Math.min(l.length - 1, i + dir));
  var target = l[i], inList = openF && openF.list.contains(target);
  if (openF && !inList) closeDD(false);
+ if (target.closest && target.closest('.sh-head')) { focusEl(target); return; }
  target.focus();
  try { target.scrollIntoView({block:inList ? 'nearest' : 'center', behavior:'smooth'}); } catch (e) { target.scrollIntoView(false); }
 }
 function openSheet(){
  if (sheetOpen) return;
- sheetOpen = true; buildSheet();
+ sheetOpen = true; buildSheet(); showTab(curTab, false);
  $('scrim').hidden = false; $('sheet').hidden = false; $('sheet').scrollTop = 0;
- var first = navList().filter(function(e){ return e.id !== 'shClose'; })[0]; if (first) first.focus();
+ var t = tabOf(curTab); if (t) focusEl(t.btn);
  if (!inFrame && !AND && !pushed) { try { history.pushState({manara:1}, ''); pushed = true; } catch (e) {} }
 }
 function closeSheet(fromPop){
@@ -4108,7 +4164,12 @@ document.addEventListener('keydown', function(e){
  gesture();
  var k = keyName(e), a = document.activeElement, isInput = a && a.tagName === 'INPUT';
  if (sheetOpen) {
-  if (k === 'back' || (k === 'backspace' && !isInput)) { e.preventDefault(); if (openF) closeDD(true); else closeSheet(); return; }
+  if (k === 'back' || (k === 'backspace' && !isInput)) { e.preventDefault(); sheetBack(); return; }
+  if (a && a.getAttribute && a.getAttribute('role') === 'tab') {
+   // On the tabs: left/right moves to the neighbouring tab (left is the next one, in Arabic order); OK or down goes into the tab.
+   if (k === 'left' || k === 'right') { e.preventDefault(); stepTab(k === 'left' ? 1 : -1); return; }
+   if (k === 'enter') { e.preventDefault(); moveFocus(1); return; }
+  }
   if (k === 'down' || k === 'up') { e.preventDefault(); moveFocus(k === 'down' ? 1 : -1); return; }
   if (k === 'enter' && isInput) {
    e.preventDefault();
@@ -4151,7 +4212,7 @@ var rzT = 0;
 window.addEventListener('resize', function(){ clearTimeout(rzT); rzT = setTimeout(layout, 120); });
 
 /* ---------- start ---------- */
-window.manaraBack = function(){ if (sheetOpen) { if (openF) { closeDD(true); return true; } closeSheet(); return true; } if (previewOn()) { stopPreview(); return true; } return false; };
+window.manaraBack = function(){ if (sheetOpen) { sheetBack(); return true; } if (previewOn()) { stopPreview(); return true; } return false; };
 window.manaraMenu = function(){ if (sheetOpen) closeSheet(); else openSheet(); return true; };
 if (AND) { $('tip').textContent = 'لفتح الإعدادات: اضغط زر OK أو زر القائمة في الريموت'; unlockAudio(); }
 applyLook();
@@ -4168,7 +4229,7 @@ if (document.fonts) { if (document.fonts.ready) document.fonts.ready.then(refitS
 remoteSync();
 if (Q.test) window.__manara = {applyDelay:applyDelay, iqState:iqState, timeline:function(){ return timeline || buildTimeline(nowDate()); }, delays:function(){ return delays; }, now:nowDate, phasesFor:function(k){ return phasesFor(computeDay(dayFromKey(k))); }, remoteLink:remoteLink, rState:function(){ return rState; }};
 if (Q.preview) startPreview(Q.preview);
-if (Q.sheet) openSheet();
+if (Q.sheet) { if (Q.sheet !== '1') curTab = Q.sheet; openSheet(); }   // ?sheet=iqama opens that tab
 })();
 </script>
 
